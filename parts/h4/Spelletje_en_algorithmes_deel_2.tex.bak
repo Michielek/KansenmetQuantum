@@ -1,0 +1,177 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{3}
+}
+\notinsubfile{}
+\iffalse
+% NLT module Quantum Computing documenten Anne-Marije Zwerver
+\documentclass[10pt, a4paper]{article}
+%
+%
+% --------------------------------- Preamble ---------------------------------
+\usepackage[dutch]{babel}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\graphicspath{{./pictures/}}
+\usepackage{titlesec}
+\usepackage{epstopdf}
+\usepackage{array}
+\usepackage{fullpage}
+%\usepackage{subfigure} %% enable subfigures %%
+\usepackage{fancyhdr} %% page headers including two decorative lines on both the header and the footer, the latter has 0pt thickness and hence is not visible %%
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{amsmath} %% improve mathematics handling %%
+\usepackage{colortbl} %% enable better looking, coloured tables
+\usepackage{xcolor} %% ensure colors can be loaded %%
+\usepackage{multirow,colortbl}
+\usepackage{multicol}
+\usepackage{parskip} %% set a new paragraph to start after a skipped line instead of an indent %%
+\usepackage{longtable} %% make multipage tables possible %%
+\usepackage{tikz} %% load tikz for a number of graphical enhancements and define the new environments %%
+\usetikzlibrary{arrows}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage[font=footnotesize, labelfont=bf, tableposition=top, singlelinecheck=false]{caption}
+\usepackage{blindtext}
+\usepackage{braket}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{enumitem}
+%
+\begin{document}
+
+\widowpenalty=10000 %remove widow and orphans
+\clubpenalty=10000 %
+
+
+\pagenumbering{Roman}
+\fi
+
+\section*{Spelletjes en algoritmes}
+
+Er wordt vaak over quantum computers gezegd dat ze krachtiger zijn dan normale computers, omdat ze alle mogelijke oplossingen voor een probleem tegelijk berekenen. En hoewel qubits in superpositie zeker in verschillende toestanden tegelijkertijd zijn, is er een probleem: de meting. Op het moment dat je, aan het eind van een berekening, je quantumtoestand gaat meten, 'vervalt' de superpositie, blijft er slechts een toestand over en ben je dus weinig wijzer geworden. Om voordeel te hebben van een quantum computer en een zogenoemde 'quantum speedup' te bewerkstelligen, moet je slimme algoritmes bedenken; je moet, zo gezegd, de vraag die je hebt op een slimme manier aan de quantum computer stellen. In dit hoofdstuk zullen we een aantal van deze quantum algoritmes laten zien. We gaan langs verschillende voorbeelden om te kijken hoe een quantum computer een berekening kan versnellen, hoe je, door quantum te gebruiken, altijd kunt winnen bij bepaalde spelletjes en hoe de principes van de quantum mechanica ons mogelijkheden biedt die we in de klassieke wereld niet hebben, zoals teleportatie van informatie.
+
+
+\clearpage
+\subsection*{Superdense coding}
+Alice woont op een verder onbewoond eiland. Ze heeft met niemand contact, behalve met Bob, die ze berichten kan sturen als er dingen misgaan op het eiland. Alice kan Bob alleen klassieke bits sturen. Ze hebben de volgende codering afgesproken:\\
+\\
+
+11 - Er is geen voedsel op het eiland\\
+10 - Er is droogte/geen water op het eiland\\
+01 - Nieuw materiaal voor mijn huisje nodig\\
+00 - SOS!\\
+\\
+Alleen als Bob een volledige code ontvangt, kan hij Alice helpen. Alice kan de bits slechts een voor een versturen. Alice begint altijd met beide bits in 0 (00).
+
+\begin{enumerate}[label=(\alph*)]
+\item a)	Er is een droge periode geweest en Alice heeft dringend water nodig. Welke klassieke poort(en) moet ze toepassen op welke bits om de boodschap aan Bob door te geven?
+\item b)	Kan Alice, door slechts 1 bit aan Bob te sturen, een van haar vier boodschappen doorgeven?
+\end{enumerate}
+
+Alice en Bob gaan met hun tijd mee en hebben besloten over te stappen op quantum communicatie. Om dit mogelijk te maken, delen ze twee volledig verstrengelde qubits in een van de Bell-toestanden. Alice en Bob delen de Bell toestand: $\frac{\ket{00}+\ket{11}}{\sqrt{2}}$.
+
+
+\begin{enumerate}[label=(\alph*)]
+\item Hoe kun je zien dat deze toestand verstrengeld is?
+
+\item Als Alice een meting doet en ze meet 0, wat zal Bob dan als uitkomst van een meting krijgen?
+
+\item Wat is de kans dat Alice 0 meet?
+
+Bedenk je dat er vier Bell toestanden zijn:
+
+G: $\alpha\ket{00}+\beta\ket{11}$\\
+H: $\alpha\ket{00}-\beta\ket{11}$\\
+J: $\alpha\ket{10}+\beta\ket{01}$\\
+K: $\alpha\ket{10}-\beta\ket{01}$\\
+
+\item Stel, Alice doet een X-rotatie op haar qubit, wat gebeurt er dan met haar qubit? En met het qubit van Bob? Schrijf de nieuwe verstrengelde toestand op.
+
+\item Welke quantum poort moet Alice op haar qubit toepassen om de toestand H te krijgen?
+
+\item Kun je bedenken hoe Alice de toestand $\frac{\ket{01}-\ket{10}}{\sqrt{2}}$, dus toestand K,  krijgt?
+
+\item Alice en Bob willen, in plaats van de klassieke bits, kijken of ze deze verstrengelde toestand kunnen gebruiken om hun communicatie mee te doen. Ze hebben dus elk '{e}'{e}n van de twee verstrengelde qubits. Als Alice iets nodig heeft, kan ze haar qubit naar Bob sturen en meet Bob de verstrengelde toestand. Kun je een strategie bedenken waarmee Alice en Bob nu kunnen communiceren?
+
+\item Hoeveel (qu)bits moet Alice nu naar Bob sturen om een boodschap door te geven? Wat is hier bijzonder aan (vergelijk je antwoord met vraag b).
+
+\end{enumerate}
+
+\clearpage
+
+\subsection*{Quantum Boter, kaas en eieren}
+We gaan boter, kaas en eieren spelen, maar dan met twee verstrengelde rondjes, of kruisjes. Kun je de quantum editie aan?
+
+\textbf{Van tevoren}\\
+Speel het spel met twee spelers. Voordat je begint, teken je tweemaal het boter, kaas en eieren raster op een papier, een raster wordt gebruikt om het spel op te spelen, de andere om de 'gemeten uitkomst' op te noteren. Teken tot slot ook een gridvan $3 \times 3$ puntjes, elk puntje staat voor een hokje van het boter, kaas en eieren raster.
+
+\textbf{Het spel}\\
+Speler 1 begint. Hij mag op twee verschillende plekken een rondje neerzetten. Deze rondjes zijn nu verstrengeld. Pas wanneer hij de rondjes meet, zal het rondje op een definitieve plek terechtkomen en dus nog maar '{e}'{e}n locatie hebben, maar dat komt zo. Om aan te geven dat de twee locaties van de rondjes verstrengeld zijn, verbindt speler 1 de puntjes op het grid die bij de verstrengelde vakjes horen met een lijn. Vervolgens plaatst speler twee twee kruisjes. Deze kruisjes (of een van de twee) mogen ook in een vakje staan waar speler 1 net een rondje heeft gezet. Speler 2 zet ook een lijn op het grid tussen de twee vakjes die deze speler heeft verstrengeld. Zo gaat het spel door. \\
+Dit gaat door totdat \'e\'en van de lijnen op het grid een gesloten lijn wordt. Als dit gebeurt, mag de tegenstander van degene die de lijn heeft gesloten als eerst een 'meting' doen. Dat wil zeggen dat hij een keuze mag maken of er een kruis of cirkel in \'e\'en van de verbonden vakjes komt te staan. De vakjes die met dit vakje verstrengeld waren volgen dan automatisch. Vul de 'gemeten' uitkomst in op het tweede speelbord. Speel het spel door totdat op het tweede spelbord iemand wint, of totdat het gelijkspel wordt.\\
+\textbf{Tip:} Raak niet te veel verstrikt in de uitleg, maar probeer het spel gewoon een keer te spelen. Het wordt al spelende een stuk sneller duidelijk.
+
+
+
+
+\clearpage
+
+\subsection{Kop of munt?}
+Speel dit spel met twee spelers en een spelleider. \textbf{LET OP! Zorg dat slechts de spelleider de tekst leest en uitleg geeft aan de spelers}.
+
+Ken je die situatie; dat je iets moet beslissen, maar er niet uitkomt. Bijvoorbeeld als je met een vriend hebt afgesproken en hij wil graag naar de bioscoop, terwijl jij liever wilt gaan basketballen. In zo'n situatie kun je een muntje opgooien, dat is wel zo eerlijk. In dit spel spelen we een variatie op kop en munt met speler A, Alice en speler B, Bob.
+
+\textbf{Deel 1}
+Een ronde van dit spel werkt als volgt. De spelleider legt een muntje op tafel. Het muntje begint altijd in kop. De spelers kunnen twee dingen doen: ofwel het muntje draaien (van kop naar munt, of van munt naar kop), ofwel niks doen (munt blijft munt en kop blijft kop). Eerst geeft Alice haar keuze in het geheim aan de spelleider door (draaien, of niks), vervolgens doet Bob dit en tot slot mag Alice nog een keer haar keuze doorgeven. In totaal worden er dus per ronde drie operaties (draaien, of niets doen) op het muntje uitgevoerd. De spelleider onthoudt steeds de toestand van het muntje (kop/munt) en onthult uiteindelijk de eindstand van het muntje. Als het muntje eindigt in kop, dan wint Alice, eindigt het muntje als munt, dan wint Bob.
+\begin{enumerate}[label=(\alph*)]
+\item Wat is de kans dat Alice wint en wat is de kans dat Bob wint?
+\item Als je acht rondes speelt, hoe vaak verwacht je dan dat Bob wint?
+\item Wat is de kans dat, na vijf rondes, Bob alle rondes heeft gewonnen?
+\item Speel vijf rondes. Komt dit (ongeveer) overeen met jullie verwachtingen?
+\item Kun je makkelijk valsspelen?
+\end{enumerate}
+
+\textbf{Deel 2}
+We gaan het spelletje iets veranderen. In plaats van kop, of munt, spelen we het spelletje nu met een qubit. De spelleider prepareert een qubit in de toestand $\ket{0}$ - dit kan op papier. Nu mag eerst Alice het qubit roteren; ze mag kiezen uit niets doen, of een X-rotatie ($\ket{0}$ wordt $\ket{1}$ en $\ket{1}$ wordt $\ket{0}$). Daarna mag Bob het qubit roteren (niets doen, of een flip) en tot slot mag Alice het qubit nog een keer roteren (niets doen, of een flip). Tot slot 'meet' de spelleider het qubit. Als het qubit eindigt in de toestand $\ket{0}$ dan wint Alice, eindigt het qubit in $\ket{1}$ dan wint Bob.
+
+\begin{enumerate}[label=(\alph*)]
+\item Het qubit begint in $\ket{0}$. Als Alice niets doet, Bob een x-rotatie uitvoert en Alice ook een x-rotatie uitvoert, in welke toestand eindigt het qubit dan?
+\item Wat is de kans dat Bob de ronde wint? (maak eventueel een boomdiagram met alle mogelijkheden)
+\item Speel vijf rondes van het spel. Hoe vaak won Alice, hoe vaak won Bob?
+\end{enumerate}
+
+\textbf{Deel 3}
+Alice heeft intussen door dat ze met een qubit te maken heeft en bedenkt wat slims. In plaats van een X-rotatie, besluit ze een Hadamard-poort toe te passen tijdens haar beide beurten. \textit{Aan de spelleider: geef dit - in het geheim - door aan Alice}. Bedenk dat een Hadamard poort de toestand $\ket{0}$ verandert in $\ket{+}$ en de toestand $\ket{1}$ verandert in $\ket{-}$.
+\begin{enumerate}[label=(\alph*)]
+\item Speel nu acht rondes van het spel. Hoe vaak heeft Alice gewonnen?
+\item Aan Bob: vind je het logisch dat Alice telkens wint? Hoe denk je dat ze dat heeft gedaan?
+\item Is er een mogelijkheid dat Bob op deze manier het spel kan winnen?
+\end{enumerate}
+
+
+\textbf{Referentie naar de quantum spin flip game}
+
+\clearpage
+\section*{Teleportatie}
+\section*{QKD}
+\section*{Deutsch}
+
+
+
+\subsection{Mini spelletje met bits, opstaan}
+Mini spelletje in de klas. Geef de eerste rij met leerlingen (10 leerlingen) een 'geheim' papiertje. Op elk papier staat 'je bent hetzelfde als je voorganger', of 'je bent het tegenovergestelde van je voorganger'. Elke leerling representeert een bit. Als het bit 0 is, blijft de leerling zitten, als het bit 1 is, gaat de leerling staan. De eerste persoon fluister je in of hij/zij 0, of 1 is. De docent geeft een startteken en vanaf dat moment moet de rij zo snel mogelijk hun instructies ('hun algoritme') uitvoeren. Gaat dit snel? Eventueel zou er een wedstrijdje van gemaakt kunnen worden tussen verschillende rijen leerlingen.
+
+Eventuele volgende stap. De rij leerlingen krijgt weer allemaal een 'geheim' briefje. Dit keer staat er '0', of '1' op het briefje. Wederom: '0' is blijven zitten en '1' is opstaan. Bij het startteken, moet iedereen haar/zijn instructies weer uitvoeren. Gaat dit sneller? 
+
+
+
+
+
+
+
+\end{document}

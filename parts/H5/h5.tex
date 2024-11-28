@@ -1,0 +1,139 @@
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{4}
+}
+\notinsubfile{}
+
+\chapter{Quantum hardware - hoe maak je een quantumcomputer?}\label{chap:H5}
+
+\iffalse
+Ongeveer 10 pagina's? inclusief alle opgaven, antwoorden en plaatjes
+\fi
+%\iffalse
+\begin{itemize}
+\item Rekenkracht van een quantumcomputer
+\item DiVincenzo criteria
+\item Typen qubits:
+\begin{itemize}
+\item fotonen
+\item Elektronen
+\item Supergeleidende circuitjes
+\item Ion traps
+\item Nog veel meer andere
+\end{itemize}
+\item Omgevingsruis; moet heel koud en beschermd zijn
+\item Foutjes/error correctie
+\end{itemize}
+%\fi
+
+Een leuk weetje: je moet ongeveer een miljoen A4'tjes op elkaar leggen om een toren van honderd meter hoog te krijgen. Stel nu dat je een A4'tje onbeperkt kon dubbelvouwen, hoe vaak zou je een A4'tje dan moeten dubbelvouwen om een toren van honderd meter hoog te krijgen? Misschien verrast het antwoord je; het antwoord is twintig keer. Na twintig keer vouwen, heb je een toren van honderd meter hoog. Dat lijkt weinig, maar elke keer als je vouwt, wordt je toren dubbel zo hoog. In het begin lijkt dit niet op te schieten; \SI{0.1}{\milli\meter}, \SI{0.2}{\milli\meter}, \SI{0.4}{\milli\meter}, \SI{0.8}{\milli\meter} - \SI{1.6}{\milli\meter}, na vijf keer vouwen, is de toren pas \SI{3.2}{\milli\meter} hoog. Maar, omdat je telkens verdubbelt, wordt dit al snel meer.
+
+\begin{antwoord}
+\end{antwoord}
+\begin{opdracht}
+Hoe veel A4'tjes moet je op elkaar leggen om een toren van 200~meter hoog te krijgen? En hoe vaak moet je een A4'tje dubbelvouwen? 
+\end{opdracht}
+
+
+Je ziet dat, om een dubbel zo hoge toren te krijgen, je twee keer zo veel papier op elkaar moet leggen (2~miljoen A4'tjes). Dit is equivalent aan klassieke bits. Om dubbele rekenkracht te genereren, heb je dubbel zoveel bits nodig. Het vouwen is equivalent aan quantumbits; om dubbele rekenkracht te genereren, hoef je slechts \'e\'en qubit toe te voegen. De rekenkracht van qubits schaalt dus met 2N. En met slechts twintig qubits, heb je de rekenkracht van meer dan een miljoen klassieke bits.
+
+\begin{antwoord}
+\begin{enumerate}
+\item ...
+\item ...
+\item ...
+\end{enumerate}
+\end{antwoord}
+\begin{opdracht}
+\begin{enumerate}
+\item De afstand van de aarde tot de maan is ongeveer 400.000 km. Hoeveel A4'tjes moet je op elkaar stapelen om naar de maan te komen? Hoe vaak moet je een papiertje dubbelvouwen?
+\item De grootste supercomputer die we op dit moment kennen op de wereld heeft ongeveer 1 petabyte (dus \num{8e15}~bits). Hoeveel qubits heb je nodig om dezelfde rekencapaciteit te genereren?
+\item Er zijn ongeveer \num{e80} atomen in het heelal. Hoeveel qubits heb je in theorie nodig om informatie over al deze atomen op te slaan? 
+\end{enumerate}
+\end{opdracht}
+
+Kortom, de kracht van een quantumcomputer schaalt exponentieel met het aantal qubits en wordt verwacht de rekenkracht van huidige supercomputers (ver) te kunnen overtreffen. Veel grote bedrijven, zoals Intel, Google en IBM zijn daarom bezig een quantumcomputer te bouwen. Google heeft zelfs al een chip gemaakt die 49 qubits bevat. Naar verwachting zal het dus niet lang meer duren voordat er een quantumcomputer bestaat met meer rekenkracht dan de beste supercomputer ter wereld
+Het veld van quantumcomputers is nog relatief jong en daarom zijn deze eerste quantumcomputers nog niet zo heel goed. Ze kunnen nog veel foutjes bevatten en hun rekenuitkomsten zijn daarom minder betrouwbaar dan die van de supercomputer. Naar verwachting zal dit over een paar jaar verbeteren. In dit hoofdstuk zullen we dieper ingaan op hoe je een quantumcomputer maakt. Aan welke criteria moet een quantumcomputer voldoen en van wat voor materiaal kan een quantumcomputer worden gebouwd? 
+
+\section{DiVincenzo criteria}
+Om een betrouwbare quantumcomputer te kunnen bouwen, moet de 'hardware', oftewel het materiaal waarvan de qubits worden gemaakt, aan een aantal voorwaarden voldoen. In 2000 heeft de natuurkundige David DiVincenzo vijf criteria opgesteld waar de hardware noodzakelijk aan moet voldoen om een quantumcomputer te kunnen bouwen. De criteria zijn de volgende:
+\begin{itemize} 
+\item De qubits moeten goed gedefinieerd kunnen worden in een $\ket{0}$ en een $\ket{1}$ toestand en het systeem moet schaalbaar zijn. 
+\item De qubit moet in een duidelijke begintoestand kunnen worden gebracht. 
+\item Berekeningen moeten veel sneller kunnen worden uitgevoerd dan de tijd waarin het systeem onbetrouwbaar wordt. 
+\item Er moet een universele set van quantumgates mogelijk zijn. 
+\item De output moet gemeten kunnen worden. 
+\end{itemize}
+\subsection{Criterium 1}
+Het klinkt misschien triviaal, maar een belangrijke randvoorwaarde aan een qubit systeem is dat de toestanden $\ket{0}$ en $\ket{1}$ duidelijk te onderscheiden zijn. Daarnaast moet het qubit natuurlijk in een superpositie van $\ket{0}$ en $\ket{1}$ kunnen zijn. Dit zou bijvoorbeeld kunnen zijn een elektron in de toestand 'up' of 'down', of de polarisatie van een foton. Maar uiteindelijk heb je, voor een werkende quantumcomputer, natuurlijk veel qubits nodig die met elkaar interactie kunnen aangaan. Daarom is het ook heel belangrijk dat het qubitsysteem schaalbaar is en dat qubits met elkaar kunnen communiceren.
+
+\subsection{Criterium 2}
+Om een berekening te kunnen uitvoeren, is het belangrijk dat je aan het begin van de berekening de toestand van al je qubits kent, zodat je vanuit daar de quantumgates kunt uitvoeren en de berekening kunt doen. Zo'n begintoestand kan bijvoorbeeld de grondtoestand zijn; de laagste energietoestand waarin het systeem kan verkeren. 
+
+\subsection{Criterium 3}
+Een toestand waarin een qubit zich bevindt, is vaak niet stabiel. Zo kan een systeem terugvallen naar zijn grondtoestand, of kan een qubit quantuminformatie verliezen door energie uit omgevingswarmte, of door omgevingsruis. We noemen dit decoherentie. Om een betrouwbare berekening te kunnen doen, willen we veel quantumgates kunnen uitvoeren voordat er decoherentie optreedt in het systeem. Daarom willen we lange decoherentietijden en snelle qubit gates in ons systeem. Alles is overigens relatief: een qubit leeft over het algemeen enkele microseconden tot miliseconden. Maar met nog veel snellere qubit gates (nanoseconden), is dat geen probleem. 
+
+\subsection{Criterium 4}
+Om alle mogelijke toestanden te kunnen maken en alle mogelijke berekeningen te kunnen uitvoeren met een quantumcomputer, moet er een universele set van quantumgates zijn die je met de quantumcomputer kunt uitvoeren. Dit betekent dat er een set met een aantal quantumgates is die je op het systeem kunt uitvoeren, waarmee je alle mogelijke toestanden kunt maken en berekeningen kunt doen. Een voorbeeld van zo'n universele set zijn: de Hadamard, de CNOT en de $\pi/8$-fase flip.
+
+\begin{opdracht}
+\begin{enumerate}
+\item Vraag: kun je een X-gate op een systeem uitvoeren door enkel de drie bovenstaande gates te gebruiken?
+\item En een Z-gate?
+\end{enumerate}
+\end{opdracht}
+
+\subsection{Criterium 5}
+Het systeem moet in staat zijn om, na afloop van de berekening, de toestand van een qubit te kunnen uitlezen; als je de toestand van een qubit niet te weten kunt komen, had je net zo goed de berekening niet kunnen doen. Natuurlijk blijft dit een interessant punt; bij een meting zal de toestand vervallen naar een toestand in de meetbasis. Je zult dus niet per se de superpositie kunnen meten. Toch is het kunnen uitlezen van een qubit heel belangrijk. Maar in de praktijk blijkt het niet altijd triviaal. Hoe kun je bijvoorbeeld meten of een toestand in spin up, of spin down is? 
+
+
+
+\section{Quantum Hardware}
+Er zijn verschillende manieren om qubits te maken. Hoewel het ene systeem op dit moment misschien iets verder ontwikkeld is dan het andere systeem, heeft elke methode voor- en nadelen. Er is daarom nog niet zeker welk systeem uiteindelijk zal worden gebruikt om commerci\"ele quantumcomputers mee te maken. We weten niet eens zeker of er een specifiek systeem komt, of dat er misschien een combinatie van systemen zal worden gebruikt. Dit laatste is niet zo raar; ook voor het maken van klassieke bits kennen we verschillende methoden; een computer werkt bijvoorbeeld met transistoren, een stroompje dat wel (1), of niet loopt (0). Maar een cd werkt met het wel (1) en niet (0) reflecteren van een laserstraal. Kijk maar eens goed naar een cd, dan zie je een soort spiegel. In feite zijn dit allemaal kleine spiegeltjes die alle plekken aangeven waar het binaire systeem 1 moet zijn.
+
+Wereldwijd en ook in Nederland wordt dus aan verschillende typen qubits gewerkt. Hier zullen we een systeem wat uitgebreider bespreken aan de hand van de DiVincenzo criteria. Een aantal andere systemen zal in aparte boxen worden belicht.
+
+
+\section{Spin qubits; een qubit maken van een elektron}
+\subsection{Introductie}
+
+
+
+\section{Twee-level systeem}
+Een elektron heeft, behalve een massa en een lading, nog een extra eigenschap. Dit is een quantummechanische eigenschap en wordt \textit{spin} genoemd. Het klassieke equivalent van spin bestaat niet, maar je zou het kunnen zien als een soort magneetmomentje. De spin heeft twee basistoestanden. Als het elektron rechtsom draait (spint), dan wijst de zuidpool naar boven; dit noemen we \textit{spin up}, als het elektron linksom draait, dan wijst de zuidpool naar beneden, wat \textit{spin down} heet. Een elektron kan in de spin up toestand verkeren, in de spin down toestand \'of in een superpositie van up en down. De elektron spin kan hiermee dus goed als qubit fungeren.
+
+Maar hoe onderscheiden we deze toestanden van elkaar? In rust hebben de spin up en de spin down toestand van een elektron dezelfde energie. Echter, als je het elektron in een magneetveld plaatst, zal dit veranderen. De twee toestanden zijn immers kleine magneetjes. Net als in het Stern Gerlach experiment, zal de spin down een lagere energietoestand krijgen dan spin up. En zo is er dus een twee level systeem gecre\"eerd, een goede basis voor een qubit. We noemen spin down de $\ket{0}$ toestand en spin up $\ket{1}$.
+
+\subsection{Initialisatie}
+Voordat we met deze qubit kunnen rekenen, moeten we het qubit initialiseren. Immers, als we niet weten in welke toestand we beginnen, zegt de berekening ons niets. Dat is hetzelfde als vragen: wat is $x+5$, terwijl we niet weten wat $x$ is. De makkelijkste manier om het qubit te initialiseren, is om te wachten tot het qubit vervalt naar de grondtoestand. Omdat spin down de laagste energie heeft, is spin down de grondtoestand. Wat je kunt doen is een random elektron in laden in het doosje en dan wachten totdat deze is vervallen naar de grondtoestand. Dit is niet altijd een effici\"ente methode; het kan wel tot 10 seconden duren - en we zullen er zo achter komen dat dat relatief gezien een heel lange tijd is. Er bestaan snellere methoden om een elektron spin te initialiseren. Een van deze methoden zullen we zien in par.~\ref{uitlezen}, het uitlezen van een elektron spin.
+
+
+\subsection{Coherentie}
+Wanneer we een berekening doen met een quantumcomputer, dan willen we natuurlijk dat deze berekening betrouwbaar is. We willen daarom niet dat de toestand  van het qubit halverwege de berekening kapot gaat, of gestoord wordt door externe factoren. De toestand van een qubit kan op twee manieren gebroken worden: door een spin flip - hierbij zal, zoals beschreven onder het kopje initialisatie, een qubit plotseling van toestand veranderen. Meestal gebeurt dit omdat de toestand met spin up naar de energetisch lagere spin down vervalt. We noemen dit relaxatie. Voor initialisatie van een qubit maken we hier juist gebruik van. Maar tijdens een berekening, is het natuurlijk niet de bedoeling dat de toestand van het qubit plotseling verandert. Kijk zelf maar wat er gebeurt als je een X-poort uitvoert op een $\ket{1}$ toestand. En wat gebeurt er nu als je qubit, vlak voordat je de X-poort uitvoert van $\ket{1}$ naar $\ket{0}$ relaxeert. Heb je nu een betrouwbare berekening gedaan? Kortom, je wilt je berekening hebben uitgevoerd binnen de relaxatietijd van het elektron.
+
+Een tweede manier waarop je qubit kapot kan gaan is het randomiseren van de fase van een qubit. Qubit zijn heel gevoelig voor omgevingsfactoren. Een magnetisch veld van een telefoon, een beetje warmte-energie, de kleinste energie\"en kunnen je qubit in de war brengen. En hierdoor zal de fase van het qubit veranderen. Dit is het beste zichtbaar wanneer een qubit in superpositie verkeert. Wanneer een elektron in superpositie is, zeg ($\ket{1}+\ket{1}$), dan zal het qubit hier niet blijven, Het qubit heeft zelf een frequentie en zal van ($\ket{1}+\ket{1}$) naar ($\ket{1}-\ket{1}$) roteren. Dit is helemaal niet erg. Omdat het qubit een frequentie heeft, zal dit altijd in dezelfde tijd gebeuren en kunnen we hier rekening mee houden. Echter, omgevingsfactoren zullen ervoor zorgen dat dit roteren net iets sneller, of net iets langzamer gaat dan het qubit zelf zou willen. En omdat de omgevingsfactoren random en altijd anders zijn, kunnen we niet voorspellen of het qubit sneller of langzamer gaat en hoeveel het qubit sneller of langzamer gaat. Na een tijdje hebben we dus geen idee meer of het qubit in ($\ket{1}+\ket{1}$) is, of in ($\ket{1}-\ket{1}$) en zijn we de toestand kwijt. We kunnen dan niet meer met het qubit rekenen. Dit verschijnsel noemen de decoherentie. Bij elektron spins is de decoherentie tijd veelal veel korter dan de relaxatietijd. Het is dus belangrijk dat we een volledige quantumberekening kunnen doen, voordat we de toestand van onze qubit verliezen. Een goede graadmeter hiervoor is om te kijken hoeveel qubit gates we kunnen uitvoeren, binnen de coherentietijd van het qubit. Qubits die gemaakt zijn van elektron spins in silicium, hebben een coherentietijd van enkele milliseconden. 
+
+\iffalse%----____----
+
+\subsection{Qubit gates}
+\nogdoen{nog doen}
+
+
+\subsection{Uitlezen\label{uitlezen}}
+
+\nogdoen{nog doen}
+
+
+
+
+\subsection{Trashbin}
+We hebben gezien dat, terwijl een klassiek computerbit, slechts \'e\'en toestand kan bevatten, een quantumbit in twee toestanden tegelijkertijd kan zijn.  En, terwijl klassieke bits lineair schalen, wordt, per quantumbit dat je toevoegt,  het aantal toestanden verdubbeld. 
+
+En twee quantumbits kunnen al in vier toestanden tegelijkertijd zijn. We zeggen dat 
+
+
+Hoe maak je een quantumcomputer 
+Zoals we hebben gezien, kunnen N qubits 2N toestanden bevatten. Omdat een klassiek bit slechts een toestand per bit kan bevatten, schaalt de toegevoegde waarde van qubits exponentieel: 1 klassiek bit kan 1 toestand bevatten, 1 qubit kan 2 toestanden bevatten. Daar hebben we nog niet zoveel mee gewonnen. Maar per qubit die je toevoegt, wordt het aantal mogelijke toestanden verdubbelt. Zo kunnen 10 verstrengelde qubits al 1024 toestanden bevatten tegenover 10 toestanden in 10 klassieke bits. Dit schaalt zo snel dat 50 qubits al meer toestanden kunnen bevatten dan de modernste supercomputer die er bestaat. Bereken zelf maar eens hoeveel toestanden dit zijn. 
+\fi%----____----
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+%\setcounter{chapter}{8}
+}
+\notinsubfile{}
+\paragraph*{kopofmunt\label{sec:kopofmunt}}
+De opdracht quantum muntje~\ref{exp:kopofmunt} illustreert de werking van XHZ poorten in \'e\'en register. \textbf{De instructie moet alleen aan de spelleider bekend zijn}
+
+Speel dit spel met twee spelers en een spelleider. \textbf{LET OP! Zorg dat slechts de spelleider de tekst leest en uitleg geeft aan de spelers}.
+
+Ken je die situatie; dat je iets moet beslissen, maar er niet uitkomt. Bijvoorbeeld als je met een vriend hebt afgesproken en hij wil graag naar de bioscoop, terwijl jij liever wilt gaan basketballen. In zo'n situatie kun je een muntje opgooien, dat is wel zo eerlijk. In dit spel spelen we een variatie op kop en munt met speler~A, Alice en speler~B, Bob.
+
+\paragraph*{Deel 1}
+Een ronde van dit spel werkt als volgt. De spelleider legt een muntje op tafel. Het muntje begint altijd in kop. De spelers kunnen twee dingen doen: ofwel het muntje draaien (van kop naar munt, of van munt naar kop), ofwel niks doen (munt blijft munt en kop blijft kop). Eerst geeft Alice haar keuze in het geheim aan de spelleider door (draaien, of niks), vervolgens doet Bob dit en tot slot mag Alice nog een keer haar keuze doorgeven. In totaal worden er dus per ronde drie operaties (draaien, of niets doen) op het muntje uitgevoerd. De spelleider onthoudt steeds de toestand van het muntje (kop/munt) en onthult uiteindelijk de eindstand van het muntje. Als het muntje eindigt in kop, dan wint Alice, eindigt het muntje als munt, dan wint Bob.
+\begin{enumerate}
+\item Wat is de kans dat Alice wint en wat is de kans dat Bob wint?
+\item Als je acht rondes speelt, hoe vaak verwacht je dan dat Bob wint?
+\item Wat is de kans dat, na vijf rondes, Bob alle rondes heeft gewonnen?
+\item Speel vijf rondes. Komt dit (ongeveer) overeen met jullie verwachtingen?
+\item Kun je makkelijk valsspelen?
+\end{enumerate}
+
+\paragraph*{Deel 2}
+We gaan het spelletje 'iets' veranderen. In plaats van kop, of munt, spelen we het spelletje nu met een qubit. De spelleider prepareert een qubit in de toestand $\ket{0}$ - dit kan op papier. Nu mag eerst Alice het qubit roteren; ze mag kiezen uit niets doen, of een \port{X}-poort ($\ket{0}$ wordt $\ket{1}$ en $\ket{1}$ wordt $\ket{0}$), een flip. Daarna mag Bob het qubit roteren (niets doen, of een flip) en tot slot mag Alice het qubit nog een keer roteren (niets doen, of een flip). Tot slot 'meet' de spelleider het qubit. Als het qubit eindigt in de toestand $\ket{0}$ dan wint Alice, eindigt het qubit in $\ket{1}$ dan wint Bob.
+
+\begin{enumerate}
+\item Het qubit begint in $\ket{0}$. Als Alice niets doet, Bob een \port{X}-poort uitvoert en Alice ook een \port{X}-poort uitvoert, in welke toestand eindigt het qubit dan?
+\item Wat is de kans dat Bob de ronde wint? (maak eventueel een boomdiagram met alle mogelijkheden)
+\item Speel vijf rondes van het spel. Hoe vaak won Alice, hoe vaak won Bob?
+\end{enumerate}
+
+\paragraph*{Deel 3}
+Alice heeft intussen door dat ze met een qubit te maken heeft en bedenkt wat slims. In plaats van een X-rotatie, besluit ze een Hadamard-poort toe te passen tijdens haar beide beurten. \textit{Aan de spelleider: geef dit - in het geheim - door aan Alice}. 
+Bedenk dat een Hadamard poort de toestand $\ket{0}$ verandert in $\ket{+}$ en de toestand $\ket{1}$ verandert in $\ket{-}$.
+\begin{enumerate}
+\item Speel nu acht rondes van het spel. Hoe vaak heeft Alice gewonnen?
+\item Aan Bob: vind je het logisch dat Alice telkens wint? Hoe denk je dat ze dat heeft gedaan?
+\item Is er een mogelijkheid dat Bob op deze manier het spel kan winnen?
+\end{enumerate}
+\end {document}

@@ -1,0 +1,268 @@
+
+% NLT module Quantum Computing documenten Anne-Marije Zwerver
+\documentclass[10pt, a4paper]{article}
+%
+%
+% --------------------------------- Preamble ---------------------------------
+\usepackage[dutch]{babel}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\graphicspath{{./pictures/}}
+\usepackage{titlesec}
+\usepackage{epstopdf}
+\usepackage{array}
+\usepackage{fullpage}
+%\usepackage{subfigure} %% enable subfigures %%
+\usepackage{fancyhdr} %% page headers including two decorative lines on both the header and the footer, the latter has 0pt thickness and hence is not visible %%
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{amsmath} %% improve mathematics handling %%
+\usepackage{colortbl} %% enable better looking, coloured tables
+\usepackage{xcolor} %% ensure colors can be loaded %%
+\usepackage{multirow,colortbl}
+\usepackage{multicol}
+\usepackage{parskip} %% set a new paragraph to start after a skipped line instead of an indent %%
+\usepackage{longtable} %% make multipage tables possible %%
+\usepackage{tikz} %% load tikz for a number of graphical enhancements and define the new environments %%
+\usetikzlibrary{arrows}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage[font=footnotesize, labelfont=bf, tableposition=top, singlelinecheck=false]{caption}
+\usepackage{blindtext}
+\usepackage{braket}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+%
+\begin{document}
+
+\widowpenalty=10000 %remove widow and orphans
+\clubpenalty=10000 %
+
+
+\pagenumbering{Roman}
+
+\section*{Spelletjes an algoritmes}
+
+\subsection{Teleportatie }
+
+In science fictie komt teleportatie veelvuldig voor. Veelal wordt er een machine gebruikt die een persoon ergens laat verdwijnen en vervolgens op een totaal andere locatie laat verschijnen. Bij quantumteleportatie worden geen voorwerpen geteleporteerd, maar de informatie van een qubit; door slim gebruik te maken van verstrengeling, wordt bij teleportatie een qubit op plek A gemeten, dan verdwijnt de informatie van het qubit en wordt het qubit op plaats B gereconstrueerd, zonder het qubit daadwerkelijk naar plaats B te sturen.
+
+\begin{enumerate}[label=(\alph*)]
+\item Als je een qubit meet die in de toestand $\alpha\ket{0}+\beta{1}$ is, meet. Wat is dan de uitkomst van de meting?
+\begin{itemize}
+\item 0
+\item 1
+\item 0 met waarschijnlijkheid $|\alpha|^2$ en 1 met waarschijnlijkheid $|\beta|^2$ 
+\item iets tussen 0 en 1 in
+\end{itemize}
+
+\item Wat gebeurt er als je een verstrengelde qubit uit de toestand  $\frac{\ket{00}+\ket{11}}{\sqrt{2}}$ meet?
+\begin{itemize}
+\item De uitkomst van de qubits is altijd tegengesteld: als jij $\ket{0}$ meet, zal de andere qubit altijd $\ket{1}$ zijn.
+\item De uitkomst van de qubits is altijd tgelijk als jij $\ket{0}$ meet, zal de andere qubit altijd $\ket{0}$ zijn.
+\item Je meet altijd $\ket{00}$
+\item Je meet altijd $\ket{11}$
+\end{itemize}
+
+\item Kun je van een onbekende qubit toestand $\alpha\ket{0}+\beta{1}$ met een enkele meting de exacte toestand leren kennen (dus $\alpha$ en $\beta$ bepalen)? Waarom wel/niet?
+
+\item Wanneer dit niet kan, kun je dan een manier bedenken om de toestand te bepalen?
+
+\end{enumerate}
+
+Quantumteleportatie is een techniek om een \emph{onbekende} qubit toestand van A naar B te verplaatsen, zonder het qubit zelf te verplaatsen. Omdat qubits niet zomaar gekopieerd kunnen worden, zal de informatie op plaats A verdwijnen. Het qubit zelf is er natuurlijk nog wel, maar zal in een andere toestand zijn.
+
+We zullen nu kijken hoe quantumteleportatie in zijn werk gaat. Bij het teleporteren van een quantumtoestand heb je drie qubits nodig: het qubit waarvan je de toestand wilt teleporteren, laten we het qubit $T$ noemen en twee hulp qubits die in verstrengelde toestand verkeren.
+
+Alice wil graag een boodschap overbrengen aan Bob, die ver weg zit, zonder fysiek iets te versturen. Alice heeft de informatie verstopt in de toestand van een qubit; $T$. $T$ kan elke willekeurige toestand zijn, laten we zeggen $T=\alpha\ket{0}+\beta\ket{1}$. Om deze toestand te kunnen teleporteren, hebben Alice en Bob al eens eerder een verstrengelde toestand gedeeld, $Q_A$ en $Q_B$. Deze toestand ziet er als volgt uit:
+
+$\frac{\ket{0_A0_B}+\ket{1_A1_B}}{\sqrt{2}}$,\\
+\\
+
+waarbij de annotaties $A$ en $B$ aangeven welke qubit van Alice en welke qubit van Bob is. Laten we eens stap voor stap bekijken hoe Alice de toestand van $T$ kan overbrengen zonder het qubit daadwerkelijk te versturen. We gebruiken daarvoor het schema in figuur \ref{fig:teleportatie}. Bedenk dus goed dat Alice met twee qubits begint en Bob met \'{e}\'{e}n qubit.
+\iffalse
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{Teleportatie_figuur}
+\label{fig:teleportatie}
+%\caption{Quantumcircuit voor teleportatie.}
+\end{figure}
+\fi
+De begintoestand van Alice en Bob is
+\begin{equation}
+T \otimes \frac{\ket{0_A0_B}+\ket{1_A1_B}}{\sqrt{2}}
+= 
+(\alpha\ket{0_T}+\beta\ket{1_Y}) \otimes (\frac{1}{\sqrt{2}}\ket{0_A0_B}+\frac{1}{\sqrt{2}}\ket{1_A1_B})
+\end{equation}.
+
+Alice laat haar twee qubits met elkaar reageren door ze door een CNOT-poort te halen.  Daarna haalt Alice qubit T door een hadamard poort (bedenk dat een Hadamard poort een qubit in superpositie brengt) en meet ze allebei haar qubits. Omdat Alice's qubit A verstrengeld is met Bobs qubit B, zal de interactie met T Bobs toestand ook be\"{i}nvloeden. Vervolgens zal de meting van Alice Bobs qubit ook e\"{i}nvloeden. Bedenk je dat Alice van tevoren niet weet welke toestand ze gaat meten. Omdat haar ene qubit verstrengeld is en ze haar andere in superpositie heeft gebracht, heeft ze vier mogelijke uitkomsten: $\ket{00}$, $\ket{01}$, $\ket{10}$ en $\ket{11}$. Afhankelijk van wat Alice meet, zal Bobs qubit dus ook in vier verschillende toestanden kunnen zijn. Zijn mogelijke toestanden staan in de tabel.
+
+\begin{table}
+\begin{tabular}{l|c}
+\textbf{Alice} & \textbf{Bob}\\ \hline
+$\ket{00}$ & $\alpha\ket{0}+\beta\ket{1}$\\ \hline
+$\ket{01}$ & $\alpha\ket{1}+\beta\ket{0}$\\ \hline
+$\ket{10}$ & $\alpha\ket{0}-\beta\ket{1}$\\ \hline
+$\ket{11}$ & $\alpha\ket{1}-\beta\ket{0}$\\ \hline
+\end{tabular}
+\end{table}
+
+Je ziet dat, als Alice $\ket{00}$ meet, Bob gelijk de goede qubti toestand heeft. Echter, meet Alice iets anders, dan moet Bob nog een of twee rotaties op zijn qubit uitvoeren.
+
+\begin{enumerate}[label=(\alph*)]
+\item Stel, Alice meet $\ket{01}$, welke rotatie moet Bob dan uitvoeren?
+\begin{itemize}
+\item niks
+\item X-rotatie
+\item Hadamard-rotatie
+\item Z-rotatie
+\end{itemize}
+
+\item Stel, Alice meet $\ket{10}$, welke rotatie moet Bob dan uitvoeren?
+
+\item Stel, Alice meet $\ket{11}$, welke rotatie moet Bob dan uitvoeren?
+
+\end{enumerate}
+
+Bob weet natuurlijk niet wat Alice gemeten heeft. Daarom moet Alice Bob op de hoogte brengen van haar bevindingen. Dit kan via een klassiek kanaal, bijvoorbeeld per mail, of via de telefoon. Dit betekent dat Alice en Bob geen toestand kunnen teleporteren zonder contact met elkaar te hebben. De wet dat niks sneller kan gaan dan het licht, is dus niet verbroken.
+
+Wat interessant is aan dit teleportatie protocol, is dat Alice de toestand T niet hoeft te kennen, om deze te teleporteren naar Bob (ga dit na). Daarnaast kan Alice een qubit toestand naar Bob versturen, zonder gebruik te maken van een quantumkanaal. De enige communicatie die Alice en Bob gebruiken is via de telefoon (of mail) en dus klassiek!
+
+\clearpage
+Hoe werkt het teleportatieprotocol nou precies?
+
+De begintoestand van Alice en Bob is
+\begin{equation}
+T \otimes \frac{\ket{0_A0_B}+\ket{1_A1_B}}{\sqrt{2}}
+= 
+(\alpha\ket{0_T}+\beta\ket{1_Y}) \otimes (\frac{1}{\sqrt{2}}\ket{0_A0_B}+\frac{1}{\sqrt{2}}\ket{1_A1_B})
+\end{equation}.
+
+Deze toestand kunnen we ook opschrijven door de haakjes weg te werken als:
+\begin{equation}
+\frac{\alpha}{\sqrt{2}}\ket{0_T0_A0_B} +
+\frac{\alpha}{\sqrt{2}}\ket{0_T1_A1_B} +
+\frac{\beta}{\sqrt{2}}\ket{1_T0_A0_B} +
+\frac{\beta}{\sqrt{2}}\ket{1_T1_A1_B}
+\end{equation}
+
+Als eerst laat Alice haar qubits met elkaar communiceren door een CNOT-poort uit te voeren. Hierbij gebruikt ze $T$ als de controle qubit en haar deel van de verstrengelde qubits als de target qubit. Bedenk dat een CNOT-poort, wanneer de controle qubit 0 is, niets met de target qubit doet. En dat waneer de controle qubit 1 is, de target qubit een bitflip ondergaat. Na de CNOT-poort is de totale toestand dus:
+
+\begin{equation}
+\frac{\alpha}{\sqrt{2}}\ket{0_T0_A0_B} +
+\frac{\alpha}{\sqrt{2}}\ket{0_T1_A1_B} +
+\frac{\beta}{\sqrt{2}}\ket{1_T1_A0_B} +
+\frac{\beta}{\sqrt{2}}\ket{1_T0_A1_B}
+\end{equation}
+
+Daarna voert Alice het qubit dat ze wil teleporteren, $T$, door een Hadamard-poort, waardoor de totale toestand als volgt verandert:
+
+\begin{equation}
+\frac{\alpha}{2}(\ket{0_T}+\ket{1_T})\ket{0_A0_B} +
+\frac{\alpha}{2}(\ket{0_T}+\ket{1_T})\ket{1_A1_B} +
+\frac{\beta}{2}(\ket{0_T}-\ket{1_T})\ket{1_A0_B} + 
+\frac{\beta}{2}\ket{0_T}-\ket{1_T})\ket{0_A1_B}
+\end{equation}
+
+Omdat de qubits van Alice en Bob verstrengeld zijn, hebben de poorten die Alice heeft uitgevoerd ook invloed op het qubit van Bob. Om het precieze effect hiervan te zien, gaan we de toestand hierboven net iets anders opschrijven; we gaan het zo opschrijven dat de twee qubits van Alice samen staan. Dit doen we in twee stappen. Eerst zullen we de toestand buiten haakjes halen:
+
+\begin{equation}
+\frac{\alpha}{2}\ket{0_T0_A0_B} +
+\frac{\alpha}{2}\ket{1_T0_A0_B} +
+\frac{\alpha}{2}\ket{0_T1_A1_B} +
+\frac{\alpha}{2}\ket{1_T1_A1_B} +
+\frac{\beta}{2}\ket{0_T1_A0_B} +
+\frac{\beta}{2}\ket{1_T1_A0_B} +
+\frac{\beta}{2}\ket{0_T0_A1_B} +
+\frac{\beta}{2}\ket{1_T0_A1_B}
+\end{equation}
+
+Wanneer we Alice's qubits apart opschrijven van Bobs qubits, krijgen we de toestand:
+
+\begin{equation}
+\frac{\alpha}{2}\ket{0_T0_A}\ket{0_B} +
+\frac{\alpha}{2}\ket{1_T0_A}\ket{0_B} +
+\frac{\alpha}{2}\ket{0_T1_A}\ket{1_B} +
+\frac{\alpha}{2}\ket{1_T1_A}\ket{1_B} +
+\frac{\beta}{2}\ket{0_T1_A}\ket{0_B} -
+\frac{\beta}{2}\ket{1_T1_A}\ket{0_B} +
+\frac{\beta}{2}\ket{0_T0_A}\ket{1_B} -
+\frac{\beta}{2}\ket{1_T0_A}\ket{1_B}
+\end{equation}
+
+En door nu de toestand korter op te schrijven, krijgen we:
+
+\begin{align*}
+\frac{1}{2}\ket{0_T0_A}(\alpha\ket{0_B}&+\beta\ket{1_B}) +\\
+\frac{1}{2}\ket{1_T0_A}(\alpha\ket{0_B} &- \beta\ket{1_B}) +\\
+\frac{1}{2}\ket{0_T1_A}(\alpha\ket{1_B} &+ \beta\ket{0_B}) +\\
+\frac{1}{2}\ket{1_T1_A}(\alpha\ket{1_B} &- \beta\ket{0_B})\\
+\end{align*}
+
+Het enige wat Alice nu nog hoeft te doen is haar twee qubits meten. Zoals je ziet, geeft elke mogelijke meetuitkomst van haar twee qubits, een andere toestand van de qubits van Bob. Zoals je kunt zien, zal Bob de originele toestand van $T$ meten, wanneer Alice $\ket{00}$ meet. Maar ook wanneer Alice niet $\ket{00}$ meet, kan Bob de originele toestand terugkrijgen door een simpele enkele qubit poort toe te passen. Het enige wat Bob niet weet, is wat Alice's meetuitkomst is. Daarom moet Alice, nadat ze gemeten heeft, haar toestand doorgeven aan Bob via een klassiek kanaal. Dit kan via de telefoon, via e-mail, of hoe ze ook wil. Daarna weet Bob precies wat hij moet doen. Meet Alice $\ket{00}$? Dan meet Bob zijn qubit en weet hij $T$. Meet Alice $\ket{01}$, dan heeft Bob de toestand $\alpha\ket{1_B} + \beta\ket{0_B}$. Wanneer hij dan een X-poort op zijn qubits toepast, verandert de toestand in $\alpha\ket{0_B} + \beta\ket{1_B}$ en dit is weer precies $T$. Wanneer Alice $\ket{10}$ meet, dan heeft Bob de toestand $\alpha\ket{0_B} - \beta\ket{1_B}$. Wanneer hij nu een Z-poort toepast, dan wordt zijn qubit: $\alpha\ket{0_B} + \beta\ket{1_B}$ en heeft hij weer $T$.
+
+
+\begin{itemize}
+
+\item In welke toestand is het qubit van Bob wanneer Alice $\ket{11}$ meet?
+\item Kun je nu zelf bedenken welke qubit rotatie(s) Bob moet toepassen als Alice $\ket{11}$ meet? Schrijf Bobs qubit toestand voor jezelf uit om te controleren of je antwoord klopt.
+
+\item Waarom zou iemand kunnen denken dat je sneller dan de lichtsnelheid kunt teleporteren? Leg uit waarom dit niet het geval is.
+
+\item Denk je dat je een fysiek object, zoals een lamp, of een persoon kunt teleporteren? Waarom wel/niet?
+
+
+\item Stel nou dat Alice en Bob niet de verstrengelde toestand $\frac{\ket{0_A0_B}+\ket{1_A1_B}}{\sqrt{2}}$ delen, maar in plaats daarvan de toestand $\frac{\ket{0_A1_B}+\ket{1_A0_B}}{\sqrt{2}}$. Hoe werkt het teleportatie protocol dan? Schrijf het protocol voor jezelf uit. Gebruik hiervoor onderstaande handleiding.
+\end{itemize}
+
+\begin{description}
+\item[a)] Laat zien dat, als qubit $T$ in de toestand $|\psi\rangle = a |0\rangle + b|1\rangle$ zit, je de totale toestand van het systeem kunt schrijven als
+\begin{equation}
+|\psi_0\rangle=\frac{1}{\sqrt{2}}\left[a (|001\rangle + |010\rangle) + b (|101\rangle +|110\rangle)\right],
+\end{equation}
+waarbij de eerste twee qubits dus van Alice zijn en de laatste van Bob.
+
+\item[b] We gaan nu een CNOT gate toepassen op de qubits van Alice, waarbij de eerste qubit de control is en de tweede de target. Laat zien dat je de toestand nu kunt schrijven als
+\begin{equation}
+|\psi_1\rangle=\frac{1}{\sqrt{2}}\left[a (|001\rangle + |010\rangle) + b (|111\rangle +|100\rangle)\right]
+\end{equation}
+
+\item[c)] Zoals je kunt zien in de afbeelding is de volgende stap dat we de eerste qubit door een Hadamard gate laten gaan. Laat zien dat hierdoor de volgende toestand ontstaat:
+\begin{equation}
+|\psi_2\rangle=\frac{1}{2}\left[a (|0\rangle +|1\rangle)(|01\rangle + |10\rangle) + b (|0\rangle - |1\rangle)(|11\rangle +|00\rangle)\right]
+\end{equation}
+
+\item[d)] Laat nu zien dat deze toestand om te schrijven is tot
+\begin{align*}
+|\psi_2\rangle=\frac{1}{2}&\big[ |00\rangle(a|1\rangle + b |0\rangle) \\
++& |01\rangle (a|0\rangle + b|1\rangle) \\
++&|10\rangle(a|1\rangle - b|0\rangle) \\
++ &|11\rangle (a|0\rangle - b|1\rangle) \big]
+\end{align*}
+\end{description}
+Dit is een hele interessante toestand. Wanneer Alice nu haar twee qubits meet en haar resultaat via een klassiek kanaal naar Bob verstuurt, weet Bob precies in welke toestand zijn qubit zit (aannemende dat hij weet wat Alice heeft gedaan met haar qubits). Als Alice $|00\rangle$ meet, hoeft Bob niks meer te doen en heeft hij al de juiste toestand voor zijn qubit. Voor de andere drie gevallen moet hij echter nog wat werk doen.
+
+\begin{description}
+\item[e)] Wat kan Bob doen om de juiste toestand te krijgen als hij van Alice te horen krijgt dat ze $|10\rangle$ heeft gemeten?
+\item[f)] En wat moet hij doen als ze $|01\rangle$ heeft gemeten?
+\item[g)] Combineer je antwoorden van e) en f) om erachter te komen wat hij moet doen als Alice $|11\rangle$ heeft gemeten.
+\item[h)] Heeft Alice nog steeds de toestand $|\psi\rangle$? Was dit te verwachten aan de hand van wat je eerder vandaag hebt gehoord?
+\item[i) Bonus] Heb je tijd over of nog niet genoeg gehad van quantumteleportatie? Kijk dan of dit algoritme ook werkt voor (\'e\'en van) de andere Bell toestanden.
+\end{description}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
