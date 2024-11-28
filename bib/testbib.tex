@@ -1,0 +1,32 @@
+\documentclass[10pt]{article}
+\usepackage{lmodern}          %better font rendering
+\usepackage{inputenc}
+\usepackage[T1]{fontenc}
+
+
+%\usepackage[backend=biber,style=
+%draft,%listorder= draft tag
+%debug,%alle velden in een tabel, 1 ref per pagina
+%apa,
+%verbose,
+%numeric-comp
+%natbib=true
+%]{biblatex}
+\usepackage[backend=biber,
+style=reading,
+%loadfiles = true,
+entryhead = false,%true, 
+entrykey = true, 
+annotation = true, 
+abstract = false, 
+%library = true, 
+%file=true
+]{biblatex}
+\addbibresource{nltqc.bib}%ref from subfiles
+\begin{document}
+bla
+\nocite{*}
+\printbibliography
+
+
+\end{document}
