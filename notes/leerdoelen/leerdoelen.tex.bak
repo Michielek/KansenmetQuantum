@@ -1,0 +1,31 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+%% my chapter content
+\onlyinsubfile{this only appears if leerdoelen.tex is compiled (not when main.tex is compiled)}
+\notinsubfile{this only appears if main.tex is compiled (not when leerdoelen.tex is compiled)}
+%% more of my chapter 1 content
+%% 
+\nogdoen{dit is maar een beginnetje. deze glossary moet geintegreerd worden met de tekst, package glossaries}
+\section*{Leerdoelen}
+
+In deze sectie staan de leerdoelen met kleurindicatie voor de moeilijkheidsgraad gegeven.
+
+Aan het eind van deze module kunnen/weten/beheersen leerlingen
+\begin{itemize}
+\item Vector voorstelling van twee toestand systemen
+\item Operaties als matrix bewerkingen op twee-vectoren (re\"ele ruimte)
+\item verstrengeling dmv tensorvermenigvuldiging
+\item Dirac notatie als verkorte voorstelling van de toestandsvariabelen 
+\item toestand, -svariabele 
+\item diverse poorten irrreversibel (set en unset)
+\item  en reversibel (NOT, X, H, Z, CNOT)
+\item enekele poorten in sequentie kunnen toepassen als matrixbewerking
+\item flowdiagram lezen en maken van een opeenvolging van poorten
+ \item kans uit kansdichtheidscoofficenten berekenen en andersom.
+\item het verschil tussen reversibele en reversibele operaties
+\item klassieke computer is bijzonder geval van quantumcomputer
+\item klassieke poorten EN OF en NOT
+\item schema lezen met klassieke poorten
+\item statemachines gebruiken om veranderingnen in de product state te kunnen analyseren
+\end{itemize}
+\end{document}

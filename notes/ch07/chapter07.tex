@@ -1,0 +1,91 @@
+\providecommand{\main}{../..}%define path to bib for subfiles
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{\setcounter{chapter}{8}}
+\notinsubfile{}
+\chapter{Verstrengeling}
+\onlyinsubfile{
+\marginpar{\vspace{0cm}
+\textcolor{red}{ hoofdstuk is los gecompileerd, hstk nummer is 1}}
+}
+\notinsubfile{
+\marginpar{\vspace{0cm}
+\textcolor{red}{main.tex gecompileerd, nummering zou moeten kloppen}}
+}
+Tot nu toe beschreven we bewerkingen en metingen op een enkel qubit. Voor verstrengeling zijn minimaal twee qubits nodig. Quantum verstrengeling maakt een quantumcomputer wezenlijk ansders dan een klassieke computer.
+
+Als voorbeeld van het vreemde gedrag van verstrengeling nemen we twee munten. In het klassiek geval bestaat het opwerpen van twee muntjes uit twee onafhankelike gebeurtenissen. De uitkomst is KK, KM, MK, en MM, ieder met \SI{25}{\percent} kans. Qubits kun je bijvoorbeeld in een toestand $\tfrac{1}{\sqrt{2}(\ket{KK}+\ket{MM})}$ brengen., zoals weergegeven in fig.7.1 Er zijn vele nadere toestanden mogelijk, maar dit is de beroemdste. Als je deze verstrengelde muntjes opgooit zijn er slechte twee uitkomsten mogelijk: KK of MM. Zelfs als je de muntjes duizenden kilometers uit elkaar zou brengen en de uitkomst van een muntje kop zou meten, dan weet je dat de andere munt ook kop levert. Zelfs als ze zich met de lichtsnelheid van elkaar verwijderen. 
+
+Hoe kan het andere muntje instantaan weten hoe het andere muntje gemeten is? Wordt de informatie snelller dan de lichtsnelheid overgedragen? Einstein geloofde dit niet, en noemde dit gedrag "spooky action at a distance". Er is aangetoond dat er geen informatie is overgedragen van de ene munt naar de ander wordt overgedragen, en dat er dus geen informatie overgedragen is sneller dan de lichtsnelheid (zie fig 7.2). 
+
+\section{Verborgen variabelen theorie}
+Het is verleidelijk om naar een klassieke verklaring voor verstrengeling te zoeken. Mischien
+\nogdoen{boek stripverhaal}
+
+
+\section{Multi-Qubit toestanden}
+
+\section{niet-verstrengelde systemen}
+
+\section{verstrengelde systemen}
+
+In een verstrengeld systeem veranderd de kasndichtheid van de tweede qubit als de eerste gemeten wordt.
+
+Bijvoorbeeld: Is $\ket{\Psi} = \tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ een verstrengelde toestand?
+
+Jazeker! Kijk maar naar het tweede qubit. De kans om qubit2  in de $\ket{0}$ of $\ket{1}$ toestand te meten was aanvandelijk 50/50. Maar als we qubit 1 meten dan wordt de kans om qubit2 te meten \SI{100}{\percent}. Dezelfde redenerin geldt natuurlijk als we eerst qubit 1 meten. Wiskundig gezien is een verstrengelde toestand een speciale multi-qubit superpositie dotestand die niet ontbonden kan worden in een product van individuele toestatnend.
+
+Voorbeeld: Laat zien dat $\ket{\Psi} = \tfrac{1}{\sqrt{2}}\ket{00}+\tfrac{1}{\sqrt{2}}\ket{11})$ niet geschreven kan worden als een product van twee enkele qubits.
+
+Neem aan dat de toestand wel geschreven kan worden als het product van twee toestanden.
+$$
+\tfrac{1}{\sqrt{2}}\ket{00}+\tfrac{1}{\sqrt{2}}\ket{11}) \stackrel{?}{=} (\alpha_0\ket{0}+\alpha_1\ket{1})(\beta_0\ket{0}+\beta_1\ket{1})$$
+$$\tfrac{1}{\sqrt{2}}\ket{00}+\tfrac{1}{\sqrt{2}}\ket{11}) \stackrel{?}{=}\alpha_0\beta_0\ket{00}+
+\alpha_0\beta_1\ket{01}+
+\alpha_1\beta_0\ket{10}+
+\alpha_1\beta_1\ket{11}
+$$
+Vergelijk de linker en rechter amplitudes. De $\alpha$'s en $\beta$'s moeten voldoen aan
+$$
+\alpha_0\beta_0 = \frac{1}{\sqrt{2}}, \quad
+\alpha_0\beta_1=0, \quad
+\alpha_1\beta_0=0\; \textrm{en} \;
+\alpha_1\beta_1= \frac{1}{\sqrt{2}}$$
+
+Dit stelsel is onoplosbaar. Laat dit stap voor stap zien. 
+Begin met $\alpha_0\beta_1=0$.
+
+\section{verstrengelde deeltjes}
+Er zijn vele manieren om een quantum computer te bouwen. Er zijn vele manieren om deeltjes te verstrengeneln. In methode, \textit{spontaneous parametric down conversion}, schijn je een laser door een speciaal kristal. Het kristal splitst het binnenkomende foton in twee fotonen met gecorreleerde polarisatie. Met deze methode is het mogelijk om fotonenparen te maken waarvan de polarisatie altijd loodrecht op elkaar staat.
+
+\section{verstrengelde deeltjes}
+We hebben al kennis gemaakt met de S, Hadamard en Z poort. Deze werken op een enkele qubit. Er zijn ook quantum poorten die op twee qubits werken. De belangrijkste daarvan is de CNOT poort (controlled not). De CNOT wodt gebruikt om twee qubits te verstrengelen en is essentieel onderdeel van een quantum computing algortime. De CNOT poort heeft twee inputs, een control en een target. Het controle qubit blijft onveranderd. Het doel qubit voldoet aan de volgende regels:
+
+\begin{itemize}
+\item Als het controle bit gelijk is aan $\ket{0}$, dan blijft het doel onveranderd.
+\item Als het controle bit gelijk is aan $\ket{1}$, flip het doelbit:  
+$\ket{0} \rightarrow \ket{1}$
+$\ket{1} \rightarrow \ket{0}$
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{target} & \ustick{\ket{0}}& \qw & \targ & \qw & \qw & \ustick{\ket{x}} & \rstick{output}\\
+\lstick{control} & \ustick{\ket{x}} & \qw & \ctrl{-1} & \qw & \qw & \ustick{\ket{x}}&  \rstick{input}
+}
+\end{center}
+\vspace{.5cm}
+Andersom mag ook
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{control} & \ustick{\ket{x}} & \qw & \ctrl{1} & \qw & \qw & \ustick{\ket{x}}&  \rstick{control}\\
+\lstick{target} & \ustick{\ket{0}}& \qw & \targ & \qw & \qw & \ustick{\ket{x}} & \rstick{target}
+}
+\end{center}
+
+
+
+\end{document}

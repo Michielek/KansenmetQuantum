@@ -1,0 +1,336 @@
+\providecommand{\main}{../..}%define path to bib for subfiles
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{\setcounter{chapter}{8}}
+\notinsubfile{}
+\chapter{Aantekeningen Annemarije}
+
+Ik zag twee spelletjes: 
+\begin{itemize}[nosep]
+\item boter kaas en eieren (pag 12 opg11)
+\item circuit raden (opg5 pag 22)
+\end{itemize}
+
+Circuit raden hoort mooi bij het Deutsch oracle. (zie Microsoft aantekeningen). Hiervoor is verstrengeling nodig, maar het levert de simpelsete meting die je met een Q computer kunt doen en niet met een C computer
+NB: Als je een heleboel van deze metingen combineert maak je een sterke Q computer. (Mooie obseratrie van Martin).
+
+
+Wat meer in detail:
+
+H1: QM
+Toestand en superpositie, eigenwaarde observabelen operatoren normering meting
+Vanuit klassiek al gauw naar quantum. goed.
+De golffunctie is abstract, op zichzelf niet waarneembaar. Toestand is niet waarneembaar, alleen de eigenwaarden.
+
+H2:lin. Algebra
+Vectoren, matrices,inproduct en verwachtingswaarde
+
+Hier staan goede opgaven in, maar biedt wsch. meer dan we nodig hebben.
+
+Meerdere deeltjes en verstrengeling (zou ik naar achter halen)
+
+Mooie opdrachten, zijn wel pittig
+Stern Gerlach staat een beetje los. Meting leidt tot oplossen golffunctie, van superpositie tot realisatie
+Pag 12 Opg 10Verstrengeling: Is een toestand decomposeerbaar Mooi
+Pag12 opg 11 boter kaas en eieren.
+
+Pag 14 klassieke poorten
+Qubits in superpositie
+Blochbol (blochcirkel)
+
+Recept rekenen en tekenen kan verder uitgewerkt worden.
+Quantumpoorten XZH
+CNOT met twee bits, niet verstrengeld
+
+Opg 14 heb ik uitgewerkt.zie onder
+
+H4:Verstrengeling en teleportatie
+Is een systeem decomposeerbaar, soms niet. Dan pas zijn twee qubit verstrengeld
+
+Twee qubits zijn verstrengeld als ze niet decomposeerbaar zijn volgens tensorregels.
+Goede opgaven
+
+H5: hardware: ik heb die regels elders gezien. Onder dit kopje ook ruimte voor de diversse methoden en instituten waar die methoden worden gebruikt.
+
+
+
+opg 14\\
+eerst met $\ket{0}$ als controle
+$
+\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+=
+\alpha\ket{0}+\beta\ket{1}
+$
+\vspace{1cm}
+\\
+$$
+\Qcircuit @C=1em @R=2em {
+& \lstick{\ket{0}}                  &  \qw   & \ctrl{1} & \qw  & \qw    \\
+& \lstick{\ket{\alpha}+\ket{\beta}} & \gate{H} & \targ    & \gate{H} & \qw   \\
+}
+$$
+
+$
+H\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&1\\
+1&-1\\
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta
+\end{pmatrix}
+$
+
+$
+CNOT(\ket{0},H(\alpha+\beta))=CNOT
+\begin{pmatrix}
+\begin{pmatrix}
+1\\
+0
+\end{pmatrix}
+\otimes
+H\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+\end{pmatrix}
+=
+$
+
+$
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1\\
+0&0&1&0\\
+\end{pmatrix}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta\\
+0\\
+0
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta\\
+0\\
+0
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+1\\
+0
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta
+\end{pmatrix}
+$
+
+\vspace{1cm}
+Het tweede bit is het target. Hierop laten we nogmaals H los:
+$
+H\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&1\\
+1&-1\\
+\end{pmatrix}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha+\beta
+\end{pmatrix}
+=
+\tfrac{1}{2}
+\begin{pmatrix}
+\alpha+\beta+\alpha-\beta\\
+\alpha+\beta-\alpha+\beta
+\end{pmatrix}
+=
+\tfrac{1}{2}
+\begin{pmatrix}
+2\alpha\\
+2\beta
+\end{pmatrix}
+=
+\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+$
+
+Grappig terug bij af. Hadden we dit sneller kunnen zien?
+Natuurlijk. een $\ket{0}$ als controle biet laat het target ongemoeid. Een H-gate twee maal toepassen levert de identiteit.
+(immers unitair, reversibel)
+
+Ma je ook het volgende doen?
+Uitgaande van 
+$
+\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+=
+\alpha\ket{0}+\beta\ket{1}
+$
+
+
+Nu met met $\ket{1}$ als controle
+$
+\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+=
+\alpha\ket{0}+\beta\ket{1}
+$
+\vspace{1cm}
+\\
+$$
+\Qcircuit @C=1em @R=2em {
+& \lstick{\ket{1}}                  &  \qw   & \ctrl{1} & \qw  & \qw    \\
+& \lstick{\ket{\alpha}+\ket{\beta}} & \gate{H} & \targ    & \gate{H} & \qw   \\
+}
+$$
+\vspace{1cm}
+\\
+$
+H\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&1\\
+1&-1\\
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+\alpha+\beta\\
+\alpha-\beta
+\end{pmatrix}
+$
+
+$
+CNOT(\ket{1},H(\alpha+\beta))=CNOT
+\begin{pmatrix}
+\begin{pmatrix}
+0\\
+1
+\end{pmatrix}
+\otimes
+H\begin{pmatrix}
+\alpha\\
+\beta
+\end{pmatrix}
+\end{pmatrix}
+=
+$
+
+$
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1\\
+0&0&1&0\\
+\end{pmatrix}
+\begin{pmatrix}
+0\\
+0\\
+\alpha+\beta\\
+\alpha-\beta
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+0\\
+0\\
+\alpha-\beta\\
+\alpha+\beta
+\end{pmatrix}
+=
+\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+0\\
+1
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+\alpha-\beta\\
+\alpha+\beta
+\end{pmatrix}
+$
+
+\vspace{1cm}
+Het tweede bit is het target. Hierop laten we nogmaals H los:
+$
+H\frac{1}{\sqrt{2}}
+\begin{pmatrix}
+\alpha-\beta\\
+\alpha+\beta
+\end{pmatrix}
+=
+\tfrac{1}{\sqrt{2}}
+\tfrac{1}{\sqrt{2}}
+\begin{pmatrix}
+1&1\\
+1&-1\\
+\end{pmatrix}
+\begin{pmatrix}
+\alpha-\beta\\
+\alpha+\beta
+\end{pmatrix}
+=
+\tfrac{1}{2}
+\begin{pmatrix}
+\alpha-\beta+\alpha+\beta\\
+\alpha-\beta-\alpha-\beta
+\end{pmatrix}
+=
+\tfrac{1}{2}
+\begin{pmatrix}
+2\alpha\\
+-2\beta
+\end{pmatrix}
+=
+\begin{pmatrix}
+\alpha\\
+-\beta
+\end{pmatrix}
+$
+
+Na veel gereken: De oplossing in amplitude is niet hetzelfde maar in kansdichtheid wel, of heb ik toch een rekenfout gemaakt?
+
+
+Ik heb geprobeerd dit in quantum inspire te stoppen. Daarin krijg is steevast met 25\% gelijke kans op alle oplossingen:
+$\ket{00},\ket{01},\ket{10},\ket{11}$. Begrijp t nog niet helemaal
+
+\end{document}
+
+
+
