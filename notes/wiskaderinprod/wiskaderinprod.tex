@@ -1,0 +1,88 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{Het inwendig product}\label{wbwiskader2}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\begin{mdframed}[style=wiskader,frametitle=\section*{Wiskundekader 2: Het inwendig product}]
+Een belangrijke grootheid in de vectorwiskunde is het zogenaamd inwendig product van twee vectoren. Het inwendige product $\vect{a} \cdot \vect{b}$ van twee vectoren kan worden gedefinieerd als het product van de lengte van $\vect{a}$ met de lengte van de projectie van $\vect{b}$ op $\vect{a}$. 
+Bekijk figuur~\ref{fig:inprod}.
+\marginnote{\vskip1cm%
+\def\ojfrangle{0}
+\def\ojobangle{70}
+\def\ojscale{.75}
+\begin{tikzpicture}%
+\begin{scope}[scale=\ojscale, rotate=\ojfrangle]
+  \draw[thin,gray!40] (-0.1,-0.1) grid (5,5);
+  \draw[line width=.1pt ,black] ([shift=(0:5)]0,0) arc (0:90:5);
+%  \draw[-stealth, green] (0,0)--(1,0) node[midway, below, xshift=0]{${\scriptstyle e_1}$};
+%  \draw[-stealth, green] (0,0)-- (0,1) node[midway, left, yshift=0]{${\scriptstyle e_2}$};
+%  \draw[line width=.1pt ,black] ([shift=(0:5)]0,0) arc (0:90:5);
+%  \draw[thick, blue, -stealth](0,0)--($cos(\ojobangle-\ojfrangle)*(5,0)$) node(x){};
+%  \draw[thick, blue, -stealth](0,0)--($sin(\ojobangle-\ojfrangle)*(0,5)$) node(y){};
+%  \draw[thick, red, -stealth](0,0)--(1,2) node[label={[above]a}] (A){};
+  \draw[thick, blue, -stealth](0,0)--(63.4:5) node[label={[above]$b$}] (p){};
+  \draw[thick, blue, -stealth](0,0)--(18.43:5) node[label={[above]$a$}] (q){};
+
+  \filldraw[fill=green!20!white, draw=green!10!black] (0,0) -- (18.43:1cm)
+    arc [start angle=18.43, end angle=63.43, radius=10mm] -- cycle;
+\node at((1,1){$\phi$};
+\node at (0,0) (o) {};
+\draw [dotted] ($(o)!(p)!(q)$) -- (p);%loodlijn
+\draw [dotted] (p) -- (2,4) node (r){};
+\draw [dotted] ($(o)!(q)!(r)$) -- (q);%loodlijn
+
+%  \draw[loosely dashed] (x)--(p);
+%  \draw[loosely dashed] (y)--(p);
+\end{scope}
+%  \node [below] at (0,0) {$1$};
+\end{tikzpicture}
+\captionof{figure}{projecties\label{fig:inprod}}
+}
+Met behulp van deze definitie en de figuur kan in principe van elk tweetal vectoren het inwendig product worden bepaald. Maar het kan eenvoudiger. Het inwendig product van twee vectoren die loodrecht op elkaar staan is gelijk aan nul. Die vectoren hebben geen overlap. En twee vectoren die dezelfde richting hebben, hebben een inwendig product dat gelijk is aan het product van hun lengtes. Hoe zit het met een willekeurig tweetal vectoren?
+Dan moeten we kijken naar de basisvectoren. 
+Er geldt: \[\vect{e_1}\cdot \vect{e_1}  = \vect{e_2}\cdot \vect{e_2} = 1\] en  \[\vect{e_1} \cdot \vect{e_2}   =  \vect{e_2} \cdot \vect{e_1} = 0. \]
+Neem aan dat $\vect{a} = \alpha \vect{e_1}  + \beta \vect{e_2}$   en $\vect{b} =\gamma \vect{e_1}  + \delta \vect{e_2}$.
+Er geldt nu
+\begin{equation}
+\begin{split}
+\vect{a} \cdot \vect{b} &=\mqty(\alpha \\ \beta) \cdot \mqty(\gamma \\ \delta) \\
+& = (\alpha \vect{e_1} + \beta \vect{e_2})+(\gamma \vect{e_1} + \delta \vect{e_2})\\
+& =\alpha\gamma \vect{e_1}\cdot \vect{e_1} + \alpha\delta \vect{e_1}\cdot \vect{e_2} + \beta\gamma \vect{e_2}\cdot \vect{e_1} + \beta\delta \vect{e_2}\cdot \vect{e_2}\\
+&=\alpha\gamma+\beta\delta
+\end{split}
+\end{equation}
+Om te zien wat we in het leven geroepen hebben moet je de volgende opgave maken.
+\end{mdframed}
+
+\begin{antwoord}
+\end{antwoord}
+\begin{opdracht}[red]%
+In figuur\ref{fig:inprod} zijn de vectoren \vect{a} en \vect{b} te zien.
+\begin{enumerate}
+\item Bereken in basis E en in basis I het inwendige product van \vect{a} en \vect{b}
+\item Bereken in basis E en in basis I de inwendige producten $\vect{a}\cdot e_1$ en $\vect{b} \cdot e_2$
+\end{enumerate}
+Het inwendige product is een behouden grootheid onder basistransformatie.
+\begin{enumerate}[resume]
+\item Leg dit uit.
+\end{enumerate}
+\end{opdracht}
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{werkblad Interfaces}\label{sec:interfaces}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+Er zijn een aantal manieren om quantum algoritmen uit te voeren of the simuleren. Dit werkblad behandelt er enkele. een voorbehoud hier: de interfaces veranderen voortdurend. Er zijn vele platforms en quantum talen. 
+\begin{itemize}
+\item Quantum Inspire (Qutech, Delft)
+\item Quirk (Google)
+\item Qiskit (IBM) interface en python notebooks packages
+
+\end{itemize}
+en de pythonnotebooks omgevingen:
+\begin{itemize}[resume]
+\item cirq (google)
+\item qiskit (IBM
+\end{itemize}
+
+In dit werkblad alleen aanwijzingen om aan de slag te gaan. 
+
+-Profielwerkstukken
+
+\end{document}

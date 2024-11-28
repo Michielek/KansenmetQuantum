@@ -1,0 +1,505 @@
+\providecommand{\main}{../..}%define path to bib for subfiles
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{\setcounter{chapter}{8}}
+\notinsubfile{}
+\section{werkblad BB84}\label{sec:wbBB84}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\iffalse
+\hrefqr{https://ocw.tudelft.nl/course-lectures/6-4-1-bb84-protocol/}{stefanie wehner tudelft legt t uit} 17 min.\nogdoen{hier moet een beter filmpje voor te vinden zijn}
+\fi
+In hoofdstuk~\ref{chap:H1} hebben we met experimenten~\ref{sec:Young1} en~\ref{sec:wbYoung2} de eigenschappen van gepolariseerd licht gebruikt om superpositie te introduceren. In hoofdstuk~\ref{chap:H2} en werkblad~\ref{sec:watzieje} 'Wat zie je' hebben we gezien hoe een waarnemer in een andere basis, andere co\"ordinaten aan dezelfde vector geeft. In dit werkblad werken we met die kennis een quantumencryptie-protocol uit. Dit protocol is in 1984 door Charles Bennet en Giles Brassard~\citep{BENNETT20147} gepresenteerd en geldt als eerste voorbeeld van onkraakbare code.
+
+\begin{flushleft}
+%\leavevmode
+\begin{minipage}{.35\textwidth}
+\def\ojfrangle{0}
+\def\ojobangle{45}
+\def\ojscale{.45}
+\begin{tikzpicture}%
+\begin{scope}[scale=\ojscale, rotate=\ojfrangle]
+  \draw[thin,red!40] (-5,-5) grid (5,5);
+  \draw[line width=.1pt ,black!30] ([shift=(-90:5)]0,0) arc (-90:180:5);
+  \draw[-stealth,, red!40] (-0.1,0)--(5,0) node[below, red, xshift=10]{${\scriptstyle\ket{H}}$};
+  \draw[-stealth, red!40] (0,-0.1)-- (0,5) node[left, red, yshift=0]{${\scriptstyle\ket{V}}$};
+%  \draw[line width=.1pt ,black] ([shift=(0:5)]0,0) arc (0:90:5);
+  \draw[thick, red, -stealth](0,0)--($cos(\ojobangle-\ojfrangle)*(5,0)$) node(x){};
+  \draw[thick, red, -stealth](0,0)--($sin(\ojobangle-\ojfrangle)*(0,5)$) node(y){};
+  \draw[thick, black!50, -stealth](0,0)--(\ojobangle-\ojfrangle:5) node (p){};
+  \draw[loosely dashed] (x)--(p);
+  \draw[loosely dashed] (y)--(p);
+\end{scope}
+\def\ojfrangle{-45}
+\begin{scope}[scale=\ojscale,  rotate=\ojfrangle]
+  \draw[thin,green!40!lightgray] (-5,-5) grid (5,5);
+  \draw[-stealth, green!40!gray] (-0.1,0)--(5,0) node[right,  xshift=-3, yshift=-3]{${\scriptstyle\ket{-}}$};
+  \draw[-stealth,green!40!gray] (0,-0.1)-- (0,5) node[above left,  xshift=13]{${\scriptstyle\ket{+}}$};
+%  \draw[line width=.1pt ,black] ([shift=(0:5)]0,0) arc (0:90:5);
+  \draw[thick, black, -stealth](0,0)--($cos(\ojobangle-\ojfrangle)*(5,0)$) node(x){};
+  \draw[thick, black, -stealth](0,0)--($sin(\ojobangle-\ojfrangle)*(0,5)$) node(y){};
+  \draw[thick, black!50, -stealth](0,0)--(\ojobangle-\ojfrangle:5) node (p){};
+  \draw[ dotted] (x)--(p);
+  \draw[ dotted] (y)--(p);
+\end{scope}
+\end{tikzpicture}
+\end{minipage}%
+\hfill
+\begin{minipage}{.45\textwidth}
+\[\begin{aligned}
+\ket{+}&=\tfrac{1}{2}\sqrt{2}\ket{H}+\tfrac{1}{2}\sqrt{2}\ket{V}\\
+\ket{-}&=\tfrac{1}{2}\sqrt{2}\ket{H}-\tfrac{1}{2}\sqrt{2}\ket{V}\\ 
+\ket{H}&=\tfrac{1}{2}\sqrt{2}\ket{+}+\tfrac{1}{2}\sqrt{2}\ket{-}\\
+\ket{V}&=\tfrac{1}{2}\sqrt{2}\ket{+}-\tfrac{1}{2}\sqrt{2}\ket{-}\\
+\end{aligned}\]%subtiel veel minder whitespace
+\captionof{figure}{In de standaardbasis (rood) wordt de zwarte vector met gelijke kans als $\ket{H}$ of $\ket{V}$ waargenomen. In de diagonale basis  (groen) wordt de vector met zekerheid als $\ket{+}$ waargenomen.}\label{fig:BB84base}
+\end{minipage}
+%\caption{E\'en vector in standaardbasis (rood) en diagonale basis.}\label{fig:hvad}
+%\end{figure}
+\end{flushleft}
+
+We gebruiken twee twee bases: de standaard basis en de diagonale basis. We weten hoe de Hadamard poort de standaardbasis op de diagonale basis afbeeldt \'en andersom (zie fog.~\ref{fig:BB84base}.
+\marginpar{%
+\[\begin{aligned}
+\ket{0}\equiv\ket{H}\\
+\ket{1}\equiv\ket{V}\\
+\ket{+}\equiv\ket{D}\\
+\ket{-}\equiv\ket{A}\\
+\end{aligned}\]}
+Voor toestandsdiagram voor de \port{H}-poort (zie fig.~\ref{fig:stateH} en de vergelijkingen daarbij).
+
+Fotonen zijn quantumdeeltjes die bij uitstek geschikt zijn voor het quantuminternet. Polarisatie blijft goed behouden over zeer lange lange afstanden, en fotonen reizen lekker snel, met de lichtsnelheid. Je kunt gepolariseerde fotonen versturen onder elke gewenste polarisatierichting. 
+
+\marginpar{\nogdoen{Vraag: kan daar een versterkertje tussen zitten, het signaal is wat zwak, kan het ook met lichtpulsen}}
+In deze communicatie zijn er twee partijen, Alice en Bob die op grote afstand van elkaar mogen staan. Ze gebruiken een quantumkanaal voor het verzenden van fotonen (glasvezelkabel), en een klassiek kanaal, een afluisterbare telefoon. Het quantumkanaal is \'e\'enrichting. Alice zendt een stroom fotonen fotonen naar Bob (\'e\'en richting) ieder foton in een door haar geprepareerde polarisatie. Ze noteert precies wat ze doet. Bij ontvangst meet Bob de fotonen via een polarisatiefilter dat hij willekeurig standaard of diagonaal zet. Ook hij houdt nauwkeurig bij wat hij doet. Ze verbreken de quantumverbinding en bellen elkaar. Via dit klassieke kanaal spreken ze met elkaar af (bidirectioneel) het vervolg af. We werken deze stappen verder uit.
+
+We weten  uit~\ref{chap:H1} dat als we een foton bijvoorbeeld verticaal polariseren en het vervolgens door een verticaal filter laten gaan, het foton met \textit{zekerheid} doorgelaten wordt, en dat het met \textit{zekerheid }geblokkeerd wordt als er een horizontaal filter volgt. Het gedrag is volledig voorspelbaar, \textit{deterministisch}. Als een verticaal gepolariseerd foton een door een filter gaat dat onder \SI{45}{\degree} (of \SI{-45}{\degree}) staat, is er \SI{50}{\percent} kans dat het er doorheen gaat.
+
+Alice wil uiteindelijk een boodschap als een reeks klassieke bits naar Bob sturen. Klassieke bits hebben de waarde $0_b$ of $1_b$. Ze houdt de volgende conventie aan:
+
+\vspace*{12pt}
+\begin{tabular}{c|c|cc|c|c}
+bit & \multicolumn{1}{c|}{basis} & \multicolumn{2}{c|}{pol}\\\hline
+logisch $0_b$& $\oplus$  &H &\rot{ 90}{$\updownarrow$}\\
+logisch $0_b$& $\otimes$ &- &\rot{ 45}{$\updownarrow$}\\
+logisch $1_b$& $\oplus$  &V &\rot{ 0}{$\updownarrow$}\\
+logisch $1_b$& $\otimes$ &+ &\rot{-45}{$\updownarrow$}%
+\end{tabular}
+\vspace*{12pt}
+%\nogdoen{NB in filmpje  delft diagonale basis basis juist andersom + =0 en -=1}
+
+Alice heeft dus twee mogelijkheden om een $0_b$ te sturen en twee mogelijkheden voor een $1_b$. Als ze in de juiste basis worden waargenomen is het antwoord deterministisch. De informatie over haar eigen basiskeuze houdt Alice echter geheim. Alice heeft een string random bits gekozen en verzendt die ieder met een random basis.
+
+Bob kan niet beter doen dan de binnenkomende fotonen meten volgens twee bases standaard (recht) en diagonaal. Bob kiest voor ieder foton een basis, en houdt nauwkeurig zowel de basiskeuze als het resultaat bij. Bob heeft geen idee of de basis waarmee hij meet dezelfde is als waarmee ze verzonden zijn. Ze verbreken daarna hun quantumverbinding. Hier onder een uitgewerkt voorbeeld;
+
+\vspace*{12pt}
+%\ifodd\thepage\else {\hspace*{-\fullmargin}}\fi
+\begin{minipage}{\fullwidth}
+{\footnotesize
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|}
+Alice' random bits&0&1&1&0&0&1&1&1&0&0\\\hline
+Alice' basis      &$\otimes$&$\oplus$&$\otimes$&$\oplus$&$\oplus$&$\oplus$&$\otimes$&$\otimes$&$\oplus$&$\oplus$\\\hline
+Alice verzendt    
+       &\rot{ 45}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}\\ \hline
+Bob's basis &$\oplus$&$\oplus$&$\otimes$&$\oplus$&$\otimes$&$\otimes$&$\otimes$&$\oplus$&$\otimes$&$\oplus$\\\hline 
+Bob's meting&0&1&1&0&0&0&1&1&1&0
+\end{tabular}}
+\end{minipage}
+\vspace*{12pt}
+
+De rest van het protocol handelen ze af ze met de telefoon:
+Alice en Bob melden eerst welke bij Bob zijn overgekomen. Voor het gemak hier allemaal! Bob meldt Alice in welke basis hij heeft gemeten. Alleen als hun bases overeenkomen levert het zinnig informatie. De rest gooien ze weg.
+\marginpar{\nogdoen{we gaan niet in op het volgende Bob's ver en hor basis kan  wel eens gedraaid kan staan t.o.v. Alice's. Dat maakt niet uit behalve voor de sterkte van het signaal}}
+\marginpar{\nogdoen{Vraag: Bij groot aantal bits, hoeveel percent komt overeen (=\SI{75}{\percent})}}
+Ze weten nu over welke bits zij overeenstemming hebben zonder dat de data zelf is gecommuniceerd. Zij weten beiden bijvoorbeeld of een foton in de standaard basis horizontaal of verticaal was. Elk van de overgebleven fotonen bevat \'e\'en bit informatie uit Alice' random bit string.
+
+\vspace*{12pt}
+{\footnotesize
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|}
+Bob's basis & &$\oplus$&$\otimes$&$\oplus$& & &$\otimes$& & &$\oplus$\\\hline 
+Bob's meting& &1&1&0& & &1& & &0
+\end{tabular}
+}
+
+
+\paragraph{Afgeluisterd?}
+Alice en Bob kunnen zijn afgeluisterd door Eve. Zij zou een foton door een filter kunnen leiden. Daarbij verliest het foton zijn eerdere informatie. Fotonen hebben geen geheugen. Ze kan het nooit meer terugzetten. Zij zou kunnen proberen een foton te versterken en dan een kopie uitlezen en het origineel doorsturen. Ook deze operatie is in tegenstrijd met de fundamenten van quantumtheorie \citep{wootters1982single}.
+\iffalse
+Gevolg is dat in geval ze afgeluisterd zijn \SI{50}{\percent} van de afgeluisterde fotonen de verkeerde informatie bevatten.
+\fi
+Alice en Bob testen of zij zijn afgeluisterd met een aantal goedgekeurde qubits (bijvoorbeeld een kwart van het totaal). Deze qubits kunnen ze verder niet gebruiken want ze zijn openbaar gemaakt.
+
+\vspace*{12pt}
+{\footnotesize
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|}
+Bob's publiceert  & & &1& & & &1& & & \\\hline 
+Alice bevestigt:  & & &OK& & & &OK& & &
+\end{tabular}
+}
+\vspace*{12pt}
+
+Ze kunnen concluderen dat hun transmissie niet ernstig is afgeluisterd, anders konden ze opnieuw beginnen. Dat de overgebleven bits kunnen gebruikt  worden voor een \hrefqr[-1cm]{https://nl.wikipedia.org/wiki/One-time_pad}{one-time pad}. Dit is een sleutel voor de enig bewezen methode die onbreekbare vercijfering mogelijk maakt. Daarvoor moet de code nog wel aan extra eisen voldoen. Kijk op de bron welke vier eisen daar genoemd worden. 
+
+Met het verkrijgen van de sleutel houdt het BB84 gedeelte van de encryptie op. De boodschap is een binaire reeks. De sleutel is precies even lang al de boodschap.
+De \port{XOR}-poort is een logische poort (zie par.~\ref{sec:wbklassiek}) met de volgende waarheidstabel (zie fig.~\ref{fig:XOR}).
+
+\begin{center}
+\begin{minipage}[b]{.22\textwidth}
+\begin{center}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_0$};
+    \node (x1) at (0,-0.5) {$I_1$};
+    \node[ xor gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+%    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (Or1.output) -- ([xshift=0.125cm]Or1.output) node[right] {$O$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}%
+\hspace{0.25cm}
+\begin{minipage}[b]{.22\textwidth}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+$I_1$ & $I_2$ & O \\\hline
+0    & 0  & 0 \\\hline
+0    & 1  & 1 \\\hline
+1    & 0  & 1 \\\hline
+1    & 1  & 0 \\ \hline
+\end{tabular}
+}
+\end{minipage}
+ \captionof{figure}{XOR-poort met waarheidstabel. 
+\label{fig:XOR}}
+\end{center}
+
+Alice \port{XOR}-'t haar boodschap met de sleutel en zendt deze data over. 
+
+Bob \port{XOR}-'t de boodschap met de sleutel. Wat is het resultaat?
+
+
+Voordbeeld:
+
+\vspace*{12pt}
+%\ifodd\thepage\else {\hspace*{-\fullmargin}}\fi
+\begin{minipage}{\fullwidth}
+{\footnotesize
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|}\hline
+Alice' boodschap&1&0&0&1&0&1&0&0\\\hline
+Alice' sleutel  &1&1&0&0&0&1&1&0\\\hline
+Alice verzendt  &0&1&0&1&0&0&1&0\\\hline
+\multicolumn{1}{c|}{\large \Phone}&\multicolumn{7}{c}{$\vdots$\hfill$\vdots$}\\\hline
+Bob ontvangt    &0&1&0&1&0&0&1&0\\\hline
+Bob's sleutel   &1&1&0&0&0&1&1&0\\\hline
+Bob leest       &1&0&0&1&0&1&0&0\\\hline
+\end{tabular}}
+\end{minipage}
+\vspace*{12pt}
+
+\bigskip
+Hoeveel fotonen moet Alice versturen als zij de boodschap "Heb je vanavond wat te doen?" wil overzenden zonder dat het afgeluisterd kan worden? Om een letter over te zenden zijn acht bits nodig. De zwakke quantumverbinding verliest \SI{20}{\percent} van de qubits.
+
+\iffalse%-0-0-0-0-0-0-0
+\begin{table}[h]
+\leavevmode
+\begin{tabular}{c|c|c|c|c|c|c|}
+ basis &\rot{  0}{$\ominus$} 
+       &\rot{  0}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{  0}{$\ominus$} \\ \hline
+ qubit &\rot{  0}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 45}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}\\ \hline
+verzonden & 0 
+          &$\ket{1}$ 
+          &$\ket{-}$ 
+          &$\ket{+}$ 
+          &0
+\end{tabular}
+\end{table}
+
+
+is de assen niet loodrecht zijn worden en enkele fotonen doorgelaten worden, dan zou je de stand van het eerste filter willen achterhalen. dat is echter onmogelijk. De fotonen die het tweede filter passeren hebben allemaal de ori\"entatie van het tweede filter. Fotonen hebben geen geheugen.
+Kopi\"eren mag ook niet. \citep{wootters1982single}
+
+De toestand van een foton kunnen we voorstellen als $\ket{\Psi}=\alpha\ket{\perp} +\beta\ket{\parallel}$ in co\
+"ordinaten van de standaard basis.
+We zouden ook een ander basis kunnen aannemen, de diagonale basis.
+\[r_1=\mqty(1\\0), r_2=\mqty(0\\1), d_1=\frac{1}{\sqrt{2}}\mqty(1\\1), d_2=\frac{1}{\sqrt{2}}\mqty(1\\1)\]
+
+\nogdoen{opm over geconjugeeerde basis, NB er is ook nog een complexe basis?}
+Twee vectoren
+
+We kunnen een foton prepareren in iedere polarisatietoestand. In ons model geven we de polarisatierichting van de filters aan met een rondje met een streep erdoor. De streep geeft aan in welke richting fotonen doorgelaten worden. Fotonen en hun polarisatierichting geven we met dubbele pijlen aan.
+Aan de andere kant van de lijn staat Bob met een polaroid filter waarvan hij de ori\"entatie kan instellen. Als Bob een foton meet en het passeert het filter, dan met hij het als een bit 1. Als het er niet doorheen komt registreert hij een 0.
+Klassieke bits dus. 
+
+Als ongepolariseerd licht {\large\raisebox{0ex}{\rotatebox[origin=c]{30}{$\updownarrow$}}\hspace{-1em}}%
+{\large\raisebox{.2ex}{\rotatebox[origin=c]{-35}{$\updownarrow$}}\hspace{-1.1em}}%
+{\large\raisebox{-.1ex}{\rotatebox[origin=c]{-105}{$\updownarrow$}}}%
+door een verticaal filter \rot{ 0}{$\ominus$} gaat, gaat het als vertikaal gepolariseerd licht  $\updownarrow$ verder.
+ 
+Als Alice \rot{-45}{$\updownarrow$} uitzendt heeeft Bob met een ze met een vertikaal filter 50\% kans het foton om waar te nemen. Zie je de bewerking van de Hadamard poort terug?
+c
+Alice kan bij het verzenden kiezen uit twee bases van haar qubits. In de standaard basis ($\bigoplus$) $\updownarrow \leftrightarrow$ en in de diagonale basis ($\bigotimes$) $\updownarrow \leftrightarrow$. Ze kiest voor elk bit een random basis, maar houdt wel precies bij wat ze doet
+
+Bijvoorbeeld
+
+\begin{table}[h]
+\leavevmode
+\begin{tabular}{c|c|c|c|c|c|c|}
+ basis &\rot{  0}{$\ominus$} 
+       &\rot{  0}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{  0}{$\ominus$} \\ \hline
+ qubit &\rot{  0}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 45}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}\\ \hline
+verzonden & 0 
+          &$\ket{1}$ 
+          &$\ket{-}$ 
+          &$\ket{+}$ 
+          &0
+\end{tabular}
+\end{table}
+
+Aan de andere kant van de lijn meet Bob de qubits op. Hij heeft dezelfde twee bases ter beschikking. Hij weet niet met onder welke basis de bits verstuurd zijn.
+Als hij dezelfde basis meet als waarin ze verstuurd zijn, meet hij het bit correct \nogdoen{(is dat zo orientatie over afstand)}.
+Er is 50\% kans dat hij de verkeerde basis kiest. Ook dan heeft  heeft hij 50\% kans dat het bit goed gemeten wordt.
+
+In 75\% van de gevallen zullen Alice' en Bob's metingen dus overeenkomen.
+Ook Bob houdt nauwkeurig de gemeten waarde van de qubits bij en ook in welke basis hij gemeten heeft.
+
+Bob meet bijvoorbeeld als volgt:
+\begin{table}[h]
+\leavevmode
+\begin{tabular}{c|c|c|c|c|c|c|}
+ basis &\rot{  0}{$\ominus$} 
+       &\cellcolor{red!50}\rot{  0}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{ 45}{$\ominus$}
+       &\rot{  0}{$\ominus$} \\ \hline
+ qubit &\rot{  0}{$\updownarrow$}
+       &\cellcolor{red!50}\rot{ 90}{$\updownarrow$}
+       &\rot{-45}{$\updownarrow$}
+       &\rot{ 45}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}\\ \hline
+verzonden & 0 
+          &\cellcolor{red!50}$\ket{1}$ 
+          &$\ket{1}$ 
+          &0 
+          &1 
+\end{tabular}
+\end{table}
+
+
+Alice en Bob bellen elkaar nu op met een gewone telefoon. 
+Ze delen en vergelijken de stand van hun filters (bases, maar houden de waarden van hun verzonden en gemeten bits geheim.
+
+Ze gooien de gegevens weg als hun bases niet overeenkomen. Dat is de helft van de data.We houden 2N gegevens over.
+
+Van die data weten zij
+
+
+NB geen verstrengeling nodig, gebaseerd op no-cloning
+
+4N data
+
+
+eve
+
+ruis
+
+$\updownarrow \leftrightarrow$
+
+$\nearrow \searrow\uparrow\downarrow$
+
+$\bigoplus\bigotimes \ominus \oslash $
+
+$\leftrightarrow$
+\rotatebox[origin=c]{45}{$\leftrightarrow$}
+\rotatebox[origin=c]{-45}{$\leftrightarrow$}
+
+$\ominus$ \rotatebox[origin=c]{90}{$\ominus$}
+$\oslash$ \rotatebox[origin=c]{90}{$\oslash$}
+
+\rot{  0}{$\updownarrow$}
+\rot{ 90}{$\updownarrow$}
+\rot{ 45}{$\updownarrow$}
+\rot{-45}{$\updownarrow$}
+
+\rot{  0}{$\ominus$}
+\rot{ 90}{$\ominus$}
+\rot{ 45}{$\ominus$}
+\rot{-45}{$\ominus$}
+
+
+\rot{ 0}{$\oslash$}
+\rot{90}{$\oslash$}
+
+%$\varobar\bigoslash$
+
+open access:
+\cite{BENNETT20147} Dit hele issue is open access
+kunnen niet tussentijds versterkt worden, niet geschikt als digitale handtekening, versleutelde mail(?), of een oplossing bieden in een juridisch dispuut 
+\cite{wootters1982single}
+
+\marginnote{trapdoor function valluik functie: een functie die de ene klant op makkelijk, maar de andere kant op moeijk is.
+(bijvoorbeeld kwadrateren is makkelijker dan worteltrekken)
+one-time pad sleutel}
+
+Hoe doen we dat in een computerspelletje
+computerspelletje:
+Begin bij het einde:\\
+Welke boodschap wil je sturen?\\
+-Zullen we een biertje drinken?\\
+-Heb je vanavond wat te doen?\\
+-eigen tekst ...\\
+
+Hoeveel bits heb je minimaal nodig om deze boodschap met BB84 over te zenden (NB elke letter bestaat uit 8 bits)? 30 letters=240b dus: N=240
+
+4N=960bits
+Alice genereert een string van 960 random bits en een string van 
+960 basiskeuzen (D/R)
+Horizontaal \rot{  0}{$\updownarrow$} en \rot{ 45}{$\updownarrow$} stellen een 0 voor, \rot{ 90}{$\updownarrow$} en \rot{-45}{$\updownarrow$} een 1.
+
+Bob besluit voor ieder foton zelf in welke basis hij meet. Hij interpreteert de resultaten consequent als binair 0 of 1. Ook hij houd nquwkeurig bij wat zijn metingen zijn en welke stand zijn filter daarbij is.
+
+Bob en Alice verbreken hun quantumverbinding en pakken de telefoon. \nogdoen{de telefoon kan afeluisteerd worden, maar kan geen boodschappen tussenvoegen of veranderen}.
+
+Zij stellen vast welke fotonen zijn \"uberhaupt ontvangen zijn en welke daarvan onder dezelfde basis zijn gemeten. 
+
+Elk foton staat vor \'e\'en bit random informatie (bijvoorbeeld wanneer een rechtop foton verticaal of horizontaal was). Deze informatie is alleen aan Alice en Bob bekend.
+\nogdoen{test for evesdropping, ongeveer een derde van de correcte bits}
+
+
+Bob's basiskeuze is random en zal naar verwachting voor de helft van de gevallen overeenkomen met die van Alice. De rest van de data is waardeloos maar levert wel in de helft van de gevallen de juiste informatie op.
+
+Bob's foton detectors zijn niet perfect. Sommige fotonen zal hij niet registreren.
+
+----
+\hrefqr{https://www.youtube.com/watch?v=lVXJgn3fDkg&ab_channel=QuTechAcademy}{filmpje Tim Coopmans} geeft een goede uitleg, maar op basis van Bloch bol.
+Verander op basis van XY vlak (loodrecht en 45 graden bases 
+Niet in het filmpje hoe het aantal bits van 4N naar N gaat.
+\fi%-0-0-0-0-0-0
+
+\section{qauntummuntje}
+Alice en Bob hebben ruzie. Ze willen elkaar even niet zien. Wie mag met de auto weg? Ze bellen elkaar op. Bob ziet het al voor zich:
+Alice daagt uit tot een kop of munt spelletje over de telefoon. Zij vraagt kop of munt? Wat ik ook kies, zeg zegt gewoon wat haar uit komt. Ze liegt. Dat deed ze vorige keer ook. Ze vertrouwen elkaar even niet.
+
+(De telefoon gaat). Bob: Ja?\\
+(Alice): Alice hier. Kan ik de auto vanmiddag ...\\
+(Bob): Nee\\
+(Alice): Het is ook mijn auto! Laten we er om loten?\\
+(Bob): Ok?\\
+(Alice): Ik gooi een muntje op. Kop of munt?\\
+(Bob): Ja zeg, net als vorige keer zeker.\\
+(Alice): Vertrouw je me niet?\\
+(Bob): Nee!\\
+(Alice): Tsss\\
+(Bob zucht): Ok, we doen het zo. We gebruiken een quantumbasis 'R' of 'D' in plaats van kop of munt.\\
+Alice: Hmmm, ok dan.\\
+ 
+
+volgende filmpje is helaas te ingewikkeld. \hrefqr{https://ocw.tudelft.nl/course-lectures/8-5-2-coin-flipping-phone/}{filmpje TuD}
+
+Alice kiest een reeks random bits (bv \SI{1}{\kilo\bit}) en \'e\'en willekeurige, basis, bijvoorbeeld "R". Ze kiest een codering ($H=1_b$, $V=0_b$).
+
+Alice verstuurt haar reeks van gepolariseerde fotonen.
+
+Bob kiest voor ieder foton dat hij ontvangt een basis, onafhankelijk en willekeurig voor elk foton.
+
+Niet alle fotonen komen over, er zijn gaten in de ontvangstabel.
+
+Na ontvangst Belt hij Alice en zegt welke basis zij heeft gekozen.
+
+Als hij goed geraden heeft wint hij, anders verliest hij.
+
+Alice meldt of Bob gewonnen of verloren heeft en zendt ter controle de reeks random bits waar zij mee begon.
+
+Bob controleert de reeks tegen zijn tabellen. Er moet een perfecte match zijn met de tabel van Alice' basis, en een random relatie met de andere tabel. 
+
+
+\vspace*{12pt}
+%\ifodd\thepage\else {\hspace*{-\fullmargin}}\fi
+\begin{minipage}{\fullwidth}
+{\footnotesize
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c|c|}
+Alice' random bits&0&1&1&0&0&1&1&1&0&0\\\hline
+Alice' basis  &\multicolumn{7}{c}{R}\\\hline
+Alice verzendt    
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{  0}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}
+       &\rot{ 90}{$\updownarrow$}\\ \hline
+Bob's basis    &R&R&D&R&D&D&D&R&D&R\\\hline 
+Bob's "R" tabel&0&1& &0& & & &1& &0\\\hline 
+Bob's "D" tabel& & &1& &1&0&0& &0& \\\hline 
+\multicolumn{1}{c|}{\large \Phone}&\multicolumn{7}{c}{}\\\hline
+Bob's gok&\multicolumn{7}{c}{R?}\\\hline
+Alice' antwoord&\multicolumn{7}{c}{Haha, fout!}\\\hline
+Bob's gok&\multicolumn{7}{c}{SStuur toch effe jouw reeks}\\\hline
+Alice stuurt origineel&0&1&1&0&0&1&1&1&0&0\\\hline
+Bob's "R" tabel&0&1& &0& & & &1& &0\\\hline 
+Bob's "D" tabel& & &1& &1&0&0& &0& \\\hline 
+\end{tabular}}
+\end{minipage}
+
+Bob: Alice! Hier met die auto!
+\vspace*{12pt}
+
+\iffalse%-9-9-9-9
+
+Dit lijkt een waterdicht systeem, maar Alice is ook slim. Zij heeft Einsteins artikel gelezen en Hoofdstuk vier ...
+
+Samenvatting in \hrefqr{https://math.stackexchange.com/questions/239202/how-to-perform-a-fair-coin-toss-experiment-over-phone}{stackexchange}
+\begin{enumerate}
+\item Alice chooses two large prime numbers $p$ and $q$, with the property $p\equiv 3 mod 4$ and $q \equiv 3mod4$. She computes the number $n=pq$ and reads it to Bob over the phone. She keeps the numbers p and q secret.
+
+\item Bob chooses a random integer $x$ between $1$ and $n$. He computes the square $a= x2 mod n$ and reads it to Alice over the phone. He keeps the number $x$ secret.
+
+\item Since Alice knows the factorization of $n$, she can compute the square roots of a modulo $n$. There are four such square roots, let's say $x$ and $n-x$ and $x^{\prime}$ and $n-x^{\prime}$. Alice can compute them all, but she does not know which number Bob has chosen. Alice chooses one of these square roots and reads it to Bob over the phone.
+
+\item Bob compares the number read to him over the phone to the number that he chose. If Alice communicated the number $x$ or $n-x$, he says to Alice "you win, but you must now tell me the factors $p$ and $q$". Then Alice reads the factors $p$ and $q$ to him over the phone, and Bob can check that they are both prime numbers and that $n=pq$. The game is over, and Alice has won.
+
+\item If Alice communicated the number $x^{\prime}$ or $n-x^{\prime}$, Bob can use this information and the fact that he knows the other square root, namely $x$, to find the factors of $n$. He does this, and he says to Alice "you lose, here are your factors". The game is over, and Bob has won.
+\end{enumerate}
+\fi%-9-9-9-9
+\end{document}
