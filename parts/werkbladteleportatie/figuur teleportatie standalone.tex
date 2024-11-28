@@ -1,0 +1,25 @@
+\documentclass[border= 1cm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[braket,qm]{qcircuit}%24 juni 2018 quantumcomputing conflict with datatool
+\usepackage{physics}% 24 juni 2018 quantumcomputing
+\usepackage{bbding}%\Phone
+
+\begin{document}
+
+\Qcircuit @C=.8em @R=1em {%
+\lstick{T} &\ustick{\ket{\Psi}}  &\qw \barrier{2} &\qw &\qw      &\qw \barrier{2} &\qw &\qw      &\qw \barrier{2} &\qw &\ctrl{1}&%
+\qw \barrier{2} &\qw &\gate{H} &\qw \barrier{2} &\qw &\qw             &\meter \cwx[3] \\
+\lstick{A} &\ustick{\ket{0}}     &\qw             &\qw &\gate{H} &\qw             &\qw &\ctrl{2} &\qw             &\qw &\targ   &%
+\qw             &\qw &\qw      &\qw             &\qw &\meter \cwx[2]  &\text{\large{\Phone}}\\
+           &                     &                &    &         &                &    &         &                &    &        &%
+                &    &         &                &    &\text{\large{\Phone}}                &\\
+\lstick{B} &\ustick{\ket{0}}     &\qw             &\qw &\qw      &\qw             &\qw &\targ    &\qw             &\qw &\qw     &%
+\qw             &\qw &\qw      &\qw             & \qw & \gate{X}               &\gate{Z} &\qw &\ustick{\ket{\Psi}}\\
+           &                     &\ustick{t_0}    &    &         &\ustick{t_1}    &    &         &\ustick{t_2}    &    &        &%
+\ustick{t_3}    &    &         &\ustick{t_4}    &                     &
+}
+
+\end{document}

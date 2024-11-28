@@ -1,0 +1,88 @@
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{Wet van Malus}\label{sec:wbmalus}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+Voor dit experiment~\cite{monteiro2017polarization} heb je nodig: een computer met een LCD scherm, een smartphone, een stukje polaroidfilter (2x4cm) en een oude sok of wat haarbandjes.
+\marginpar{\vspace{0cm}\includegraphics[width=0.95\marginparwidth]{./img/physicstoolboxlogo.png}\\
+\footnotesize{%
+Physics Toolbox Sensor suite}}
+
+\paragraph{voorbereiding}
+\begin{itemize}
+\item Installeer de app \textit{physics toolbox Sensor Suite} op je telefoon (freeware versie).
+\item Zet een laptop scherm (geen touch-screen!) verticaal. Maak een wit scherm door bijvoorbeeld een tekstverwerker te openen met een blanco pagina.
+\item Kijk door het polaroidfilter naar het scherm en draai het filter rond. Je ziet het lichter en donkerder worden terwijl je draait.
+\item Zet in de app de lichtsensor even aan en vind uit waar de lichtsensor op je telefoon zit. Plak het polaroidfilter verticaal over de lichtsensor met een stukje plakband en zorg dat het filter een stukje uitsteekt. Je kunt dan tijdens de meting met het blote oog zien dat de polarisator zijn werk doet.
+\end{itemize}
+
+In physics toolbox moeten wat instellingen aangepast worden: 
+
+\begin{itemize}[resume]
+\item Ga naar instellingen en selecteer 'langzaam bemonsteren' anders worden de files erg groot.
+\item In het sensormenu: kies voor 'multi'-opname en selecteer 'Intensiteit' en 'helling'. Helling levert drie meetwaarden (Azimuth, Pitch  en Roll). In het databestand bestaat elke regel uit een tijdstempel, intensiteit,  en driemaal een hoek in graden. (Pitch = stampen in de NL versie).
+\end{itemize}
+
+
+\paragraph{Uitvoering} Doe een paar haarbandjes of een sok om de telefoon zodat de schermen niet krassen. Start de meting. Hou de telefoon tegen het scherm en draai deze langzaam volledig rond. Stop de meting en stuur het CSV bestand naar je computer. 
+
+\paragraph{Uitwerking}
+Open het bestand in Excel. Bekijk de ruwe data. Zet in een grafiek de intensiteit tegen de tijd uit en selecteer het geldige gebied voor de meting. (Je meet twee keer een maximum in de energie in \'e\'en rondje.)
+ 
+Voeg bovenaan een regel toe met in vakje A1 0 of 90 ingevuld, om te compenseren voor de polarisatierichting  van het scherm (sommige schermen zijn horizontaal, andere juist verticaal gepolariseerd). 
+
+Voeg een berekende kolom toe waarin $cos^2(pi()* (pitch+\$A\$1)/180)$ berekend wordt. Excel rekent in radialen dus dat moet je omzetten. Dat is in de formule al gebeurd. Maak een grafiek van de Intensiteit (y-as) tegen de berekende kolom (x-as). Varieer de parameter in A1 ook in kleine stapjes. De juiste waarde van A1 levert je een rechte lijn door de oorsprong. Maak de grafiek netjes op en sla het resultaat op als .xlxs bestand.
+
+\marginpar{\vspace{-3cm}
+\begin{tikzpicture}[scale=1.6]
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+  \draw[thin,gray!40] (-0.1,-0.1) grid (2,2);
+  \draw[] (-0.1,0)--(2,0) node[midway, below]{$x$};
+  \draw[] (0,-0.1)--(0,2) node[midway, left]{$y$};
+  \draw[line width=2pt,blue,-stealth](0,0)--(0,2) 
+        node[anchor=south west]{$\boldsymbol{v}$};
+%  \draw[thin, gray](0,0)--(1.8,1.8);
+  \draw[line width=2pt,blue,-stealth](0,0)--(70:{2*cos(20)}) 
+        node[coordinate] (twenty)[label=right:$\SI{20}{\degree}$]{};
+  \draw[->-=.8, line width=1pt,dotted] (0,2) -- (twenty);
+  \draw[line width=2pt,blue,-stealth](0,0)--(1.,1.) 
+        node[coordinate] (fortyfive)[label=right:$\SI{45}{\degree}$]{};
+  \draw[->-=.8, line width=1pt,dotted] (0,2) -- (fortyfive);
+  \draw[line width=2pt,blue,-stealth](0,0)--(30:1) 
+        node[coordinate] (sixty)[label=right:$\SI{60}{\degree}$]{};
+  \draw[->-=.8, line width=1pt,dotted] (0,2) -- (sixty);
+%  \draw[->-=.5, line width=1pt,dotted] (fortyfive)--(1,0);
+%  \draw[line width=2pt,blue,-stealth](0,0)--(1.,0) node[anchor=south west]{$\boldsymbol{h}$};
+\end{tikzpicture}
+\captionof{figure}{\footnotesize{Projectie van de lichtvector op een draaiend polarisatiefilter. De amplitude van verticaal gepolariseerd licht neemt af met de cosinus van de hoek tussen de filters.}\label{fig:proj}}
+} 
+
+\paragraph{Interpretatie}
+De lichtvector uit het scherm van de computer wordt geprojecteerd op de richting van het filter (zie fig.~\ref{fig:proj}. Hier geldt een cosinus verband. Bij polarisatie wordt de \textit{amplitude} van de lichtvector geprojecteerd op de richting van het filter. Licht is een trilling, en de energie van een trilling is evenredig met het kwadraat van de uitwijking. Vandaar de evenredigheid met $cos^2(\theta)$:
+\[\begin{aligned}I_\theta&=I_0 cos^2\theta\end{aligned}\]
+Dit is de wet van Malus. 
+
+We weten dat licht is opgebouwd uit enkele fotonen. Wat betekent het voor \'e\'en enkel verticaal gepolariseerd foton als het een filter nadert dat op \SI{45}{\degree} staat?
+
+\notepadlines[5]
+\end{document}

@@ -1,0 +1,176 @@
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{Teleportatie}\label{sec:teleportatie}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+In science fiction komt teleportatie veelvuldig voor. Veelal wordt er een machine gebruikt die een persoon ergens laat verdwijnen en vervolgens op een totaal andere locatie laat verschijnen. Bij quantum teleportatie worden geen voorwerpen geteleporteerd, maar de informatie van een qubit; door slim gebruik te maken van verstrengeling, wordt bij teleportatie een qubit op plek A gemeten, verdwijnt de informatie en wordt het qubit op plaats B gereconstrueerd, zonder het qubit daadwerkelijk naar plaats B te sturen.
+%\begin{opdracht}\label{opd:teleportatie}
+\begin{enumerate}
+\item Als je een qubit meet die in de toestand $\alpha\ket{0}+\beta\ket{1}$ is, wat is dan de uitkomst van de meting?
+\begin{itemize}
+\item[A] 0
+\item[B] 1
+\item[C] 0 met kans $|\alpha|^2$ en 1 met kans $|\beta|^2$ 
+\item[D] 0 met kans $\sqrt{\alpha}$ en 1 met kans $\sqrt{\beta}$.
+\end{itemize}
+\item Wat gebeurt er als je een verstrengelde qubit uit de toestand  $\frac{\ket{00}+\ket{11}}{\sqrt{2}}$ meet?
+\begin{itemize}
+\item[A] De uitkomst van de qubits is altijd tegengesteld: als jij $\ket{0}$ meet, zal de andere qubit altijd $\ket{1}$ zijn.
+\item[B] De uitkomst van de qubits is altijd gelijk als jij $\ket{0}$ meet, zal de andere qubit altijd $\ket{0}$ zijn.
+\item[C] Je meet altijd $\ket{00}$
+\item[D] Je meet altijd $\ket{11}$
+\end{itemize}
+\item Kun je van een onbekende toestand $\alpha\ket{0}+\beta{\ket{1}}$ met een enkele meting de exacte toestand leren kennen (dus $\alpha$ en $\beta$ bepalen)? Waarom wel/niet?
+\item Wanneer dit niet kan, kun je dan een manier bedenken om de toestand te bepalen?
+\end{enumerate}
+%\end{opdracht}
+\begin{antwoord}[-8cm]
+a)c\\
+b)b\\
+c)Nee, Je meet een toestand $\ket{0}$ met een kans $\alpha^2$ of $\ket{1}$ met kans $\beta^2$.\\
+d)Je kunt de toestand telkens opnieuw bouwen en het kansproces herhalen. Zo kun je uiteindelijk de co\"effici\"enten benaderen. die gelden tot het qubit gemeten wordt.
+\end{antwoord}
+Quantum teleportatie is een techniek om een \emph{onbekende} qubit toestand van A naar B te verplaatsen, zonder het qubit zelf te verplaatsen. Omdat qubits niet gekopieerd kunnen worden, zal het qubit informatie op plaats A verdwijnen. Het qubit zelf is er natuurlijk nog wel, maar zal in een andere toestand zijn.
+
+Voor het teleportatieprotocol heb je drie qubits nodig: het qubit waarvan je de toestand wilt teleporteren, laten we deze qubit $T$ noemen en twee qubits die worden verstreneld.
+
+Alice wil graag een boodschap overbrengen aan Bob, die ver weg zit, zonder fysiek iets te versturen. Alice en Bob gaan eerst samen twee qubits verstrengelen. Met $A$ en $B$ geven we aan welk qubit van Alice en welk van Bob is. Daarna gaat Bob op reis en neemt zijn helft van het verstrengelde qubitpaar mee. Alice heeft informatie verstopt in de toestand van een qubit; $T$. $T$ kan elke willekeurige toestand zijn, laten we zeggen $T=\alpha\ket{0}+\beta\ket{1}$. 
+We bekijken stap voor stap hoe Alice de toestand van $T$ kan overbrengen zonder het qubit daadwerkelijk te versturen. We gebruiken daarvoor het schema in figuur~\ref{fig:teleportatie}.
+
+\medskip
+\begin{center}  %DE manier om figuur te ontfloaten.
+\leavevmode
+\vspace{1cm}
+\Qcircuit @C=.8em @R=1em {%
+\lstick{T} &\ustick{\ket{\Psi}}  &\qw \barrier{2} &\qw &\qw      &\qw \barrier{2} &\qw &\qw      &\qw \barrier{2} &\qw &\ctrl{1}&%
+\qw \barrier{2} &\qw &\gate{H} &\qw \barrier{2} &\qw &\qw             &\meter \cwx[3] \\
+\lstick{A} &\ustick{\ket{0}}     &\qw             &\qw &\gate{H} &\qw             &\qw &\ctrl{2} &\qw             &\qw &\targ   &%
+\qw             &\qw &\qw      &\qw             &\qw &\meter \cwx[2]  &\text{\large{\Phone}}\\
+           &                     &                &    &         &                &    &         &                &    &        &%
+                &    &         &                &    &\text{\large{\Phone}}                &\\
+\lstick{B} &\ustick{\ket{0}}     &\qw             &\qw &\qw      &\qw             &\qw &\targ    &\qw             &\qw &\qw     &%
+\qw             &\qw &\qw      &\qw             & \qw & \gate{X}               &\gate{Z} &\qw &\ustick{\ket{\Psi}}\\
+           &                     &\ustick{t_0}    &    &         &\ustick{t_1}    &    &         &\ustick{t_2}    &    &        &%
+\ustick{t_3}    &    &         &\ustick{t_4}    &                     &
+}\captionof{figure}{Quantumcircuit voor teleportatie. Er zijn drie qubits, in registers $\ket{TAB}$. Aan het eind meet Alice qubits $\ket{T}$ en $\ket{A}$. zij geeft de uitkomst met een klassieke telefoonlijn (dubbele lijn) door aan Bob, die al dan niet een \port{X} en een \port{Z}-poort toepast.\label{fig:teleportatie}}
+\end{center}
+\marginpar{\footnotesize{Let op, je mag kets binnen en buiten haakjes halen, maar je mag \textbf{nooit} de volgorde veranderen.}}
+\paragraph{t=$t_0$:} We beginnen met een qubit $T=\alpha\ket{0}+\beta\ket{1}$, en Alice en Bob hebben allebei een qubit in toestand $\ket{0}$. Met het tensorproduct kunnen we ze schrijven als
+\[\ket{T}\otimes\ket{A}\otimes\ket{B}=\ket{TAB} = \left(\alpha\ket{0}+\beta\ket{1}\right)\ket{00}= \alpha\ket{000}+\beta\ket{100}\]
+\paragraph{t=$t_1$:} Als eerste gaat qubit A door een \port{H}-poort:
+\marginpar{\vspace{-1cm}\footnotesize{papegaaienbekken:\\
+$(a+b)(c+d)=\\
+ac+ad+bc+bd$}}
+\[\begin{aligned}
+T &\otimes \port{H}\ket{A}\ket{0_B} =\\
+T &\otimes \frac{\ket{0_A}+\ket{1_A}}{\sqrt{2}}\ket{0_B} =\\
+\left(\alpha\ket{0_T}+\beta\ket{1_T}\right) &\otimes \left(\frac{1}{\sqrt{2}}\ket{0_A0_B}+\frac{1}{\sqrt{2}}\ket{1_A0_B}\right)
+\end{aligned}\]
+
+Nu zelf aan de slag: Werk de haakjes weg (papegaaienbekken). Dit levert vier termen met kets die elk een T, een A en een B component bevatten. Zorg dat de volgorde van de qubits in de termen telkens T,A,B blijft. De termen staan er al. Schrijf de factoren op de plaats van de puntjes.
+\[\begin{aligned}
+\makebox[1cm]{\dotfill} \ket{0_T0_A0_B} +\makebox[1cm]{\dotfill} \ket{0_T1_A0_B} +\makebox[1cm]{\dotfill} \ket{1_T0_A0_B} +\makebox[1cm]{\dotfill} \ket{1_T1_A0_B}
+\end{aligned}\]
+\paragraph{t=$t_2$} Alice past een \port{CNOT}-poort toe op A en B. A is hierbij het controlebit en B het doel. Een CNOT laat het doel onveranderd als het controlebit 0 is, en flipt het doel als het controlebit 1 is. e qubits A en B zijn nu verstrnegeld. Bob gaat op reis en neemt zijn register mee. Bereken de toestandt op $t_2$:
+\notepadlines[4]
+%\vspace{0.125in}
+\paragraph{t=$t_3$:}Alice past een \port{CNOT}-poort toe op haar twee qubits. T is hierbij het controlebit en A het doel. Bereken de toestandt op $t_3$:
+\notepadlines[4]
+%\vspace{0.125in}
+\marginpar{\vspace{1cm}\footnotesize{werking van de \port{H}-poort:\\
+$\port{H}\ket{0}=\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1})$\\
+$\port{H}\ket{1}=\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})$}}
+\paragraph{t=$t_4$:}Daarna haalt Alice qubit T door een Hadamard poort. Pas de \port{H}-poort toe op het eerste qubit bij alle vier de termen. De eerste rekenen we voor. Werk zelf de andere drrie uit:
+$\frac{\alpha}{2}(\ket{0_T}+\ket{1_T})\ket{0_A0_B} ...$
+\clearpage %thsi solves the indentation of the notepladlines
+\notepadlines[4]
+Als we de haakjes wegwerken ontstaan er acht ket-termen met drie qubits. We geven de eerste twee:
+$\frac{\alpha}{2}\ket{0_T0_A0_B} + \frac{\alpha}{2}\ket{1_T0_A0_B} ...$ 
+\notepadlines[4]
+Wanneer we Alice's qubits apart opschrijven van Bobs qubits, krijgen we de toestand die begint met $\frac{\alpha}{2}\ket{0_T0_A}\ket{0_B} +\frac{\alpha}{2}\ket{1_T0_A}\ket{0_B} ...$:
+\notepadlines[4]
+En door nu termen buiten haakjes te halen, krijgen we:
+
+\[\begin{aligned}
+\tfrac{1}{2}\ket{0_T0_A}(\alpha\ket{0_B}+\beta\ket{1_B}) +\tfrac{1}{2}\ket{1_T0_A}(\alpha\ket{0_B} &- \beta\ket{1_B}) +\\
+\tfrac{1}{2}\ket{0_T1_A}(\alpha\ket{1_B} + \beta\ket{0_B}) +\tfrac{1}{2}\ket{1_T1_A}(\alpha\ket{1_B} &- \beta\ket{0_B})\\
+\end{aligned}\]
+
+Klopt dit met jouw tussenberekeningen?
+
+Nu meet Alice haar beide qubits. Er zijn vier mogelijke uitkomsten ($\ket{0_T0_A}$, $\ket{0_T1_A}$, $\ket{1_T0_A}$ en $\ket{1_T1_A}$) die elk overeenkomen met een unieke toestand van Bob's qubit. Die toestand is een simpele transformatie van het originele qubit T.  De mogelijke toestanden staan in tabel~\ref{fig:AenB}.
+
+\marginpar{\vspace{-5cm}
+\footnotesize{%
+\begin{tabular}{l|c}
+\textbf{Alice} & \textbf{Bob}\\ \hline
+\textbf{meet} & \textbf{heeft}\\ \hline
+$\ket{00}$ & $\alpha\ket{0}+\beta\ket{1}$\\ \hline
+$\ket{01}$ & $\alpha\ket{1}+\beta\ket{0}$\\ \hline
+$\ket{10}$ & $\alpha\ket{0}-\beta\ket{1}$\\ \hline
+$\ket{11}$ & $\alpha\ket{1}-\beta\ket{0}$\\ \hline
+\end{tabular}
+}
+\captionof{figure}{Alice' metingen en de toestand van Bob's ontvangen qubit $T$.
+ \label{fig:AenB}}}
+
+\medskip
+%\begin{opdracht}\label{opd:Bobsactie}
+Als Alice $\ket{00}$ meet heeft Bob gelijk de goede qubit te pakken. Als Alice een andere combinatie meet, dan moet Bob nog een of twee rotaties op zijn qubit uitvoeren.
+Met welke operaties (gebruik \port{X}, \port{H} en \port{Z}) kan Bob zijn ontvangen qubit terugbrengen tot de toestand $\Psi=\alpha\ket{0}+\beta\ket{1}$? Schrijf je antwoord in de register notatie als Alice de volgende toestanden meet:
+\begin{enumerate}[resume]
+\item $\ket{00}$  -$\port{I}$-
+\item $\ket{01}$  \rule{3cm}{0.15mm} 
+\item $\ket{10}$  \rule{3cm}{0.15mm}
+\item $\ket{11}$  \rule{3cm}{0.15mm}
+\end{enumerate}
+%\end{opdracht}
+\begin{antwoord}[-5cm]
+e)I, f)X, g)Z, h)XZ
+\end{antwoord}
+
+Bob is inmiddels ver weg. Zijn register bevat qubit T, maar in een versleutelde vorm. Hij weet natuurlijk niet wat Alice gemeten heeft. Alice moet Bob op de hoogte brengen van haar bevindingen. Dit kan via een klassiek kanaal, bijvoorbeeld per mail, of via de telefoon. Dit betekent dat Alice en Bob geen toestand kunnen teleporteren zonder contact met elkaar te hebben. De wet dat niets sneller kan gaan dan het licht, is dus niet verbroken.
+
+De kern van het teleportatieprotocol is dat Alice de toestand T niet hoeft te kennen (zelfs niet mag kennen!) om deze te teleporteren naar Bob. Bovendien kan Alice een qubit toestand naar Bob versturen zonder gebruik te maken van een quantum kanaal. De enige communicatie die Alice en Bob gebruiken is de telefoon (of mail) en dus klassiek!
+
+\medskip
+%\begin{opdracht}
+\begin{enumerate}[resume]
+%\item In welke toestand is Bob's qubit wanneer Alice $\ket{11}$ meet?
+%\item Kun je nu zelf bedenken welke qubit rotatie(s) Bob moet toepassen als Alice $\ket{11}$ meet? Schrijf Bobs qubit toestand voor jezelf uit om te controleren of je antwoord klopt.
+\item Waarom zou iemand kunnen denken dat je sneller dan de lichtsnelheid kunt teleporteren? Leg uit waarom dit hier niet het geval is.
+\item Denk je dat je een fysiek object, zoals een lamp, of een persoon kunt teleporteren? Waarom wel/niet?
+\item Stel nou dat Alice en Bob niet de verstrengelde toestand $\frac{\ket{0_A0_B}+\ket{1_A1_B}}{\sqrt{2}}$ delen, maar in plaats daarvan de toestand $\frac{\ket{0_A1_B}+\ket{1_A0_B}}{\sqrt{2}}$. Hoe werkt het teleportatie protocol dan? Schrijf het protocol voor jezelf uit. Werk systematisch analoog aan het protocol van dit werkblad.
+\end{enumerate}
+%\end{opdracht}
+\begin{antwoord}[-10cm]
+\begin{enumerate}[start=9, wide, labelwidth=!, labelindent=0pt]
+
+%\item $\ket{11}$ \implies $\alpha\ket{1}-\beta\ket{0}$
+%\item 
+\item Bob's qubit is instantaan vastgelegd als Alice meet, echter ze moet Bob eerst opbellen (klassiek kanaal) om haar resultaat door te geven. Dat gaat niet sneller dan het licht.
+\item Een lamp is geen quantumobject,  laat staan dat een persoon dat is.  Vraag is natuurlijk of het theoretisch verboden is, dat niet.
+\item Dat gaat ook maar met een andere decodering, Bob moet andere operaties toepassen, dusus wel afspraken maken vooraf.
+\end{enumerate}
+\end{antwoord}
+
+
+\end{document}
