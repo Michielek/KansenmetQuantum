@@ -1,0 +1,105 @@
+\documentclass[12pt, a4paper, twoside]{book}
+\input{preambule.tex}
+\begin{document}
+\frontmatter
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{6cm}
+{\Huge \bfseries \sffamily Kansen met Quantum}\\
+Een NLT-module over Quantumcomputing\\[4ex]
+\end{center}
+\vspace*{7cm}
+{\raggedleft
+{\Large%
+Guido Linssen\\%
+Anne-Marije Zwerver\\%
+Martin Mollema\\%
+Henk Buisman\\}
+\vfill
+\tagged{teach}{
+Docentenhandleiding \newline}
+Versie:~1.1 \newline
+\DTMtoday
+}
+\tikz[remember picture,overlay] \node[opacity=0.12,inner sep=0pt] at ([yshift=-2cm]current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{./img/ovjv.png}};
+%\end{center}
+\end{titlepage}
+%
+\null\newpage
+\thispagestyle{empty}
+\mbox{}
+\subfile{parts/colofon/colofon}
+%\maketitle% gebruik ik niet
+\tableofcontents%
+%\listoffigures
+%\listoftables
+%evt----extra lege pagina:
+%\null\newpage
+%\thispagestyle{empty}
+%\mbox{}
+
+%\subfile{parts/oogopslag/oogopslag}
+\mainmatter
+\iffalse%=====no content==============
+\fi%=====no content==============
+\subfile{parts/H1/h1}
+\subfile{parts/H2/h2}
+\subfile{parts/H3/h3}  %\setcounter{chapter}{3}
+\subfile{parts/H4/h4}
+%\subfile{parts/H5/h5}
+%\subfile{parts/H6/h6}
+
+\chapter{werkbladen}
+\newpage
+\mbox{}
+\newpage
+\subfile{parts/werkbladyoung/werkbladyoung}
+\newpage
+\mbox{}
+\subfile{parts/werkbladmalus/werkbladmalus}
+\newpage
+\mbox{}
+\subfile{parts/werkbladyoung2/werkbladyoung2}
+\newpage
+\mbox{}
+\subfile{parts/werkbladklassiek/wbklassiek}
+\newpage
+\mbox{}
+\newpage
+\subfile{parts/werkbladovjv/wbovjv}
+\newpage
+\mbox{}
+\subfile{parts/werkbladQI/werkbladQI}
+\newpage
+\mbox{}
+\newpage
+\subfile{parts/werkbladteleportatie/werkbladteleportatie}
+\tagged{teach}{%-=-=-=-=-
+\newpage
+\mbox{}
+\newpage
+\subfile{parts/docenten/docenten}
+}%tagged teach-=-=-=-=-
+\iffalse
+%\newpage
+%\thispagestyle{empty}
+%\mbox{}
+%\newpage
+%%\subfile{parts/werkbladBB84/wbBB84}
+%%\subfile{parts/pistewerkeninw/werkeninw}
+%%\subfile{parts/ch07/chapter07}
+%%\subfile{parts/glossary/glossary}
+%%\subfile{parts/aantekeningen/aantekeningen}
+%%\subfile{parts/bronvermelding}
+%%\subfile{parts/opgave/opgave}
+\fi
+\backmatter
+%\subfile{parts/bib/biblio}
+\printbibliography[%
+heading=bibintoc,
+title={Literatuur}
+]
+\end{document}
