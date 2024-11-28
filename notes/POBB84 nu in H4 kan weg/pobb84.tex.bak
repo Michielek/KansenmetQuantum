@@ -1,0 +1,121 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{Praktische opdrachten:BB84}\label{sec:POBB84}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+
+In werkblad BB84 staat het protocol beschreven hoe je met enkele fotonen een quantum communicatie op kunt zetten die theoretisch altijd veilig is. In theorie is het allemaal mooi, maar de techniek is niet perfect. In deze opdracht laten we de belangrijkste voorwaarde voor veiligheid van het protocol los: het werken met enkele fotonen. Enkele fotonen detectors zijn gewoonweg te duur en te kwetsbaar voor ons lab. Het no-cloning principe geldt niet meer. 
+
+We proberen het protocol uit met simpele middelen, een zaklamp wat lenzen, polaroid filters.
+
+Alice wil een geheime boodschap naar Bob sturen. versleuteling is daarvoor de oplossing. Een boodschap niet te ontcijferen als de sleutel geheim is en even lang of langer dan de boodschap. Dat is makkelijk in te zien met de werking van de klassieke \port{XOR}-poort.
+
+Door de boodschap voor verzending met de sleutel (die even lang als de boodschap!) door een \port{XOR}-poort te halen is de boodschap wiskundig aantoonbaar niet te achterhalen zonder kennis van de sleutel, want elk bit is op een random manier versleuteld.
+
+Bob heeft de sleutel en hoeft alleen nogmaals de \port{XOR}-poort op de ingekomen boodschap los te laten om Alice' boodschap te achterhalen.
+
+In het BB84 protocol kunnen Alice en Bob een quantum sleutel kunnen opstellen die zij alleen kennen. Zij hebben die niet hoeven delen over een klassiek kanaal. Zij hebben de sleutel gedeeld zonder die daadwerkelijk over te zenden.
+
+
+\paragraph{Uitvoering}
+Omdat wij het allemaal met de hand doen beperken we de lengte van de boodschap tot twee letters. 
+Je hebt vijf bits nodig om de letters A-Z binair om te zetten. De boodschap is dus tien bits lang.
+
+Hoeveel bits moet Alice met haar klassieke random generator opzetten?
+
+ 
+
+We beginnen met een serie random bits die vier keer zo lang is als de boodschap, 40 bits.
+
+Alice kiest bij elk bit in welke basis het verstuurd wordt (Standaard of Diagonaal) en houdt dat bij.
+
+
+Bouw de opstelling. Knip twee exemplaren van de polaroidhouders uit stevig karton. Plak de polaroids er in dezelfde stand op. 
+
+Monteer een lamp en een collimator lens op een optische rails. Zet de de lamp in het brandpunt en beeldt de lamp af op een plaats ver weg. Laat het licht door twee polaroids vallen. Zet de filters in dezelfde ori\"entatie,, onder een hoek van \SI{45}{\degree} en loodrecht op elkaar. Gebruik het blote oog, of een lichtsensor om de intensiteit bij die drie standen te meten.
+
+Als je veel tijd hebt kun je een automatisch systeem maken, maar de simpelste vorm is om de volgnummers van de te verzenden bits even door het lokaal te roepen (een klassiek kanaal). Tijdens de uitvoering is dit de enige informatie die team Alice mag roepen naar team Bob. Alle andere communicatie wordt onderschept door Eve.
+
+
+\paragraph{voorbereiding}
+
+Team Alice moet nauwkeurig de toestand van de verzonden bits en de bijbehorende filterstand bijhouden. Hetzelfde geldt voor team Bob.
+
+team Alice: Een formulier met N kolommen en rijen voor 
+\begin{enumerate}
+
+\item random gegenereerde bits
+
+\item  filterstanden
+
+\item ...
+\end{enumerate}
+
+TeamBob
+
+Een formulier met N kolommen en rijen voor 
+
+\begin{enumerate}
+\item stand van het filter
+\item waarneming: aan uit of half
+\item ...
+\end{enumerate}
+
+Na het overzenden is het quantum gedeelte aafgesloten. De kan de lamp uit. Hmm er zit quantum in de lamp.
+
+Alice mag de random key niet communiceren!
+
+Alice en Bob vergelijken welke bits zij in dezelfde basis hebben gemeten door per bit af te kondigen standaard of diagonaal. Als de antwoorden gelijk zijn behouden ze het bit, als ze tegengesteld zijn strepen ze het weg.
+
+Ze houden ongeveer de helft van het aantal bits over. Het aantal bits dat overblijft zal groter zijn dan de lengte van de boodschap (N). DMocht dat toch niet zo zijn: uithuilen en opnieuw beginnen.
+
+Het verschil tussen de lengte van de boodschap en de goedgekeurde bits kunnen Alice en Bob gebruiken om te controleren of ze afgeluisterd zijn. Tel de lengte van de boodschap af en gebruik de rest om te controleren of je afgeluisterd bent.
+Mocht hier een fout in zitten dan is de rest ook niet betrouwbaar: uithuilen en opnieuw beginnen.
+
+De resterende bits vormen de sleutel die even lang is als de boodschap.
+
+Alice ontvangt de twee letter code van de spelleider.
+
+Met de gereduceerde ASCII tabel digitaliseert Alice de twee letters in een 10-bits 
+Alice versleutelt de boodschap met de \port{XOR}-poort en belt het resultaat door.
+
+Bob ontcijfert de boodschap door nogmaals de \port{XOR}-poort er op los te laten.
+Kijkt in de ASCII kaart om de twee letter code et ontcijferen. Het is het land waar hij Alice zal ontmoeten voor een volgende missie.....
+
+
+Alice en Bob hebben die sleutel nooit gecommuniceerd.
+
+
+het verschil tussen de lengte van de boodschap en 
+
+
+Er is nu een sleutel bekend voor de boodschap.
+
+E\'en lid van team Alice krijgt nu de code van de spelleider. Deze mag niet met anderen, ook niet met het eigen team, gedeeld worden.
+ 
+
+ 
+Ascii tabel voor printbare karakters
+ 
+
+Zet een flow diagram op voor het hele protocol.
+
+\end{document}

@@ -1,0 +1,193 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{1}
+}
+\notinsubfile{}
+\section*{teleportation with other bases}
+
+
+Alice en Bob zijn dikke vrienden. Zij besluiten een qubit te verstrengelen. Kan van pas komen.
+
+Ze beginnen ieder met een qubit. De begintoestand is belangrijk. Het is gebruikelijk om de toestand $\ket{0}$ als uitgangstoestand te kiezen. Dat doen ze in het voorbeeld.
+
+
+In het protocol zijn drie qubit registers. Bob (B), Alice (A) en het psychic-bit $\ket{\Psi}=\alpha\ket{0}+\beta\ket{1}$. We geven ze altijd in deze volgorde weer $\ket{\Psi }\ket{A}\ket{B}$
+
+Ze beginnen met een paar te verstrengelen:
+
+Dat kan op vier manieren
+ 
+\subsection*{met $\ket{00}$ als basis}
+
+(kleuren ooit nog eens doen)
+
+Eerst een verstrengeld paar maken: $\port{CNOT}(\port{H}A, B)$
+
+$\port{H}A=\port{H}\ket{0}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$
+
+$\ket{\port{H}A B}= \frac{1}{\sqrt{2}}(\ket{0} +\ket{1})\ket{0}$
+
+Nu de CNOT:
+
+$\port{CNOT}(\ket{\port{H}A},\ket{ B})$
+
+$= \frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$
+
+Het te teleporteren $\ket{\Psi}$ bit komt erbij:
+
+$ \frac{1}{\sqrt{2}}\ket{\Psi}(\ket{00}+\ket{11})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}+\beta\ket{1})(\ket{00}+\ket{11})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1})(\ket{00}+\ket{11})$
+
+en wordt ge-CNOT (met $\ket{\Psi}$ als control:
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1})(\ket{10}+\ket{01})$
+
+H-poort op register 0:
+
+$ \frac{1}{\sqrt{2}}(\alpha\frac{(\ket{0}+\ket{1})}{\sqrt{2}}(\ket{00}+\ket{11})+\beta\frac{(\ket{0}-\ket{1})}{\sqrt{2}}(\ket{10}+\ket{01})$
+
+
+$ \frac{1}{2}(\alpha(\ket{0}+\ket{1})(\ket{00}+\ket{11})+\beta(\ket{0}-\ket{1})(\ket{10}+\ket{01})$
+
+$\ket{\Psi A B}$ (dit is de volgorde van de registers)
+
+$\frac{1}{2}\ket{00}(\alpha\ket{0}+\beta\ket{1})+ (\port{I}$)\\
+$\frac{1}{2}\ket{01}(\alpha\ket{1}+\beta\ket{0})+ (\port{X}$)\\
+$\frac{1}{2}\ket{10}(\alpha\ket{0}-\beta\ket{1})+ (\port{Z}$)\\
+$\frac{1}{2}\ket{11}(\alpha\ket{1}-\beta\ket{0})  (\port{ZX}$)\\
+\clearpage
+
+\subsection*{met $\ket{01}$ als basis}
+Eerst een verstrengeld paar maken: $\port{CNOT}(\port{H}A, B)$
+
+$\port{H}A=\port{H}\ket{0}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$
+
+$\ket{\port{H}A B}= \frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\ket{1}$
+
+Nu de CNOT:
+
+$\port{CNOT}(\ket{\port{H}A},\ket{ B})$
+
+$= \frac{1}{\sqrt{2}}(\ket{01}+\ket{10})$
+
+Het te teleporteren $\ket{\Psi}$ bit komt erbij:
+
+$ \frac{1}{\sqrt{2}}\ket{\Psi}(\ket{01}+\ket{10})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}+\beta\ket{1})(\ket{01}+\ket{10})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{01}+\ket{10})+\beta\ket{1})(\ket{01}+\ket{10})$
+
+en wordt ge-CNOT (met $\ket{\Psi}$ als control:
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{01}+\ket{10})+\beta\ket{1})(\ket{11}+\ket{00})$
+
+H-poort op register 0:
+
+$ \frac{1}{\sqrt{2}}(\alpha\frac{(\ket{0}+\ket{1})}{\sqrt{2}}(\ket{01}+\ket{10})+\beta\frac{(\ket{0}-\ket{1})}{\sqrt{2}}(\ket{11}+\ket{00})$
+
+
+$ \frac{1}{2}(\alpha(\ket{0}+\ket{1})(\ket{01}+\ket{10})+\beta(\ket{0}-\ket{1})(\ket{11}+\ket{00})$
+
+$\ket{\Psi A B}$ (dit is de volgorde van de registers)
+
+$\frac{1}{2}\ket{00}(\alpha\ket{1}+\beta\ket{0})+ (\port{X})$\\
+$\frac{1}{2}\ket{01}(\alpha\ket{0}+\beta\ket{1})+ (\port{I})$\\
+$\frac{1}{2}\ket{10}(\alpha\ket{1}-\beta\ket{0})+ (\port{ZX})$\\
+$\frac{1}{2}\ket{11}(\alpha\ket{0}-\beta\ket{1}) (\port{Z})$\\
+
+\clearpage
+
+\subsection*{met $\ket{10}$ als basis}
+Eerst een verstrengeld paar maken: $\port{CNOT}(\port{H}A, B)$
+
+$\port{H}A=\port{H}\ket{1}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$
+
+$\ket{\port{H}A B}= \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\ket{0}$
+
+Nu de CNOT:
+
+$\port{CNOT}(\ket{\port{H}A},\ket{ B})$
+
+$ =\frac{1}{\sqrt{2}}(\ket{00}-\ket{11})$
+
+Het te teleporteren $\ket{\Psi}$ bit komt erbij:
+
+$ \frac{1}{\sqrt{2}}\ket{\Psi}(\ket{00}-\ket{11})$
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}+\beta\ket{1})(\ket{00}-\ket{11})$
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{00}-\ket{11})+\beta\ket{1})(\ket{00}-\ket{11})$
+
+en wordt ge-CNOT (met $\ket{\Psi}$ als control:
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{00}-\ket{11})+\beta\ket{1})(\ket{10}-\ket{01})$
+
+H-poort op register 0:
+
+$ \frac{1}{\sqrt{2}}(\alpha\frac{(\ket{0}+\ket{1})}{\sqrt{2}}(\ket{00}-\ket{11})+\beta\frac{(\ket{0}-\ket{1})}{\sqrt{2}}(\ket{10}-\ket{01})$
+
+
+$ \frac{1}{2}(\alpha(\ket{0}+\ket{1})(\ket{00}-\ket{11})+\beta(\ket{0}-\ket{1})(\ket{10}-\ket{01})$
+
+$\ket{\Psi A B}$ (dit is de volgorde van de registers)
+
+$\frac{1}{2}\ket{00}(\alpha\ket{0}-\beta\ket{1})+ (\port{Z})$\\
+$\frac{1}{2}\ket{01}(-\alpha\ket{1}+\beta\ket{0})+(\port{XZ})$\\
+$\frac{1}{2}\ket{10}(\alpha\ket{0}+\beta\ket{1})+ (\port{I})$\\
+$\frac{1}{2}\ket{11}(-\alpha\ket{1}-\beta\ket{0}) (\port{ZXZ})$\\
+
+\clearpage
+
+\subsection*{met $\ket{11}$ als basis}
+
+Eerst een verstrengeld paar maken: $\port{CNOT}(\port{H}A, B)$
+
+$\port{H}A=\port{H}\ket{1}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$
+
+$\ket{\port{H}A B}= \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\ket{1}$
+
+Nu de CNOT:
+
+$\port{CNOT}(\ket{\port{H}A},\ket{ B})$
+
+$= \frac{1}{\sqrt{2}}(\ket{01}-\ket{10})$
+
+Het te teleporteren $\ket{\Psi}$ bit komt erbij:
+
+$ \frac{1}{\sqrt{2}}\ket{\Psi}(\ket{01}-\ket{10})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}+\beta\ket{1})(\ket{01}-\ket{10})$
+
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{01}-\ket{10})+\beta\ket{1})(\ket{01}-\ket{10})$
+
+en wordt ge-CNOT (met $\ket{\Psi}$ als control:
+
+$ \frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{01}-\ket{10})+\beta\ket{1})(\ket{11}-\ket{00})$
+
+H-poort op register 0:
+
+$ \frac{1}{\sqrt{2}}(\alpha\frac{(\ket{0}+\ket{1})}{\sqrt{2}}(\ket{01}-\ket{10})+\beta\frac{(\ket{0}-\ket{1})}{\sqrt{2}}(\ket{11}-\ket{00})$
+
+
+$ \frac{1}{2}(\alpha(\ket{0}+\ket{1})(\ket{01}-\ket{10})+\beta(\ket{0}-\ket{1})(\ket{11}-\ket{00})$
+
+$\ket{\textcolor{red}{\Psi A} \textcolor{blue}{B}}$ (dit is de volgorde van de registers)
+
+$\frac{1}{2}\textcolor{red}{\ket{00}}\textcolor{blue}{(\alpha\ket{1}-\beta\ket{0})}+   (\port{ZX})$\\
+$\frac{1}{2}\textcolor{red}{\ket{01}}\textcolor{blue}{(-\alpha\ket{0}+\beta\ket{1})}+  (\port{XZX})$\\
+$\frac{1}{2}\textcolor{red}{\ket{10}}\textcolor{blue}{(\alpha\ket{1}+\beta\ket{0})}+   (\port{X})$\\
+$\frac{1}{2}\textcolor{red}{\ket{11}}\textcolor{blue}{(-\alpha\ket{0}-\beta\ket{1})}   (\port{ZXZX})$\\
+
+kleurtje voor de bits aan \textcolor{red}{Alice'} en \textcolor{blue}{Bob's} kant
+\end{document}

@@ -1,0 +1,1420 @@
+\documentclass[a4paper, addpoints, 12pt
+    , answers    %PAS OP als je dit fout doet ligt alles op straat
+   % , noanswers    %PAS OP als je dit fout doet ligt alles op straat
+    ]{exam}
+\usepackage{tikz}
+\usetikzlibrary{calc,patterns}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+\usepackage{caption}   %geen floats,geen caption
+\usepackage{subcaption}
+\captionsetup{
+  figurename={Fig.},
+  justification=raggedright,
+  labelfont={bf},
+  font=small}
+\usepackage{calc}
+\usepackage{siunitx}
+\sisetup{output-decimal-marker = {,}}
+\usepackage[braket,qm]{qcircuit}%24 juni 2018 quantumcomputing conflict with datatool
+\usepackage{physics}% 24 juni 2018 quantumcmputing
+
+\renewcommand{\familydefault}{\sfdefault}    %standaardfont
+\renewcommand{\figurename}{Figuur}              %wordt anders met babel package
+
+
+%--exam stuff>>----
+
+% Here's where you edit the Class, Exam, Date, etc.
+\newcommand{\class}{NLT Kansen met Quantum, 6V}
+\newcommand{\term}{najaar 2020}
+\newcommand{\examdate}{datum hier}
+\newcommand{\timelimit}{45 min.}
+\linespread{1.0}  %single
+%\linespread{1.3}  %one and a half
+%\linespread{1.6}  % double
+\pagestyle{headandfoot}
+\firstpageheader{\textbf{\class, \term}}
+{}
+{}
+\runningheader{\textbf{\class, \term}}{}{}
+\firstpagefooter{}{Pag. \thepage \ van \numpages}{\iflastpage{Einde}{Ga verder op de volgende pagina\ldots}}
+\runningfooter{}{Pag. \thepage \ van \numpages}{\iflastpage{Einde}{Ga verder op de volgende pagina\ldots}}
+
+\newcommand{\tf}[1][{}]{\fillin[#1][0.5in]}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%\qformat{%
+%%\hspace*{-.25in}\thequestion.
+%{\textbf{\thequestiontitle}}\hrulefill}
+
+
+%---exam stuff<<---            
+\newcommand*{\port}[1]{\textbf{#1}}
+
+\begin{document}
+%23 jan2017. gebaseerd op geofysica 2are 
+\hfill\textbf{Naam:}\enspace\makebox[2in]{\hrulefill} \textbf{Klas:}\enspace\makebox[1in]{\hrulefill} \\
+
+Duur \timelimit
+Dit proefwerk bestaat uit \numquestions{} vragen. Je kunt \numpoints{} punten halen. %\numpages{} pagina's. 
+Je mag de cheatsheet en een gewone rekenmachine gebruiken. Teken met een scherp potlood. Gebruik \textbf{dit} blad als antwoordblad. Omcirkel de juiste antwoorden bij meerkeuzevragen.
+\fullwidth{\large{Succes!}}
+
+\begin{questions}
+%hier mag alleen text in uplevel of fullwidth staan???
+\pointsinmargin  %print points in left margin
+\marginpointname{ p}  
+%\fullwidth{\large{Korte vragen}}
+
+\question[1]
+Twee qubits bevinden zich in een toestand
+\[\ket{\Psi} = \sqrt{\tfrac{1}{3}}\ket{00}+ \sqrt{\tfrac{1}{3}}\ket{10}+\sqrt{\tfrac{1}{3}}\ket{11}\]
+is dit mogelijk?
+
+\ifprintanswers
+\textbf{Antw: Ja, de toestandsruimte staat dit toe, de co\"efficient van de ontbrekende basis $\ket{01}$ is kennelijk 0. De kwadraten van de overige co\"efficienten tellen op tot 1
+}
+\else
+\fillwithlines{.5in}
+\fi
+%\qformat{%
+%\hspace*{-.25in}\thequestion. 
+%%{\textbf{\thequestiontitle}}
+%%hrulefill
+%}
+
+
+\question[1]
+Een deeltje $\Psi$ in de toestand: $\ket{\Psi}=\alpha |0 \rangle + \beta |1 \rangle$
+kun je meten in toestand $| 0 \rangle$ met een kans:
+
+\begin{choices}
+\choice $\alpha$
+\choice $\beta$
+\correctchoice $\alpha^2$
+\choice $\sqrt{\alpha}$
+\end{choices}
+
+\question[1]
+Bereken de co\"efficient $\beta$ in de volgende superpositie:
+
+\[\ket{\Psi} = \sqrt{\tfrac{1}{8}}\ket{0}+ \beta\ket{1}\]
+
+\ifprintanswers
+\textbf{Antwoord: $\sqrt{\tfrac{7}{8}}$
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+Waarom kan de volgende toestand niet bestaan?
+
+\[\ket{\Psi} = \sqrt{\tfrac{1}{3}}\ket{0}+ \sqrt{\tfrac{1}{3}}\ket{1}+\sqrt{\tfrac{1}{3}}\ket{2}\]
+
+\ifprintanswers
+\textbf{Antw: Een enkel qubit kan alleen in een superpositie van een twee-toestand systeem bestaan
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+Waarom kan de volgende toestand niet bestaan?
+
+\[\ket{\Psi} = \sqrt{\tfrac{1}{3}}\ket{0}+ \sqrt{\tfrac{1}{3}}\ket{1}\]
+
+\ifprintanswers
+\textbf{Antw: de toestanden zijn niet goed genormeerd. tellen op tot 2/3 ipv tot 1}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+Quantumsystemen zijn zgn. twee-toestand systemen. In een teostand $\ket{\Psi}=\alpha |0 \rangle + \beta |1 \rangle$ kan een van de twee termen worden weggelaten. met welke regel kan je de waarde van de andere coeficient achterhalen?
+
+\ifprintanswers
+\textbf{Antw:$\alpha^2+\beta^2=1$
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+Er zijn twee qubits: \[\ket{\Psi_1} = \sqrt{\tfrac{1}{2}}\ket{0}+ \sqrt{\tfrac{1}{2}}\ket{1}\] en 
+\[\ket{\Psi_2} = \sqrt{\tfrac{1}{2}}\ket{0}- \sqrt{\tfrac{1}{2}}\ket{1}\]
+
+I. De kans om na meting een deeltje in toestand $\ket{0}$ aan te treffen is bij beide deltjes gelijk.\\
+II. De toestand van de twee deeltjes is correct genormeerd.
+
+\begin{choices}
+\choice Alleen bewering I is waar
+\choice Alleen bewering II is waar
+\choice bewering I en II zijn beide onjuist.
+\correctchoice bewering I en II zijn beide juist.
+\end{choices}
+
+\question[1]
+De Bell basis $\ket{+}$ en $\ket{-}$ kun je uitdrukken in de basisvectoren van de computationele basis. \[\ket{+} = \sqrt{\tfrac{1}{2}}\ket{0}+ \sqrt{\tfrac{1}{2}}\ket{1}\]  
+en \[\ket{-} = \sqrt{\tfrac{1}{2}}\ket{0}- \sqrt{\tfrac{1}{2}}\ket{1}\]
+Werk deze formules om zodat je de computationele basis uitdrukt in termen van de Bell basis.
+
+\ifprintanswers
+\textbf{Antw: optellen en aftrekken levert
+\[\ket{0} = \sqrt{\tfrac{1}{2}}\ket{+}+ \sqrt{\tfrac{1}{2}}\ket{-}\]
+\[\ket{1} = \sqrt{\tfrac{1}{2}}\ket{+}- \sqrt{\tfrac{1}{2}}\ket{-}\]
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+
+\question[1]
+Alice en bob hebben allebei een qubit. Zij vinden het hoogtijd om die met elkaar te verstrengelen.
+Teken in het schema hieronder de benodigde poorten die hiervoor nodig zijn.
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{Alice} & \ustick{\ket{0}} & \qw & \qw  \\
+\lstick{Bob}   & \ustick{\ket{0}} & \qw & \qw   
+}
+\end{center}
+
+\ifprintanswers
+\textbf{Antw: H CNOT, register met H poort heeft de control 
+}
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{Alice} & \ustick{\ket{0}} & \qw & \gate{H} & \ctrl{1}&\qw  & \qw & \ustick{\ket{+}}\\
+\lstick{Bob}   & \ustick{\ket{0}} & \qw  & \qw      & \targ   & \qw & \qw & \ustick{\ket{+}}
+}
+\end{center}
+$\frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11}$
+\else
+\fi
+
+\question[1]
+Alice en Bob hebben allebei een qubit in toestand $\ket{00}$. Zij vinden het hoogtijd om die met elkaar te verstrengelen. dat doen zij met het volgende algoritme:
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{Alice} & \ustick{\ket{0}} & \qw & \qw  \\
+\lstick{Bob}   & \ustick{\ket{0}} & \qw & \qw   
+}
+\end{center}
+Wat is de toestand van het verstrengelde paar?
+
+\begin{choices}
+\choice $\frac{1}{\sqrt{2}}\ket{01}+\frac{1}{\sqrt{2}}\ket{10}$
+\correctchoice $\frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11}$
+\choice $\frac{1}{2}\ket{00}+\frac{1}{2}\ket{01}+\frac{1}{2}\ket{10}+\frac{1}{2}\ket{11}$
+\choice geen van bovenstaande is juist
+\end{choices}
+%\end{parts}
+
+\question[1]
+Bereken (slim):
+$HXHZH\ket{0}=\mqty(1&1\\1&-1)\mqty(0&1\\1&0)\mqty(1&1\\1&-1)\mqty(0&1\\1&0)\mqty(1&1\\1&-1)\mqty(1\\0)$
+
+\ifprintanswers
+\textbf{Antw: simpel te vereenvoudigen tot $H\ket{0}=\ket{+}$, 
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+I. Een verschil met klassieke bits is dat qubits niet gekopieerd kunnen worden.
+\begin{choices}
+\correctchoice waar
+\choice onwaar
+\end{choices}
+
+\question[1]
+Je laat  een  set, reset, copy en \port{X}-poort op twee input bits. Hoeveel ja/neee vragen heb je nodig om vat te stellen met welke poort je te doen hebt?
+Wt kan een QC met 1 vraag (1 bit) dat een KC nooit kan?
+
+\question[1]
+Leg kort uit (met een voorbeeld) hoe een auantumcomputer met het Deutsch algoritme iets kan wat een een klassieke computer niet kan.
+
+\ifprintanswers
+\textbf{De informatieinhoud van de black box is 2 bit. Het Detusch algoritme kan niet met 1 bit de toestand van twee onbekende bits achterhalen. Wat kan het wel?
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+\question[1]
+Met quantumteleportatie kan informatie worden overgezonden, sneller dan het licht, met de lichtsnelheid, minder dan de lichtsnelheid
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+Net als bij klasssieke computers kan quantuminformatie gekopieerd worden
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+Het simpelste quantumteleportatie protocol gebruikt drie qubits
+
+\question[1]
+Leg het no cloning principe uit
+
+\question[1]
+Bij het teleportatie protocol hoef je maar je 1 klassiek bit te gebruiken om twee qubits over te sturen.
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+Het Deutsch oracle kan twee klassieke bits informatie met 1 bit duiden.
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+Bij quantumteleportatie kan zonder klassieke communicatie informatieoverdracht plaatsvinden
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+Vul het volgende quantumcircuit aan zodanig dat de begintoestand wordt hersteld
+\begin{flushleft}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{T} & \ustick{\ket{\Psi}} & \qw     & \qw       & \targ     & \gate{H}   & \qw       \\
+\lstick{A} & \ustick{\ket{0}}    & \gate{H}& \targ     & \ctrl{-1} & \qw        & \qw  \\
+\lstick{B} & \ustick{\ket{0}}    & \qw     & \ctrl{-1} & \qw       & \qw        & \qw 
+}
+\end{flushleft}
+
+Gebruik de statemachine van fig. xxx. Waar of onwaar:
+\question[1]
+De \port{X}-poort verandert $\ket{0}$ naar $\ket{1}$ en omgekeerd.
+
+\begin{oneparchoices}
+\correctchoice waar
+\choice onwaar
+\end{oneparchoices}
+
+\question[1]
+De \port{Z}-poort verandert $\ket{+}$ naar $\ket{-}$ en omgekeerd
+
+\begin{oneparchoices}
+\correctchoice waar 
+\choice onwaar
+\end{oneparchoices} 
+\question[1]
+De \port{H}-poort verandert $\ket{0}$ naar $\ket{+}$ en omgekeerd
+
+\begin{oneparchoices}
+\correctchoice waar
+\choice onwaar
+\end{oneparchoices}
+
+\question[1]
+De \port{I}-poort verandert $\ket{0}$ naar $\ket{1}$ en omgekeerd
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\question[1]
+De \port{X}-poort beeldt $\ket{0}$ op zichzelf af.
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+\begin{parts}
+\uplevel{Voor eenvoudige circuits kan een input-output tabel worden gemaakt.}
+
+
+\part[1]
+Maak zo'n tabel voor onderstaand circuit.
+\begin{figure}[h]
+\hspace{3cm}%
+\begin{subfigure}[c]{0.4\textwidth}
+\Qcircuit @C=1em @R=2em {
+\ustick{a}&\qw & \gate{I} &\qw \barrier{1} & \ctrl{1} & \qw \\
+\ustick{b}&\qw & \gate{X}& \qw             & \targ  & \qw\\ 
+&\ustick{input}    &         &\ustick{C}       &        & \ustick{output}
+}
+%    \caption{Picture 1}
+%    \label{fig:1}
+\end{subfigure}\hspace{3cm}%
+\begin{subfigure}[c]{0.4\textwidth}
+\ifprintanswers
+\textbf{\begin{tabular}{|l|l|l|l|l|}
+\hline
+input& C \hspace{.3in} & output\\ \hline
+$\ket{ba}$ &answer & here \\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{00}$ & 10& 10\\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{01}$ & 11& 01\\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{10}$ & 00& 00\\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{11}$ & 01& 11\\ \hline %\cline{1-2}% \cline{4-5} 
+\end{tabular}
+}
+\else
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+input& C \quad & output\\ \hline
+$\ket{ba}$ & & \\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{00}$ & & \\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{00}$ & & \\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{00}$ & & \\ \hline %\cline{1-2}% \cline{4-5} 
+$\ket{00}$ & & \\ \hline %\cline{1-2}% \cline{4-5} 
+\end{tabular}
+\fi
+%    \caption{Picture 2}
+%    \label{fig:2}
+  \end{subfigure}
+\end{figure}
+\end{parts}
+
+\question[1]
+Een toestandsvector $\Psi$ heeft 8 elementen. Hoeveel registers heeft de quantumcomputer die deze vector bestuurt?
+
+\ifprintanswers
+\textbf{3, drie}
+\else
+\fillwithlines{.5in}
+\fi
+
+%\qformat{\hspace*{-.25in}\thequestion.}
+
+\question[1]
+Twee qubits spannen de Bell basis op: $\ket{\Psi_1} = \ket{+}= \sqrt{\tfrac{1}{2}}\ket{0}+ \sqrt{\tfrac{1}{2}}\ket{1}$ en 
+$\ket{\Psi_2}= \ket{-} = \sqrt{\tfrac{1}{2}}\ket{0}- \sqrt{\tfrac{1}{2}}\ket{1}$
+
+Druk de computationele basis basis uit in termen van $\ket{+}$ en $\ket{-}$.
+
+\question[1] Twee beweringen:\\
+I. De logica van klassieke poorten is nooit reversibel.\\
+II. De logica van quantumpoorten is altijd reversibel.
+
+\begin{choices}
+\choice Alleen bewering I is waar
+\correctchoice Alleen bewering II is waar
+\choice bewering I en II zijn beide onjuist.
+\choice bewering I en II zijn beide juist.
+\end{choices}
+
+%\qformat{ \hspace*{0in}\thequestion. {\textbf{\thequestiontitle}}\hrulefill}
+
+%\qformat{  {\textbf{\thequestiontitle}}\hrulefill}
+
+\titledquestion{Oude vrouw, jonge vrouw}
+De resultaten van een waarneming
+Een waarneming van oude vrouw jonge vrouw levert dat \SI{25}{\percent} van de tijd een oude vrouw, en \SI{75}{\percent} van de tijd Jonge vrouw wordt waargenomen.
+(tekening assenstelsel O-verticaal J-horizontaal)
+
+\begin{parts}
+\part[1]
+Bereken de  co\"ordinaten van de vector, en teken deze in de eenheidscirkel
+
+\ifprintanswers
+\textbf{$\alpha^2 +\beta^2=1$, amplitude = wortel van de kans (het percentage)}
+\else
+\fillwithlines{.5in}
+\fi
+
+\part[1]
+Aan welke voorwaarden moeten de co\"effici\"enten voldoen? 
+
+\ifprintanswers
+\textbf{Antw: $\mqty(J\\O)= \frac{1}{2}\mqty(1\\\sqrt{3})$
+}
+\else
+\fillwithlines{.5in}
+\fi
+\end{parts}
+
+\question[1]
+Twee qubits in de ket notatie $\ket{ab}$ zijn altijd verstrengeld.
+
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+
+\ifprintanswers
+\textbf{Niet waar. Dat is niet te zien aan deze notatie. Deze notatie geeft alleen weer adt we te maken hebben met qubits (registers) uit hetzlefde algoritme. Maak een rekenvraag met al dan niet ontbindbare vectoren.
+}
+\fi
+\question[1]
+Gebruik bij deze opgave $\braket{0}{0}$=$\braket{1}{1} = 1$ en
+$\braket{0}{1}$=$\braket{1}{0} = 0$.
+
+Als $\ket{\Psi_1}=\mqty(\alpha_1\\\beta_1)$
+ en $\ket{\Psi_2}=\mqty(\alpha_2\\\beta_2)$
+
+waarvan alle co\"effici\"enten re\"eel zijn.
+
+\begin{parts}
+\part[] Bereken $\braket{\Psi_1}{\Psi_2}$
+
+Hint: Begin als volgt:
+$\bra{\Psi_1}=\alpha_1\bra{0} +\beta_1\bra{1}$
+\end{parts}
+\ifprintanswers
+\textbf{antw:
+$\bra{\Psi_1}=\alpha_1\bra{0} +\beta_1\bra{1}$, 
+$\ket{\Psi_2}=\alpha_2\ket{0} +\beta_2\ket{1}$\\
+$\braket{\Psi_1}{\Psi2}=(\alpha_1\bra{0} +\beta_1\bra{1})(\alpha_2\ket{0} +\beta_2\ket{1})\\
+=\alpha_1\alpha_2\braket{0}{0}+\beta_1\beta_2\braket{1}{1}+\alpha_1\beta_2\braket{0}{1}+\alpha_1\beta_2\braket{1}{0}$=\\
+}
+\else
+\fillwithlines{1in}
+\fi
+
+\question[1]
+Bereken of beredeneer de uitkomst van 
+
+\[H\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\]
+\ifprintanswers
+\textbf{antw:
+er staat \[HH\ket{0})=\ket{0}\]
+}
+\else
+\fillwithlines{1in}
+\fi
+
+\question[1]
+Bereken of beredeneer de uitkomst van 
+
+\[H\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\]
+\ifprintanswers
+\textbf{antw:
+er staat \[HH\ket{1})=\ket{1}\]
+}
+\else
+\fillwithlines{1in}
+\fi
+
+
+\question[1]
+Alice wil het BB84 protocol opzetten. Zij moet beginnen met een reeks random nummers. Daarvoor wil ze ook een quantumcomputer gebruiken. beschrijf hoe ze dat kan doen.
+\ifprintanswers
+Ze prepareert haar bits in $\ket{0}$, laat er een Hadamard gate op los en doet een meting. In de helft van de gevallen krijgst ze $\ket{0}$en in de nadere helft $\ket{1}$ er uit.
+\else
+\fillwithlines{1in}
+\fi
+
+\question[1]
+Aice heeft qubits in toestand $\ket{0}$. Om haar 4N data te sturen moet zij de toestanden $\ket{0}, \ket{1}, \ket{+} en \ket{-}$. kunnen versturen
+Hoe kan ze dat met \port{H} en \port{X} doen?
+
+\ifprintanswers
+\else
+$\ket{0}=\port{I}\ket{0}$(I mag je weg laten natuurlijk)\\
+$\ket{1}=\port{X}\ket{0}$\\
+$\ket{+}=\port{H}\ket{0}$\\
+$\ket{-}=\port{H}\port{X}\ket{0}$ Volgorde!\\
+\fillwithlines{1in}
+\fi
+
+\question[1]
+Als Alice en Bob hun 4N data naast elkaar leggen. Hoeveel overeenkomst kunnen zij verwachten?
+\ifprintanswers
+75\%. De helft vanwege gelijk gekozen basis, van de rest ook de helft (random)
+\else
+\fillwithlines{1in}
+\fi
+
+Eve kan nog wel eens meeluisteren (Engels: evesdropping).  Zij probeert in te breken tijdens de communicatie over het quantumkanaal. 
+Zij leest alle qubits, en zet daar random bits voor in de plaats.
+Wanneer merken Alice en Bob dit?
+\ifprintanswers
+Als zij vastgesteld hebben welke bits overeenkomstige bases hebben en de  helft daarvan opgeven om vast te stellen dat die 100\% moet overeenkomen. Ze vinden 50\% overeenkomst.
+\else
+\fillwithlines{1in}
+\fi
+
+Er zijn andere mogelijke oorzaken dat niet alle bits juist overkomen. Welke van onderstaande redenen kan \textit{niet} de  reden zijn van gemiste
+
+\begin{choices}
+\choice Eve, die afluistert.
+\choice De detector die niet 100\% effici\"ent is.
+\correctchoice Een zwak signaal.
+\choice vuiltje in de glasvezelkabel
+\end{choices} 
+\question[1]
+\ifprintanswers
+Als je maar 1 foton hebt kun je niet spremen van een zwak signaal
+\else
+\fillwithlines{1in}
+\fi
+
+\question [1]
+Waar of niet waar: Na meting levert een qubit altijd een 0 of een 1
+\begin{oneparchoices}
+\correctchoice waar
+\choice onwaar
+\end{oneparchoices}
+
+
+\question[1]
+In het teleportatieprotocol meet de ontvanger (Bob) twee qubits
+\begin{oneparchoices}
+\choice waar
+\correctchoice onwaar
+\end{oneparchoices}
+
+In het teleportatieprotocol overschrijdt de  informatie-overdracht de lichtsnelheid (false)
+
+\question[1]
+Quantumparallelisme. Een uitbreiding van het aantal registers heeft een exponenti\"ele groei van de toestandsruimte ten gevolg. Dat is de krach van een quantumcomputer.
+\begin{parts}
+\part[1]Hoe groot is de toestandsruimten van een qc van 20 bits?
+
+\ifprintanswers
+$2^20= ong 1 miljoen$
+\else
+\fillwithlines{.5in}
+\fi
+
+\part[1]Als alle bits maximaal verstrengeld zijn, wat is dan de kans op iedere uitkomst?
+\ifprintanswers
+$2^{-20}$, een miljoenste. De uitkomsten worden homeopatisch verdunt al je geenalgoritme inbouwt om het goede antwoord te versterken. In het algoritme zit de kracht van een qc.
+\else
+\fillwithlines{.5in}
+\fi
+
+\begin{flushleft}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{T} & \ustick{\ket{\Psi}} & \qw     & \qw       & \targ     & \gate{H}   & \qw       \\
+\lstick{A} & \ustick{\ket{0}}    & \gate{H}& \targ     & \ctrl{-1} & \qw        & \qw  \\
+\lstick{B} & \ustick{\ket{0}}    & \qw     & \ctrl{-1} & \qw       & \qw        & \qw  \\
+\lstick{A} & \ustick{\ket{0}}    & \gate{H}& \targ     & \qw       & \qw        & \qw  \\
+\lstick{B} & \ustick{\ket{0}}    & \qw     & \ctrl{-1} & \qw       & \qw        & \qw 
+}
+\end{flushleft}
+
+\part[] Wat is de hoogste dimensie van de toestandsruimte van het bovenstaande circuit ?
+
+\ifprintanswers
+Het systeem bestaat weliswaar uit 5 qubits, maar er zijn hooguit 3 verstrengeld: $2^3=8$
+\else
+\fillwithlines{.5in}
+\fi
+
+\end{parts}
+
+\question[]
+Herhaalde meting vs Enkele meting, enkel en dubbelspleet exp. overeenkomst met procedure quantumcomputing...
+
+\section*{reeks kleine vragen uit quantum for the curious (Nielsen)}
+Q: write the following in ket notation\\
+$\begin{pmatrix}
+\sqrt{0.7}\\
+\sqrt{0.3}
+\end{pmatrix}
+$
+
+$\sqrt{0.7} \ket{0}+\sqrt{0.3}\ket{1}$
+
+
+Q:It is useful to think of the left to right of a quantum wire as a passage of ...
+\\
+A:time
+
+Q:What is the matrix representation of the X-gate\\
+A:
+$X \equiv \begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}
+$
+
+Q:How many computational basis states does a qubit have?\\
+A:2
+
+Q:How an you compute the length of
+$H\begin{Vmatrix}
+1\\
+3
+\end{Vmatrix}
+$
+without explicitely computing the product of the Hadamard gate and the vector?
+What is the length?\\
+
+A:Hadamard operator leaves the length unchanged. The length is $\sqrt{1^2+3^2}=\sqrt{10}$
+
+Q:Suppose we have a qubit in the state
+$$\frac{\ket{0}+\ket{1}}{\sqrt{2}}$$. What is the probabilitiy of a measurement in the in the computational basis will give the result 0? What is then its posterior state? 
+
+A:\SI{50}{\percent}, $\ket{0}$
+
+Q:What are three types of physical systemes that potentially can be used to store qubits?\\
+
+A:photons, electrons, atoms, doted diamonds
+
+Q:What do we call the two-dimensional vector space where the state of a qubit lives?\\
+A:State space
+
+Q:What is the inverse of a Hadamard gate?\\
+A:Hadamard gate
+
+Q:What does the Hadamard gate do to the state $\ket{0}$?\\
+A:$\ket{+}$
+
+Q:After we measure $\alpha\ket{0}+\beta\ket{1}$ in the computational base, is it still in the state  $\alpha\ket{0}+\beta\ket{1}$?\\
+A:No, it's posterior state is either  $\ket{0}$ ot  $\ket{1}$
+
+Q:How can the following circuit be simplified?
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+& \gate{H} & \gate{H} & \qw  \\
+}
+\end{center}
+A:
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+& \qw & \qw & \qw  \\
+}
+\end{center}
+
+Q: What is the result of the operator product XX?\\
+A:I
+
+Q:How many dimensions does the state vector of a qubit have?\\
+A:2
+
+Q:How can the following circuit be written?
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{\ket{\Psi}} & \gate{X} & \gate{H} & \qw  \\
+}
+\end{center}
+$HX\ket{\Psi}$ or $XH\ket{\Psi}$\\
+
+A:$HX\ket{\Psi}$
+
+Q:Is $\alpha\ket{0}+\beta\ket{1}$ the same as $\beta\ket{1} + \alpha\ket{0}$?Why?\\
+A:same, order does not matter in plus operator
+
+Q:How large is the matrix representing a single qubit gate?\\
+A:2x2
+
+Q:What is a quantum gate that can distinguish $\ket{+}$ and $\ket{-}$?\\
+A:H
+
+Q:Suppose we have a bit in the quantum state $\ket{1}$. What is the probability a measurement in the computational basis gives the result 0?  and 1?\\
+A:0, 1
+
+
+Q:A superposition of quantum states is the same as a .. of quntum states\\
+A: linear combination
+
+Q:What are thee Pauli matrices:\\
+A:XYZ (and I)
+
+
+Q:What is $X\ket{0}$\\
+A:$\ket{1}$
+
+Q:What does the normalisation condition for the quantum states mean for the probabilities for a measurement in the computational basis?\\
+A: They add up to 1
+
+Q:Suppose we measure $\ket{+}$ or $\ket{-}$. Are the probability distributions of the outcome the same or different for these qubits?\\
+A:The same
+
+Q:What is a geometric interpretation of U being a unitary operation?\\
+A:length preserving, e.g. rotation or reflection.
+
+Q:What is the second quantum gate Alice applies to her qubits in the teleportation protocol?
+A:A Hadamard gate to the first qubit i.e. the one that started as $\ket{\psi}$
+
+Q:Where does the term classical in the term 'classical bits' come from?
+
+A:classical physics
+
+Q:Suppose we have a quantum state $\sqrt{0.8}\ket{01}+\sqrt{.2}\ket{10}$ and we measure the first qubit in the computational basis. Supposing we get 0 as the outcome, what is the corresponding state of the second qubit?
+
+A:$\ket{1}$ with \SI{100}{\percent} certainty
+
+Q:What is the amplitude of the $\ket{1}$ state in the ket 
+$\sqrt{0.7}\ket{0}+\sqrt{0.3}\ket{1}$
+
+A:$\sqrt{0.3}$
+
+Q:What is a quantum circuit showing the X gate being applied to a single qubit?
+
+A:
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+& \gate{X} & \qw  \\
+}
+\end{center}
+
+Q:Suppose we have a quantum state $\sqrt{0.8}\ket{01}+\sqrt{.2}\ket{10}$ and measure the first qubit in the computational basos. Supposing we get one as an outcome, what is hte corresponding state of the second qubit?\\
+A:$\ket{0}$ with \SI{100}{\percent} certainty
+
+Q:How do the probabilities for the measurement outcomes in the teleportation protocol depend upon the amplitudes $\alpha$ an $\beta$ in the state $\alpha\ket{0}+\beta\ket{1}$ being teleported?\\
+A:They are independent. They do not dependent of $\alpha$ and $\beta$ at all.
+
+Q:We use the term ket interchangebly with the term\\
+A:(column) vector
+
+Q:Why can't quantum teleportation be used to transmit a quantumstate $\ket{\Psi}$ faster than light?\\
+A:To teleport $\ket{\psi}$ to Bob, Alice must send Bob two bits of classical information. The tranmission of classical information is limited by the speed of light.
+
+Q:How are the two computational basis states of a qubit usually written?\\
+A:$\ket{0}$ and $\ket{1}$
+
+Q:How does the X gate act on a general state of a qubit?\\
+A:Interchanges the coefficients
+
+Q:Why is it that systems which make good quantum wires are often hard to build quantum gates for?\\
+A:Systems which make good quantum wires interact weakly with other systems; to do a quantum gate we need to manipulate the qubit, and it is hard to manipulate a system which only weakly interacts with oter systems.
+
+Q:how many qubits are involved in a teleportation protocol?\\A:3
+
+Q:Why do we rather write $X\ket{0}$ rather than $X(\ket{0})$?\\
+A:It is a matrix operation on a vector rather than a function applied on an argument.
+
+Q:Why would a neurtrino make a good quantum wire?\\
+A:Neutrinos interact very weakly with other matter, which could make it very stable.
+
+Q;How many qubits are directly involved in Alices's part of the teleportation protocol?\\
+A:2
+
+Q:How many qubits are directly involved in Bob's part of the telepostation protocol?\\
+A:1
+
+Q:Why are quantum wires often hard to implement?\\
+A:Because qubits are fragile, and their state can easily be disturbed.
+
+Q:In the quantum teleportation protocol, what is the 2-bit state initially shared between Alice and Bob?\\
+A: $\frac{\ket{00}+\ket{11}}{\sqrt{2}}$
+
+Q:What is the quantum circuit notation for a quantum wire?\\
+A:\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+& \qw & \qw & \qw  \\
+}
+\end{center}
+
+Q:What do we call the two-dimenssional vector space where the state of a qubit lives?\\
+A:state space
+
+Q:What is the result of applying the X-gate to the quantum state $$\frac{\ket{0}-\ket{1}}{\sqrt{2}}$$
+
+A:$X\frac{\ket{0}-\ket{1}}{\sqrt{2}}= \frac{\ket{1}-\ket{0}}{\sqrt{2}}$
+
+Q:How do the probabilities for the measurement outcomes in the teleportation protocol depend upon the amplitudes $\alpha$ and $\beta$ in the state $\alpha\ket{0}+\beta\ket{1}$ being teleported?
+
+A:They are independent - they do not depend on those amplitudes at all.
+
+Q:What is the total quantum circuit that Alice applies in a teleportation protocol?
+
+A:\\
+\vspace{1cm}
+\Qcircuit @C=1em @R=2em {
+& \ctrl{1} & \gate{H}    & \gate{Z} & \cw \\
+& \targ    & \qw        & \gate{X}  & \cw\\
+}
+
+Q:We could rewrite the sequence:
+\hfill
+\Qcircuit @C=1em @R=2em {
+& \lstick{\ket{\Psi}} & \gate{X}    & \gate{H} & \cw \\
+}
+\hfill
+as..\\
+A: $HX\ket{\Psi}$
+
+Q:After a measurement, is a qubit in the state 
+$\alpha\ket{0}+\beta\ket{1}$
+ still in that state?
+
+A:No
+
+Q:Suppose we have a qubit in the state $\frac{\ket{0}+\ket{1}}{\sqrt{2}}$. What is the probability that a measurement in the computational basis will give the result 0? What is the posterior state if that outcome occurs?
+
+\SI{50}{\percent}, $\ket{0}$ 
+
+Q:Suppose we have the state $\ket{0}$. What is the probability a measurement in the computational base gives the result 0? What is the probability the measurement gives the result 1?
+
+A:\SI{100}{\percent}, 1
+
+Q:Suppose we have a qubit in the state $$\frac{\ket{0}+\ket{1}}{\sqrt{2}}$$. what is the probabilitty that a measurement in the computational basis will give the result 1? What is the posterior state if that outcome occurs?
+
+A:\SI{50}{\percent}, $\ket{1}$
+
+Q:Suppose we have the state $\ket{1}$. What is the probability a measurement in the computational base gives the result 0? What is the probability the measurement gives the result 1?
+
+A:0, 1
+
+Q:How do we denote a computational basis measurement in the circuit model?\\
+A:
+\begin{center}
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+&\qw &  \meter &\cw \\
+}
+\end{center}
+
+Q:Suppose we do computational basis measurements for either $\ket{+}$ or $\ket{+}$. Are the probability distributions for outcomes the same or different for these states?\\
+A:The same
+
+Q:Suppose you had a cdevice that could exactly determine the state of a qubit. How could such a device be used as part of a scheme to communicate infinite classical information, using a single qubit.
+
+A:The sender of the classical bits could encode the (infinite string of) bits in the binary expansion of the real part of the amplitude $\alpha$ in the state 
+$\alpha\ket{0}+\beta\ket{1}$.
+The receiver of the qubit could figure out $\alpha$ and thus the entire string of bits.
+
+Q:What does the normalization condition for quantum states mean about the probabilities for a measurement in the computational basis?
+
+A:Their probabilities for measurement outcomes sum up to 1.
+
+
+Q:What is a quantum circuit with which we can distinguish the states $\ket{+}$ and $\ket{-}$?
+
+H followed by measurement
+\Qcircuit @C=1em @R=2em {
+ & \gate{H}    & \meter & \cw \\
+}
+
+
+\subsubsection*{General single-qubit gates}
+
+
+$U^{\dagger} \equiv (U^T)^* $
+
+$\begin{pmatrix}
+a&b\\
+c&d
+\end{pmatrix}^*
+=
+\begin{pmatrix}
+a^*&b^*\\
+c^*&d^*
+\end{pmatrix}
+$
+
+
+$Z \equiv \begin{pmatrix}
+1&0\\
+0&-1
+\end{pmatrix}
+$
+
+ASo Z leaves $\ket{0}$ unchanged and maps $\ket{1}$ to $-\ket{1}$
+Show that X, H, I, Z are unitary
+
+
+
+we get into complex numbers, skip for course.
+
+$Y \equiv \begin{pmatrix}
+0&-i\\
+i&0
+\end{pmatrix}
+$
+
+rotation
+
+$Y \equiv \begin{pmatrix}
+cos \theta & -sin \theta\\
+sin \theta & cos \theta
+\end{pmatrix}
+$
+
+
+Q:A single qubit is represented as a 2x2 ... matrix\\
+A:Unitary
+
+Q:what is $H^\dagger$?
+A:$H$
+
+Q:What is the algebraic condition defining unitarity for a matrix U?\\
+A: $UU^\dagger=I$
+
+Q:How large is the matrix repersenting a single qubit-state?\\
+A:2x2
+
+Q:What are three common names for the dagger operation?\\
+A:
+adjoint operation,
+dagger operation,
+transpose complex conjugate,
+Hermitian conjugate operation
+
+Q:What notation we use to denote Pauli matrices?\\
+A:I, X, H, Z
+
+Q:What is the element in the bottom left corner of a Y-gate?
+A:
+
+\subsubsection*{What does it mean if a matrix is unitary?}
+Unitary operators preserve the length of their inputs. (cf. rotations, reflections).
+
+This means that once normalised, as quantum gates do not change length, the outcome is normalised.
+
+Unitary matrices are the only matrices that preserve length, they are the exact class that preserve length.
+
+Holds also for N dimensions
+
+Proof ...
+
+how can you compute the legtht of 
+
+
+
+$H\begin{Vmatrix}
+3 \\
+10 
+\end{Vmatrix}
+$
+
+$\sqrt{10}$
+ 
+important 
+ $\|U\ket{\psi}\| = \|\ket{\psi}\|$
+ 
+\subsubsection*{Why are unitaries the only matrices which preserve length?}
+ 
+ 
+$$(M\ket{\psi})^\dagger = \bra{\psi}M^\dagger$$ 
+
+
+$$\|M\ket{\psi}\|^2 = \bra{\psi}M^\dagger M \ket{\psi}$$
+
+
+$M\ket{e_j}$ is the kth column of M and that $\bra{e_j}M\ket{e_k}$ is the jkth element of M.
+
+
+
+
+
+\subsubsection*{summary of teleportation protocol}
+
+Q:What is the starting state of for the teleportation protocol?
+A:$\ket{000}$
+
+\begin{enumerate}
+\item Initial state: Alice has a qubit $\ket{\psi}$. Alice and Bob each prepare a bit in the $\ket{0}$ state, entangle these through a H and CNOT gate and each take one qubit of this now entangled pair.
+\item Alice apllies a CNOT between $\ket{\psi}$ and hetubit, applies a H-gate to the first bit of the outcome. She measures both her qubits in the computational basis getting results z=0 or 1 and x=0 or 1. The probability of each othe ooutcomes (00, 01, 10, 11) is $\tfrac{1}{4}$. 
+\item Classical communication: Alice broadasts both classical bits z and x
+\item Bob recovers the quantum state of $\ket{\psi}$. Bob applies $Z^z$ and $X^x$ and recovers $\ket{\psi}$.
+\end{enumerate}
+
+Alice no longer possesses $\ket{\psi}$. It is teleprted not copied!.
+
+review questions
+
+What is the first gate Alice applies to her qubits in the teleportation protocol
+
+CNOT with $\ket{\psi}$ as the control and the other as target
+
+How many classical bits Alice has to send to Bob in the teleportation protocol?
+
+2
+
+To recover the teleported state Bob applies combinations of the Pauli .. and .. matrices
+
+X and Z
+
+
+Dit circuit moet je eens uitschrijven.
+\begin{center}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{\ket{+}}  & \qw  & \ctrl{1}  & \qw    & \qw  & \rstick{\ket{-}}\\
+\lstick{\ket{-}}  & \qw  & \targ     & \qw    & \qw  & \rstick{\ket{-}}
+}
+\end{center}
+
+$$CNOT\ket{C,T}=CNOT\ket{+,-}$$
+
+$CNOT = 
+\begin{pmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1\\
+0&0&1&0\\
+\end{pmatrix}
+$
+,
+$\ket{+}=
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{1}{\sqrt{2}}
+\end{pmatrix}
+$
+,
+$\ket{-}=
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{-1}{\sqrt{2}}
+\end{pmatrix}
+$
+
+
+$
+CNOT\ket{+-}=CNOT
+\begin{pmatrix}
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{1}{\sqrt{2}}
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{-1}{\sqrt{2}}
+\end{pmatrix}
+\end{pmatrix}
+=
+\frac{1}{2}
+\begin{pmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&0&1\\
+0&0&1&0\\
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+-1\\
+1\\
+-1
+\end{pmatrix}
+=
+\frac{1}{2}
+\begin{pmatrix}
+1\\
+-1\\
+-1\\
+1
+\end{pmatrix}
+=
+\frac{1}{2}
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}
+=
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{-1}{\sqrt{2}}
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+\tfrac{1}{\sqrt{2}}\\
+\tfrac{-1}{\sqrt{2}}
+\end{pmatrix}
+=
+\ket{-,-}
+$
+
+NB in Quantum inspire levert dit als antwoord de hele computational basis op met gelijke kansen. Ik kan daar geen $\ket{-}$ terugvinden
+
+Nou dat is wat! In de Hadamard basis (hoe heet deze pendant van de computational basis) is de toestand van de controlebit niet behouden!
+
+Nu is de inverse van een CNOT natuurlijk de CNOT. Wat betekent dat voor het bovenstaannde circuit?
+[is ook van rechts naar links te lezen]
+
+\subsection*{quantum country, QC for the very curious part 3}
+Een qc programma ziet er altijd zo uit:
+\begin{itemize}
+\item Start in een gedefinieerde basis meestal computational basis (cb), z-richting.
+\item pas een aantal CNOT en single qubit operatoren toe
+\item eindig met een meting in de cb
+\end{itemize}
+
+Q:What is the initital step of a quantum computation?
+A:preparation (most often in the cb)
+
+Q:What is the last step in a qcomputation?
+A: ameasurement in the cb
+
+Q: is the product of two unitary matrices also unitary
+A: Yes (apply them one by one and you'll see)
+
+Q: Suppose I introduceed a gate $e^{i\theta}I$. Does it affect the outcome of a circuit?
+A: N, thre resulting phase shift does not influece the amplitudes of the coefficients of the state vectors. The amplitues determine the measurement.
+
+Q: the X-operation and the -X operation are the same except a ... factor.
+A: global phase factor
+
+
+
+A toffoli gate can be be used to model a AND gate.
+\begin{center}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{\ket{x}}  & \qw  & \ctrl{2}  & \qw    & \qw  & \rstick{\ket{x}}\\
+\lstick{\ket{y}}  & \qw  & \ctrl{1}  & \qw    & \qw  & \rstick{\ket{y}}\\
+\lstick{\ket{z}}  & \qw  & \targ     & \qw    & \qw  & \rstick{\ket{z\oplus (x \wedge y)}}
+}
+\end{center}
+
+exercise: build a NAND gate. A NAND is the nagteion of an AND gate
+
+Solution:
+\begin{center}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{\ket{x}}  & \qw & \gate{X}  & \ctrl{2}  & \qw    & \qw  & \rstick{\ket{x}}\\
+\lstick{\ket{y}}  & \qw & \gate{X}  & \ctrl{1}  & \qw    & \qw  & \rstick{\ket{y}}\\
+\lstick{\ket{z}}  & \qw & \qw & \targ     & \qw    & \qw  & \rstick{\ket{z \oplus (x \wedge y)}}
+}
+\end{center}
+
+Er is nog een simpeler oplossing:
+
+Solution:
+\begin{center}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{\ket{x}}  & \qw  & \ctrl{2}  & \qw    & \qw  & \rstick{\ket{x}}\\
+\lstick{\ket{y}}  & \qw  & \ctrl{1}  & \qw    & \qw  & \rstick{\ket{y}}\\
+\lstick{\ket{1}}  & \qw  & \targ     & \qw    & \qw  & \rstick{\ket{1 \oplus (x \wedge y)}}
+}
+\end{center}
+
+
+Q:What is the problem of storing athe pmplitudes of a many quantum system in a classical computer?
+A:The number of amplitudes increases quickly with teh amount of qubits, 
+
+Q: what numbertheoretical problem quantum computers appear to be good in solving?
+A: factoring mumbers into prime factors.
+
+Q:What is the name of the quantum algorithm to find primes factors of a number?
+A" Shor's algorhythm
+
+Q: Can quantum computers simulate the standard model or quantum gravity?
+A: unknown (2x)
+
+Q:There were successses in simulation QFT by ..
+A; John proescill and colleagues
+
+
+
+Excercise:show that the toffoli gate is reversible
+Solution: The x, y give no problem, they are just copied ( in the cb). If the z is unchanged, its reverse will not change it eiter, since y and y are unchanged. If it it is chaged, the repetitive application will change it back. resulting in the I-operator in all cases where the toffoli has been applied twice.
+In matrix operation the problem is only in the lower richt corner.squaring this matrix yields identity.
+
+\subsection*{quantum country, how quantum teleportation works}
+
+
+Q:What quantum circuit prepares a 
+$$\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$
+ state at the start of a teleportation?
+
+A: (0,0) H CNOT
+
+Q:If Bob prepares the state
+$$\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$, shared at the start of the teleportation protocol, why does it not matter which qubit he sends to Alice?
+
+A:Because the states are symmetrical.
+
+ 
+Q:Is it possible to use quantum teleportation to transmit information faster than light?
+
+A:No
+
+
+\subsection*{How quantum teleprotation works}
+\subsubsection*{The teleprotation protocol}
+\subsubsection*{How to remember the teleprotation protocol}
+\subsubsection*{Does teleportation protocol allow faster than light communication?}
+\subsubsection*{How partial measurements work}
+
+
+Q:What quantum circuit prepares a 
+$$\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$
+ state at the start of a teleportation?
+
+A: (0,0) H CNOT
+ 
+If Bob prepares the state
+$$\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$, shared at the start of the teleportation protocol, why does it not matter which qubit he sends to Alice?
+A:Because the states are symmetrical.
+ 
+Q:Is it possible to use quantum teleportation to transmit information faster than light?
+
+A:No
+
+
+
+
+
+
+\subsubsection*{How partial measurements work}
+
+Suppose we measure the first two qubits of a thre bit system in the computational baiss. Wat are the possible states of the outcome?
+
+$\ket{00}$,$\ket{10}$,$\ket{01}$,$\ket{11}$
+
+
+Q:Suppose we do a measurement in teh cb of the first two bits of a three pit system. Wat are the possible outcomes?
+
+A:00, 01, 10, 11
+%A:$\ket{00}$,$\ket{10}$,$\ket{01}$,$\ket{11}$
+
+
+Q:Suppose we have a quantum state 
+$\sqrt{0.8}\ket{0}+\sqrt{0.2}\ket{1}$
+and measure the first qubit in the computational baiss. What is the probability the measurement gives 1 as an outcome
+
+A:0.2
+
+Q:Suppose we have a quantum state 
+$\sqrt{0.8}\ket{0}+\sqrt{0.2}\ket{1}$
+and measure the first qubit in the computational baiss. What is the probability the measurement gives 0 as an outcome
+
+A:0.8
+
+
+
+
+\subsubsection*{Verifying that the teleportaion protocol works}
+
+$$(\alpha\ket{0}+\beta\ket{1})\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$
+
+expand:
+
+
+$$\frac{\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111}}{\sqrt{2}}$$
+
+Apply CNOT to the first two qubits:
+
+$$\frac{\alpha\ket{000}+\alpha\ket{011}+\beta\ket{110}+\beta\ket{101}}{\sqrt{2}}$$
+
+
+Now we apply a Hadamard to the first qubit
+
+$$\frac{\alpha\ket{000}+\alpha\ket{100}+
+\alpha\ket{011}+\alpha\ket{111}+
+ \beta\ket{010}- \beta\ket{110}+
+ \beta\ket{001}- \beta\ket{101}}
+{2}$$
+
+$$\frac{
+\ket{00}(\alpha\ket{0}+\beta\ket{1})+
+\ket{01}(\alpha\ket{1}+\beta\ket{0})+
+\ket{10}(\alpha\ket{0}-\beta\ket{1})+
+\ket{11}(\alpha\ket{1}-\beta\ket{0})+
+}{2}$$
+
+When alice meeasures in the computational base, the outcome is $\ket{00}$ with probability given by $\frac{\alpha^2+\beta^2}{4}=\tfrac{1}{4}$
+
+The resulting state for Bob is $\alpha\ket{0}+\beta\ket{1}$
+
+The results for the other outcomes of the measurements in Alice's computational basis are:
+
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{l|l|l}
+\cline{1-3}
+Outcome   & Probability   & Bob's state   \\ \cline{1-3}
+ 00   &  $\tfrac{1}{4}$    & $\alpha\ket{0}+\beta\ket{1}= \ket{\psi}$     \\ %\cline{1-3}
+ 01   &  $\tfrac{1}{4}$    & $\alpha\ket{1}+\beta\ket{0}= X\ket{\psi}$     \\% \cline{1-3}
+ 10   &  $\tfrac{1}{4}$    & $\alpha\ket{0}-\beta\ket{1}= Z\ket{\psi}$     \\ %\cline{1-3}
+ 11   &  $\tfrac{1}{4}$    & $\alpha\ket{1}-\beta\ket{0}= XZ\ket{\psi}$     \\% \cline{1-3}
+\end{tabular}
+\caption{metingen}
+\label{metingen}
+\end{table}
+
+
+
+Now Bob's state is very similar to the original $\ket{\psi}$.
+He is only a few Pauli gates off. He has to do either nothing, apply X, apply Z or apply ZX respectively.
+The protocol he has apply is encoded in the calssical bits.
+
+
+Here a copy of the circuit
+\begin{center}  %DE manier om figuur te ontfloaten. Gebruik package caption in de preambule
+\leavevmode
+\Qcircuit @C=1em @R=2em {
+\lstick{T} & \ustick{\ket{\Psi}} & \qw     & \qw       & \targ     & \gate{H}   & \qw      & \meter \cwx[2] \\
+\lstick{A} & \ustick{\ket{0}}    & \gate{H}& \targ     & \ctrl{-1} & \qw        & \meter \cwx[1]  \\
+\lstick{B} & \ustick{\ket{0}}    & \qw     & \ctrl{-1} & \qw       & \qw        & \gate{X} & \gate{Z} & \qw & \ustick{\ket{\Psi}}
+}
+\end{center}
+
+
+Note1: The calssical bits reveal nothing about state $\ket{\psi}$. 
+Note2: If Eve steals the classical ibits she cannot retrieve $\ket{\psi}$.
+
+The measurements are saying how the states are changed to $\ket{\psi}$, $\ket{X \psi}$, $\ket{Z \psi}$, and $XZ \ket{\psi}$. without giving any information on $\ket{\psi}$!
+
+Note3: It does not matter where bBob is in this story. Alice may broadcast the classical bits over the internet.
+
+What are the probabilities for the outcomes of the teleportation protocol?
+
+$\tfrac{1}{4}$ for all outcomes
+
+Suppose Alice doesn't know where bob is. How can she transmit the two classical bits so Bob can complete the teleortation protocol.
+
+\subsubsection*{Summary of the teleportation protocol}
+staat hierboven 
+
+Q:what is the starting state for a teleportation protocol?
+
+A:$$\ket{\\psi}\frac{\ket{00}+\ket{11}}{\sqrt{2}}$$
+
+Q:How many classical bits does Alice send to Bob in the teleportation protocol?
+
+A:2
+
+Q:To recover the teleportated state, Bob applies Pauli gate .. and ..
+
+A: X, Z
+
+Q:What is the first qate Alice applies to her qubits in the teleportation protocol?
+
+A:CNOT with $\ket{\Psi}$ as control and one of the the entangled qubits as target 
+
+\question[1]
+Welke poort past alice als eerste toe in het teleportatieprotocol?
+
+\ifprintanswers
+\textbf{antw:
+CNOT met $\ket{\Psi}$ als control en een van de verstrengelde qubits als doel 
+}
+\else
+\fillwithlines{.5in}
+\fi
+
+
+\end{questions}
+
+
+\end{document}

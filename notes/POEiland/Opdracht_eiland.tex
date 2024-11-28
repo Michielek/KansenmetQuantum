@@ -1,0 +1,121 @@
+
+% NLT module Quantum Computing documenten Anne-Marije Zwerver
+\documentclass[10pt, a4paper]{article}
+%
+%
+% --------------------------------- Preamble ---------------------------------
+\usepackage[dutch]{babel}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\graphicspath{{./pictures/}}
+\usepackage{titlesec}
+\usepackage{epstopdf}
+\usepackage{array}
+\usepackage{fullpage}
+%\usepackage{subfigure} %% enable subfigures %%
+\usepackage{fancyhdr} %% page headers including two decorative lines on both the header and the footer, the latter has 0pt thickness and hence is not visible %%
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{amsmath} %% improve mathematics handling %%
+\usepackage{colortbl} %% enable better looking, coloured tables
+\usepackage{xcolor} %% ensure colors can be loaded %%
+\usepackage{multirow,colortbl}
+\usepackage{multicol}
+\usepackage{parskip} %% set a new paragraph to start after a skipped line instead of an indent %%
+\usepackage{longtable} %% make multipage tables possible %%
+\usepackage{tikz} %% load tikz for a number of graphical enhancements and define the new environments %%
+\usetikzlibrary{arrows}
+\usepackage{float}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage[font=footnotesize, labelfont=bf, tableposition=top, singlelinecheck=false]{caption}
+\usepackage{blindtext}
+\usepackage{braket}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+%
+\begin{document}
+
+\widowpenalty=10000 %remove widow and orphans
+\clubpenalty=10000 %
+
+
+\pagenumbering{Roman}
+
+\clearpage
+\section*{Alleen op een eiland}
+In deze opdracht ga je bekijken hoe je, door gebruik te maken van qubits, boodschappen kunt communiceren met minder bits dan je met klassieke communicatie nodig zou hebben, dit heet \emph{superdense coding}. De opdracht bestaat uit drie delen. Eerst zullemn we superdense coding bekijken en is er een aantal opgaven. Daarna ga je zelf een klein quantumcommunicatiesysteem ontwerpen en programmeer je dit systeem in Quantum Inspire. Aan het eind van de opdracht, presenteer je je bevindingen.
+
+\subsection*{Communiceren op een eiland}
+Alice woont op een, verder onbewoond, eiland. Ze heeft met niemand contact, behalve met Bob, die op het vasteland woont en die ze berichten kan sturen als er dingen op het eiland misgaan. In eerste instantie kan Alice alleen klassieke bits met Bob uitwisselen. Ze hebben de volgende codering afgesproken:\\
+\\
+11 - Er is geen voedsel op het eiland\\
+10 - Er is droogte/geen water op het eiland\\
+01 - Nieuw materiaal voor huis nodig\\
+00 - SOS!\\
+\\
+Alice verstuurt de bits altijd \'{e}\'{e}n voor \'{e}\'{e}n naar Bob; eerst het bit dat achteraan staat en dan het voorste bit. Ze begint altijd met beide bits in 0 (00). Wanneer ze nieuw materiaal nodig heeft voor haar huisje, zal ze dus haar achterste bit eerst moeten flippen alvorens haar boodschap naar Bob te sturen. En als Alice voedsel nodig heeft, moet ze beide bits flippen. Alleen als Bob een volledige code ontvangt, kan hij Alice helpen. Immers, als Bob enkel een 0 ontvangt en het tweede bit ontbreekt, kan dat ofwel 'SOS', ofwel 'water nodig' betekenen. Om een boodschap over te laten komen, \emph{moet} Alice dus twee bits versturen.
+
+Dan hoort Bob over qubits en verstrengeling van Julia. Alice en Bob besluiten daartoe om over te stappen op quantumcommunicatie. Om dit mogelijk te maken, delen ze twee volledig verstrengelde qubits in een van de Bell-toestanden. De Bell-toestanden zijn:
+
+G: $\alpha\ket{00}+\beta\ket{11}$\\
+H: $\alpha\ket{00}-\beta\ket{11}$\\
+J: $\alpha\ket{10}+\beta\ket{01}$\\
+K: $\alpha\ket{10}-\beta\ket{01}$\\
+
+Alice en Bob delen de eerste Bell toestand G: $\frac{\ket{\textcolor{red}{0}\textcolor{blue}{0}}+\ket{\textcolor{red}{1}\textcolor{blue}{1}}}{\sqrt{2}}$. Alice krijgt de eerste (rode) qubit, Bob houdt de tweede (blauwe) qubit. Door poorten op haar qubit toe te passen, kan Alice van toestand G in een van de andere Bell-toestanden komen. Als Alice bijvoorbeeld een X-poort op haar qubit toepast, delen Bob en zij toestand J, zonder dat Bob iets met zijn qubit heeft gedaan. En om toestand H te krijgen, hoeft Alice alleen een Z-poort op haar qubit toe te passen. Alice en Bob zouden nu hun vier verschillende boodschappen aan de Bell-toestanden kunnen hangen (maakt Alice de toestand G, dan betekent dat 'SOS', etc). Door haar qubit te roteren, kan Alice elke Bell-toestand maken die ze wil. Vervolgens stuurt Alice haar qubit naar Bob. Bob meet het verstrengelde paar en weet welke boodschap Alice wilde overbrengen. Het bijzondere hieraan is dat Alice in dit geval slechts \'{e}\'{e}n qubit hoeft te versturen om dezelfde boodschap over te brengen waarvoor ze met klassieke communicatie \emph{twee} bits nodig had. Door gebruik te maken van superdense coding is dus sprake van een kleine quantum speedup!
+
+\subsection*{Opgaven}
+\begin{enumerate}[label=(\alph*)]
+\item Laat zien dat toestand G inderdaad verstrengeld is.
+\item Teken het schema om van twee losse qubits in de toestand $\ket{0}$ in verstrengelde toestand (G) te komen.
+\item Welke quantumpoort(en) moet Alice op haar qubit toepassen om de toestand K te krijgen?
+\item Waarom is er sprake van een quantum speedup?
+\item Zou dit schema ook werken als Alice en Bob twee qubits hadden die niet verstrengeld waren? Waarom wel/niet?
+\item In het teleportatieprotocol van hoofdstuk drie heb je gezien dat er een klassiek kanaal nodig is om een quantumtoestand (quantumboodschap) over te brengen. Wat voor kanaal (klassiek/quantum) wordt er bij superdense coding gebruikt en wat voor boodschap (klassiek/quantum)?
+\item Bob zou de qubits kunnen meten in een speciale Bell-basis, maar hij besluit de qubits te meten in de $\ket{0}$/$\ket{1}$-basis. Hiertoe moet hij de verstrengelde toestand terugbrengen tot twee losse qubits. Het protocol om dit te doen is precies tegenovergesteld aan het protocol om twee qubits te verstrengelen. Teken het schema en laat zien dat Bob op deze manier inderdaad de qubits kan decoderen en de boodschap kan ontcijferen. Welke boodschap hoort dus bij welke Bell-toestand?
+\end{enumerate}
+
+\subsection*{Uitgebreidere communicatie}
+Alice vindt haar communicatiemogelijkheden met Bob maar gelimiteerd. Ze wil graag meer boodschappen kunnen overbrengen. Ze stelt daarom aan Bob voor om drie verstrengelde qubits te delen (dit heeft een GHZ toestand):\\
+
+M: $\alpha\ket{000}+\beta\ket{111}$\\
+
+Hier kan Alice 8 boodschappen mee vesturen ($2^3=8$). Bedenk nu zelf een schema waarbij Alice deze acht boodschappen kan versturen. Denk hierbij aan het volgende:
+\begin{itemize}
+\item Schrijf de 8 GHZ toestanden uit gemaakt kunnen worden.
+\item Teken het schema om drie qubits die beginnen in de toestand $\ket{0}$ in de GHZ-toestand $M$ te krijgen.
+\item Teken het schema om drie qubits die beginnen in de toestand $\ket{0}$ in een willekeurige andere GHZ-toestand te krijgen.
+\item Hoeveel van deze GHZ-toestanden kan Alice maken als ze zelf de eerste qubit heeft en Bob de laatste twee? 
+\item Hoeveel van deze GHZ-toestanden kan Alice maken als ze zelf de eerste twee qubits heeft en Bob de laatste?
+\item Als Alice zelf twee qubits heeft, welke poorten zij dan toepassen op toestand M om naar de andere GHZ toestanden te komen?
+\item Beschrijf hoe het protocol werkt als Alice twee qubits heeft en Bob \'{e}\'{e}n. Teken het schema, inclusief het maken van de GHZ-toestand en het decoderen en uitlezen ervan door Bob.
+\end{itemize}
+
+\subsection*{Superdense coderen}
+We gaan nu kijken of alle voorspellingen kloppen door het protocol te bouwen op Quantum Inspire. Open hiertoe Quantum Inspire en voer de volgende opdrachten uit:
+
+\begin{itemize}
+\item Bouw het protocol waarbij Alice en Bob een Bell-toestand delen (je kunt hiervoor zelf kiezen welke van de twee quantumchips je gebruikt). Bouw het hele protocol, begin met twee qubits in $\ket{0}$, maak hiervan een verstrengeld paar, verzin welke boodschap je wilt versturen, voer Alice's handelingen uit en decodeer de toestand alvorens je deze meet. Doe dit voor alle vier de boodschappen. Zijn de uitkomsten zoals je verwachtte?
+
+\item Bouw het protocol waarbij Alice en Bob een GHZ-toestand delen, waarbij Alice begint met 2 qubits en Bob met 1 qubit, je kunt dus 8 boodschapen versturen (je moet hiervoor de quantumchip met 5 qubits gebruiken). Bouw het hele protocol; verstrengel de drie qubits, codeer een boodschap, decodeer de boodschap en meet de qubits. Doe dit voor alle acht de boodschappen. Zijn de uitkomsten zoals je verwachtte?
+
+\item Bouw een protocol waarbij Alice en Bob twee Bell-toestanden delen. Van beide toestanden heeft Alice de eerste qubit en Bob het tweede qubit (je moet hiervoor de quantumchip met 5 qubits gebruiken). Bouw opnieuw het hele protocol, van het verstrengelen van beide paren en het coderen van de boodschap tot het decoderen van de boodschap en het meten van de qubits. Hoeveel boodschappen kan Alice nu versturen en hoeveel qubits heeft ze naar Bob gestuurd?
+
+\item Vind je het effici\"{e}nter als Alice en Bob een GHZ-toestand delen, of twee verstrengelde paren?
+\end{itemize}
+
+
+
+\clearpage
+
+
+
+
+
+
+\end{document}
