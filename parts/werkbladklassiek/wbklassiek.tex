@@ -1,0 +1,411 @@
+\documentclass[../../main.tex]{subfiles}
+\begin{document}
+\onlyinsubfile{
+\setcounter{chapter}{0}
+}
+\notinsubfile{}
+\section{Klassieke bits}\label{sec:wbklassiek}
+
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}naam:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}klas:\hfill\vspace{1cm}
+\end{minipage}
+}}
+\marginpar{\hfill\fbox{
+\begin{minipage}[t]
+{0.9\marginparwidth}datum:\hfill\vspace{1cm}
+\end{minipage}
+}}
+Informatie verwerk je met logische poorten. Enkele zijn hieronder weergegeven met hun waarheidstabel:
+
+\begin{center}
+\leavevmode
+\begin{figure}[h]
+\begin{minipage}[b]{.22\textwidth}
+\begin{center}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_0$};
+    \node (x1) at (0,-0.5) {$I_1$};
+    \node at (1,-1) {OF-poort};
+    \node[ or gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+%    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (Or1.output) -- ([xshift=0.125cm]Or1.output) node[right] {$O$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}%
+\hspace{0.25cm}
+\begin{minipage}[b]{.22\textwidth}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+$I_1$ & $I_2$ & $O$ \\\hline
+0    & 0  & 0 \\\hline
+0    & 1  & 1 \\\hline
+1    & 0  & 1 \\\hline
+1    & 1  & 1 \\ \hline
+
+\end{tabular}
+}
+\end{minipage}
+\begin{minipage}[b]{.22\textwidth}
+\begin{center}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_0$};
+    \node at (1,-1) {NOT-poort};
+    \node[ not gate US, draw] at ($(x0)+(1,0)$) (Not2) {};    \draw (x0) -- (Not2);
+    \draw (Not2.output) -- ([xshift=0.125cm]Not2.output) node[right] {$O$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}%
+\begin{minipage}[b]{.22\textwidth}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+$I_0$ & $O$ \\\hline
+0  & 1 \\\hline
+1  & 0 \\\hline
+\end{tabular}
+}
+\end{minipage}
+\begin{minipage}[b]{.22\textwidth}
+\begin{center}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_0$};
+    \node (x1) at (0,-0.5) {$I_1$};
+    \node at (1,-1) {EN-poort};
+    \node[ and gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+%    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (Or1.output) -- ([xshift=0.125cm]Or1.output) node[right] {$O$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}%
+\hspace{0.25cm}
+\begin{minipage}[b]{.22\textwidth}
+{\scriptsize
+\begin{tabular}{|l|l|l|}
+\hline
+$I_1$ & $I_2$ & $O$ \\\hline
+0    & 0  & 0 \\\hline
+0    & 1  & 0 \\\hline
+1    & 0  & 0 \\\hline
+1    & 1  & 1 \\ \hline
+
+\end{tabular}
+}
+\end{minipage}
+\begin{minipage}[b]{.22\textwidth}
+\begin{center}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_1$};
+    \node at (1,-1) {FAN-out};
+`    \node (x1) at (1,0) {};
+    \node (x2) at (1.5,0.5) {$O_1$};
+    \node (x3) at (1.5,-0.5) {$O_2$};
+    \node (x4) at (1,0.5) {};
+    \node (x5) at (1,-0.5) {};
+    \draw (x0.center) -- (x1.center)node[branch] {} |- (x4.center) -- (x2);
+    \draw (x1.center) -- (x5.center) -- (x3);
+%    \draw (x4) -- (x5);
+%    \draw ([xshift=0cm]x1) node[branch] {};
+%    \draw ([xshift=0cm]x1) node[branch] {} |- (x3);
+    %([xshift=0.25cm]Or1.output) |- (And3.input 1);
+\end{tikzpicture}
+\end{center}
+\end{minipage}%
+\begin{minipage}[b]{.22\textwidth}
+{\scriptsize
+\begin{tabular}{|l|l|l|l|}
+\hline
+$I_0$ & $O_1$ & $O_2$ \\\hline
+0  & 0& 0 \\\hline
+1  & 1& 1 \\\hline
+\end{tabular}
+}
+\end{minipage}
+\end{figure}
+ \captionof{figure}{logische poorten en fan-out. 
+\label{fig:logischepoorten}}
+\end{center}
+
+De fan-out wordt doorgaans niet expliciet vermeld. In feite gaat het hier om het kopi\"eren van een bit. Hier ligt een belangrijk verschil ligt tussen klassieke en quantumcomputers. Bij quantumcomputing is kopi\"eren niet mogelijk. De fan-out maakt het mogelijk ingewikkelde uitdrukkingen maken door poorten te verbinden. Een simpele uitbreiding zie je in figuur~\ref{fig:tweepoorten}. 
+
+\begin{flushleft}
+\begin{minipage}{.3\textwidth}
+\begin{flushleft}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$A$};
+    \node (x1) at (0,-0.5) {$B$};
+    \node[ or gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (Or1.output) -- (Not2.input) node[above left] {$T$};
+    \draw (Not2.output) -- ([xshift=0.125cm]Not2.output) node[right] {$O$};
+\end{tikzpicture}
+\end{flushleft}
+\end{minipage}%
+\hfill
+\begin{minipage}{.25\textwidth}
+\scriptsize{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+$A$ & $B$ & $T$ & $O$ \\ \hline
+0     & 0     & 0 & 1 \\ \hline
+0     & 1     & 1 & 0 \\ \hline
+1     & 0     & 1 & 0 \\ \hline
+1     & 1     & 1 & 0 \\ \hline
+\end{tabular}
+}
+\end{minipage}
+\hfill
+\begin{minipage}{.35\textwidth}
+\captionof{figure}{Een OF-poort en een NOT-poort levert een NEN (niet-en) poort. In de notatie geeft een klein bolletje een NOT poort aan.\label{fig:tweepoorten}}
+\end{minipage}
+\end{flushleft}
+
+Als het ingewikkeld wordt kun je voor tussenstappen een waarheidstabel opzetten. Zo is het resultaat van de OF-poort in stap $\mathrm{T}$ weergegeven. Op $\mathrm{T}$ is een NOT toegepast. Het resultaat is in kolom $\mathrm{O}$ weergegeven.
+
+De vier getekende poorten in figuur~\ref{fig:logischepoorten} vormen een \hrefqr{https://www.electronics-tutorials.ws/logic/universal-gates.html}{universele set}. Dat wil zeggen dat alle andere denkbare logische uitdrukkingen gesimuleerd kunnen worden met behulp van deze vier poorten. 
+
+\paragraph{algebra}In een algebra\"ische notatie schrijven we '$\cdot$' voor EN, en '$+$' voor OF. De NOT operatie geef je aan met een streep boven het deel van de uitdrukking dat ontkent moet worden. 
+
+Er geldt:
+
+\[ \overline{{A} \cdot {B}} = \overline{A} + \overline{B}\]
+en
+\[ \overline{{A} + {B}} = \overline{A} \cdot \overline{B}\]
+
+Deze uitdrukkingen staan bekend als de stellingen van DeMorgan. Aan de linkerkant van de eerste uitdrukking staat een uitdrukking voor een NEN-poort. Met NOT poorten kunnen we hiermee OF en EN poorten in elkaar overzetten. 
+\medskip
+%\begin{opdracht}
+\begin{enumerate}
+\item Controleer de eerste stelling van DeMorgan met een waarheidstabel en teken hiervan een schema.
+\end{enumerate}
+%\end{opdracht}
+\begin{antwoord}
+\scriptsize{%
+\begin{tabular}{|l|l|l||l|}
+%\hline
+$A$ & $B$ & $\overline{A \cdot b}$ & $\overline{A} + \overline{B} $ \\ \hline
+0     & 0     & 1 & 1 \\ \hline
+0     & 1     & 1 & 1 \\ \hline
+1     & 0     & 1 & 1 \\ \hline
+1     & 1     & 0 & 1 \\ \hline
+\end{tabular}
+}
+\end{antwoord}
+\marginpar{\vspace{-4cm}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$A$};
+    \node (x1) at (0,-0.5) {$B$};
+%    \node at (1,-1) {NEN-poort};
+    \node[ nand gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+%    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (Or1.output) -- ([xshift=0.125cm]Or1.output) node[right] {$\overline{A \cdot B}$};
+\end{tikzpicture}
+
+\captionof{figure}{Een NEN-poort is samentrekking van een EN en een NOT poort.\label{fig:NENgate}}
+}
+
+We kunnen een complete set maken met alleen NEN-poorten (of alleen NOF-poorten). Omdat we maar \'e\'en poort gebruiken heet deze set een minimale universele set. Kun je een reden bedenken waarom een chipfabrikant slechts \'e\'en poort wil gebruiken in een ontwerp?
+
+Als we bewijzen dat we de bewerkingen NOT, EN, en OF kunnen realiseren met enkel NEN-poorten, dan hebben we aangetoond dat NEN poorten een minimale universele set vormen.  We gebruiken wel de fan-out. Hier een \hrefqr[-2cm]{https://www.youtube.com/watch?v=2gLtCONHFtU&ab_channel=JacobSchrum}{uitleg} op video. In de opdrachten ga jij aantonen dat ook NOF poorten een minimale universele set vormen. 
+
+\textbf{De NOT operatie}: $ NOT(A) \rightarrow \overline{A}$
+
+We kopi\"eren A en zetten die op beide ingangen van een NEN poort:
+\[ \overline{A} = \overline{{A} \cdot {A}}\]
+ 
+\textbf{De EN operatie}: $EN(A,B)\rightarrow A \cdot B$
+
+\[ A \cdot B= \overline{\overline{{A} \cdot {B}}} = \overline{\overline{A \cdot B} \cdot \overline{A \cdot B}}\]
+
+
+\textbf{De OF operatie}: $OR(A,B)\rightarrow A + B$
+
+\[  A + B = \overline{\overline{A}} + \overline{\overline{B}} = \overline{\overline{A} \cdot \overline{B}}\]
+%\begin{opdracht}
+\begin{enumerate}[resume]
+\item Teken de schema's van deze uitdrukkingen.
+\end{enumerate}
+Ook de NOF-poort is een minimale universele set. 
+\begin{enumerate}[resume]
+\item Druk de NOT, OF en EN poort uit in alleen NOF-poorten.
+\end{enumerate}
+%\end{opdracht}
+
+
+
+\iffalse%-----999
+Met opgave~\ref{opd:logica0} kun je wat ervaring op te doen met waarheidstabellen.
+
+\begin{opdracht}\label{opd:logica0}%Opdracht 2.3
+De informatieverwerker van figuur~\ref{fig:tweepoorten} kan ook nog op een andere manier worden gerealiseerd met twee NOT-poorten in plaats van \'e\'en en nog een andere poort. 
+\begin{enumerate}
+\item Teken deze schakeling.
+\end{enumerate}
+In figuur~\ref{fig:logischeschakeling} is een andere logische schakeling getekend. De input bestaat uit drie bits en de output bestaat uit \'e\'en bit.
+
+\begin{flushleft}
+%\leavevmode
+\begin{minipage}{.45\textwidth}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$I_0$};
+    \node (x1) at (0,-0.5) {$I_1$};
+    \node (x2) at (0,-1) {$I_2$};
+
+    \node[ or gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+    \node[not gate US, draw ] at ($(Or1.output)+(0.5,0)$) (Not2) {};
+    \node[and gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(Or1.output)+(.5,-0.5)$) (And3) {};
+    \node[and gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(Not2.output)+(.5,-0.25)$) (And4) {};
+
+    \draw (x0) -- (Or1.input 1);
+    \draw (x1) -| ([xshift=-0.5cm]Or1.input 2) -- (Or1.input 2);
+    \draw (x2) -| ([xshift=-0.25cm]And3.input 2) -- (And3.input 2);
+    \draw (Or1.output) -- (Not2.input);
+    \draw ([xshift=0.25cm]Or1.output) node[branch] {} |- (And3.input 1);
+    %([xshift=0.25cm]Or1.output) |- (And3.input 1);
+    \draw (Not2.output) -- ([xshift=0.25cm]Not2.output) |- (And4.input 1);
+    \draw (And3.output) -- ([xshift=0.125cm]And3.output) |- (And4.input 2);
+    \draw (And4.output) -- ([xshift=0.125cm]And4.output) node[right] {$O$};
+\end{tikzpicture}
+\end{minipage}%
+\hfill
+\begin{minipage}{.5\textwidth}
+\captionof{figure}{logische schakeling.%
+ \label{fig:logischeschakeling}}
+\end{minipage}
+\end{flushleft}
+
+\begin{enumerate}[resume]
+\item Maak een waarheidstabel voor deze schakeling waarin ook de tussenuitkomsten staan vermeld.
+\end{enumerate}
+\end{opdracht}
+\begin{antwoord}[-8cm]
+{\footnotesize a)((Not A) \& (not B)\\
+b)  De ingangen van And2 zijn nooit beide waar. Daarom uitgang altijd onwaar}
+{\tiny
+\begin{tabular}{|@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|%
+@{\hskip2pt}l@{\hskip2pt}|}
+\hline
+%\multicolumn{3}{|l|}{} %\\ \hline
+I0  & I1 & I2 &  O1 & N & A1 & A2 \\ \hline
+0   & 0  & 0  &  0  & 1 & 0  & 0  \\ \hline
+0   & 0  & 1  &  0  & 1 & 0  & 0  \\ \hline
+0   & 1  & 0  &  1  & 0 & 0  & 0  \\ \hline
+0   & 1  & 1  &  1  & 0 & 1  & 0  \\ \hline
+1   & 0  & 0  &  1  & 0 & 0  & 0  \\ \hline
+1   & 0  & 1  &  1  & 0 & 1  & 0  \\ \hline
+1   & 1  & 0  &  1  & 0 & 0  & 0  \\ \hline
+1   & 1  & 1  &  1  & 0 & 1  & 0  \\ \hline
+\end{tabular}
+}
+\end{antwoord}
+\fi%----999
+\iffalse%----88--
+\medskip
+\begin{opdracht}\label{opd:logica1}%
+\begin{enumerate}
+\item Met het spelletje "Make it true" kun je op je telefoon oefenen met logische schakelingen (freeware). In fig~\ref{fig:makeittrue} staat een voorbeeld.
+
+\item Met \'e\'en OR-poort kun je een geheugencel maken. Een beetje een dom ding, want hij gaat ook nooit meer uit (zie figuur~\ref{fig:domgeheugen}). Met een aantal OR-poorten kun je een flip-flip maken. Dit is de geheugencel die te resetten is. Er zitten er miljarden in een CPU. Teken een flip-flop met OR-poorten in de ruimte hieronder.
+\end{enumerate}
+
+\end{opdracht}
+
+\marginpar{\vspace{-7cm}\includegraphics[width=0.95\marginparwidth]{./img/makeittrue.jpg}\captionof{figure}{Wat is de oplossing?\label{fig:makeittrue}}
+}
+
+%\marginpar{\vspace{0cm}\includegraphics[width=0.95\marginparwidth]{./img/makeittruelogo.png} Make it true}
+
+\marginpar{\vspace{1cm}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[label distance=2mm]
+    \node (x0) at (0,0) {$In$};
+    \node[ or gate US, draw, logic gate inputs=nn, anchor=input 1] at ($(x0)+(1,0)$) (Or1) {};
+
+    \draw (x0) -- (Or1.input 1);
+    \draw (Or1.input 2) -- ([xshift=-0.25cm]Or1.input 2);
+    \draw ([xshift=-0.25cm]Or1.input 2)|- (2,-0.5) |- (Or1.output);
+    \node (x1) at (2.5,-0.1)  {$Out$};
+    \draw (Or1.output) -- (x1);
+\end{tikzpicture}
+\captionof{figure}{Dom ding.\label{fig:domgeheugen}}}
+
+\noindent\begin{tikzpicture}
+\draw (0,0) rectangle(8,4);
+\begin{scope}
+%  \node (0,0){\fbox{\parbox[b][5cm][b]{5cm}{%
+%  }}};
+\end{scope}
+\end{tikzpicture}
+\fi%-----88--
+
+
+
+\tagged{eruit}{%-=-=-=-=-=-=-=-=-=-=-
+Dat is tegenwoordig wel anders.  Onderstaand schema kan duidelijk maken wat bedoeld wordt met informatieverwerking.
+Een apparaat dat menselijke handelingen over moet nemen wordt een automaat genoemd.
+Hoe werkt zo'n automaat? Sensoren genereren een informatiestroom die wordt aangeboden aan een  verwerker. \nogdoen{ruimte voor reservetekst automaten}. Digitale sensoren leveren een aantal   bits.  \textbf{B}i\textbf{T} is een samentrekking van de woorden \textbf{B}inary digi\textbf{T}. 
+\marginpar{\vspace{0cm}
+\begin{tikzpicture}[
+    node distance=2cm, startstop/.style={rectangle, 
+    rounded corners, minimum width=3cm, minimum height=1cm,
+    text centered, draw=black, fill=red!30},
+    ]
+    \node (node0) [startstop]                             {Sensor};
+    \node (node1) [startstop, below of=node0]             {verwerker};
+    \node (node2) [startstop, below of=node1]             {actuator};     
+    \draw [arrows=-Stealth] (node1) --node[anchor=east]             {}            (node2);
+    \draw [arrows=-Stealth] (node0) --node[anchor=east]             {}            (node1);
+\end{tikzpicture}
+\captionof{figure}{informatiestroom
+ \label {fig:informatiestroom}}}
+Een bit kan twee waarden aannemen: '0'  of  '1'.  De verwerker zet de aangeleverde reeks nullen of enen  om in een andere reeks nullen of enen. De output gaat naar een apparaat dat reageert op die reeks nullen of enen op een voorgeschreven manier.
+
+Een voorbeeld: stel je wilt dat de planten automatisch water krijgen als jij op vakantie bent. Je bedenkt de eisen waar het apparaat aan moet voldoen. Het moet 's nachts  een hoeveelheid water geven als de aarde droog is. Je weet  dat er vochtigheidssensoren bestaan die een signaal afgeven  als het vochtig is  (droog = '0'  en vochtig  = '1'). En je hebt digitale lichtsensoren (licht = '1' en donker = '0'). De actuator is in dit geval een waterpompje dat een hoeveelheid water afgeeft als het een signaal krijgt. In schema:
+\marginpar{\vspace{0cm}
+%\begin{table}[]%float verwijderen ivm marginpar
+\begin{tabular}{|l|l|l|}
+\hline
+%\multicolumn{3}{|l|}{} %\\ \hline
+droog/   & donker/  & pomp\\
+vochtig  &  licht   & aan/uit      \\  \hline
+0        & 0        & 1        \\ \hline
+0        & 1        & 0        \\ \hline
+1        & 0        & 0        \\ \hline
+1        & 1        & 0        \\ \hline
+\end{tabular}
+%\end{table}
+\captionof{figure}{water geven.
+ \label{fig:watergeven}}
+}
+
+Het schema maakt duidelijk aan welke eisen de verwerker moet voldoen.
+De input bestaat uit twee bits en de output bestaat uit \'e\'en bit. 
+}%=-=-=-=-=-=-=-=-=-=-
+
+\end{document}
